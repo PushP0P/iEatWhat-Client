@@ -1,14 +1,15 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import {Router} from 'react-router';
-import App from './components/containers/main/App';
 import registerServiceWorker from './registerServiceWorker';
+import { Router } from 'react-router';
+import { MainComponent } from './components/containers/main/main.component';
+import history from './router/router.history';
 import './index.css';
 
 ReactDOM.render(
 	<Router history={history}>
-		<App/>
+		<MainComponent/>
 	</Router>,
-	document.getElementById('root') as HTMLElement
+	document.getElementById('iEatWhat') as HTMLElement
 );
 registerServiceWorker();
