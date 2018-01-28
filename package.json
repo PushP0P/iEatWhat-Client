@@ -24,6 +24,8 @@
     "@types/react": "^16.0.35",
     "@types/react-dom": "^16.0.3",
     "@types/react-router-dom": "^4.2.3",
-    "typescript": "^2.6.2"
+    "@types/react-test-renderer": "^16.0.0",
+    "typescript": "^2.6.2",
+    "react-test-renderer": "^16.2.0"
   }
 }
