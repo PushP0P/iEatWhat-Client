@@ -13,7 +13,7 @@ export async function httpRequest(path: string, verb?: string, headers?: Headers
 		cache: 'default',
 		mode: 'cors',
 		headers: headers ? await new Headers(headers) : {},
-		body: body ? body : {}
+		body: body ? body : null
 	});
 	const response: Response | void = await fetch(req)
 		.catch(err => alert('Fetch Error: ' + err)) as Response;
