@@ -2,9 +2,9 @@ import * as React from 'react';
 import {
 	SIGN_IN_OPTIONS_INITIALE_STATE,
 	SignInComponentProps, SignInComponentState,
-} from '../../../models/sign-in.model';
-import { SignInOptions } from '../../controlled/sign-in-options.controlled';
-import { getSignInOptions } from '../../../services/sign-in.service';
+} from '../../models/sign-in.model';
+import { SignInOptions } from '../reusable/sign-in-options.controlled';
+import { getSignInOptions } from '../../services/sign-in.service';
 import { Link } from 'react-router-dom';
 import './sign-in.style.css';
 
