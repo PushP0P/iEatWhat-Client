@@ -3,9 +3,11 @@ export interface CommentsComponentState {
 	testFooBar: string;
 }
 
+// Note: ids are *_id when being sent or received form a DB.
+// and camelCased when we are passing them internally. -r
 export interface CommentsComponentProps {
 	view_id: string;
-	getComments: () => CommentList;
+	getComments: (viewId: string) => CommentList;
 	editHandler: () => void;
 }
 

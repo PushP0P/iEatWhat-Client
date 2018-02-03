@@ -4,7 +4,7 @@ import * as ReactDOM from 'react-dom';
 import {Router} from 'react-router';
 import * as renderer from 'react-test-renderer';
 import history from '../../router/router.history';
-import {SignInOptions} from '../reusable/sign-in-options.controlled';
+import {SignInOptions} from './sign-in-options.controlled';
 
 let component: any;
 let doc: any = document;
