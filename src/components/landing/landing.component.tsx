@@ -1,5 +1,7 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
+import { CommentsComponent } from '../comments/comments.container';
+import { CommentsList } from '../../models/comments.model';
 
 export class LandingComponent extends React.Component {
 	// tslint:disable
@@ -16,7 +18,14 @@ export class LandingComponent extends React.Component {
 				TODO...
 
 				<Link to={'/sign-in'}>Sign In</Link>
-
+				<CommentsComponent
+					view_id={'foo'}
+					getComments={() => {
+						return {} as CommentsList
+					}}
+					editHandler={() => {
+						return {};
+				}} />
 			</div>
 		);
 	}

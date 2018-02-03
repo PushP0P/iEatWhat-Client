@@ -1,6 +1,5 @@
 // tslint: disable
 import * as React from 'react';
-import * as renderer from 'react-test-renderer';
 import * as Enzyme from 'enzyme';
 import * as Adapter from 'enzyme-adapter-react-16';
 import { CommentsComponent } from './comments.container';
@@ -33,34 +32,26 @@ const FIXTURE_COMMENTS_LIST = {
 		comment: generateDemoComment()
 	}
 };
-const userId = FIXTURE_COMMENTS_LIST[Object.keys(FIXTURE_COMMENTS_LIST)[0]].user_id;
+const userId = FIXTURE_COMMENTS_LIST[Object.keys(FIXTURE_COMMENTS_LIST)[0]].userId;
 const FIXTURE_COMMENTS_COMPONENT_PROPS: CommentsComponentProps = {
 	view_id: 'testing_fixture',
-	getComments(){
+	getComments() {
 		return FIXTURE_COMMENTS_LIST;
 	},
-	editHandler(){}
+	editHandler() {
+		console.log('yes it is test 42');
+	}
 };
 
 /**
  * Testing
  * Get component(s) to test.
  */
-const component = renderer.create(
-	<CommentsComponent
-		{...FIXTURE_COMMENTS_COMPONENT_PROPS}
-	/>
-);
-
 const wrapper = shallow(
 	<CommentsComponent
 		{...FIXTURE_COMMENTS_COMPONENT_PROPS}
 	/>
 );
-
-const tree: any = component.toJSON();
-console.log('Tree', tree.props);
-
 
 /**
  * Testing
@@ -85,7 +76,7 @@ it(
 			.find('comments-list')
 			.children.length)
 			.toBe(Object
-				.keys(FIXTURE_COMMENTS_LIST).length)
+				.keys(FIXTURE_COMMENTS_LIST).length);
 	}
 );
 
@@ -93,19 +84,19 @@ it(
 	`Should render comments in order by latest to oldest`,
 	() => {
 		expect(() => {
-			const currentCommentOrder: ReactElement<CommentComponent>[] = wrapper
+			const currentCommentOrder: ReactElement<any>[] = wrapper
 				.find('comments-list')
 				.getNodes();
-			let lastDate = currentCommentOrder[0].props.date;
+			let lastDate = currentCommentOrder[0].props.createDate;
 
 			for (let comment of currentCommentOrder) {
-				if (lastDate < comment.props.create_date) {
+				if (lastDate < comment.props.createDate) {
 					return false;
 				}
-				lastDate = comment.props.create_date;
+				lastDate = comment.props.createDate;
 			}
 			return true;
-		}).toBe(true)
+		}).toBe(true);
 	}
 );
 
@@ -114,12 +105,13 @@ it(
 	() => {
 		expect(
 			() => {
-				const comments: ReactElement<CommentComponent>[] = wrapper
+				const comments: ReactElement<any>[] = wrapper
 					.find('comments-list')
 					.getNodes();
 
 				for (let comment of comments) {
-					if (comment.props.user_id === userId && !comment.props.editable) {
+					// noinspection TypeScriptUnresolvedVariable
+					if (comment.props.userId === userId && !comment.props.editable) {
 						return false;
 					} else if (comment.props.editable) {
 						return false;

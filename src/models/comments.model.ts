@@ -1,5 +1,5 @@
 export interface CommentsComponentState {
-	comments: CommentList;
+	comments: CommentsList;
 	testFooBar: string;
 }
 
@@ -7,14 +7,14 @@ export interface CommentsComponentState {
 // and camelCased when we are passing them internally. -r
 export interface CommentsComponentProps {
 	view_id: string;
-	getComments: (viewId: string) => CommentList;
+	getComments: (viewId: string) => CommentsList;
 	editHandler: () => void;
 }
 
-export interface CommentList {
+export interface CommentsList {
 	[comment_id: string]: {
 		comment: Comment,
-		replies?: CommentList
+		replies?: CommentsList
 	};
 }
 
@@ -43,5 +43,5 @@ export function generateDemoComment(): Comment {
 		reported: false,
 		reports: 0,
 		likes: 0
-	}
+	};
 }
