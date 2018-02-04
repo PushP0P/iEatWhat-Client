@@ -15,7 +15,6 @@ export class CommentsListContainer extends React.Component<CommentsListProps, Co
 	// }
 
 	public render(): ReactElement<HTMLDivElement> {
-
 		return(
 			<div
 				className="comments-list"

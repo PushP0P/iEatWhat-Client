@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { ReactElement } from 'react';
-import { SearchBarComponent } from '../search-bar/search-bar.component';
+import { SearchBarComponent } from '../reusable/search-bar/search-bar.component';
 
 /**
  *  FIXTURES - Placeholders

@@ -7,5 +7,5 @@ body {
 $color-primary: #DA5015;
 $color-background: #FEF8F6;
 
-@import './components/search-bar/search-bar.style';
+@import 'components/reusable/search-bar/search-bar.style';
 @import './components/landing/landing.style';
