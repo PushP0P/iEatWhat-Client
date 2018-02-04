@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { ReactElement } from 'react';
 import { CommentsComponentProps, CommentsComponentState } from '../../models/comments.model';
+import { CommentsListContainer } from './comments-list/comments-list.container';
 
 export class CommentsComponent extends React.Component<CommentsComponentProps, CommentsComponentState> {
 
@@ -41,12 +42,7 @@ export class CommentsComponent extends React.Component<CommentsComponentProps, C
 				<div
 					className="comments-list"
 				>
-					<h1>A List</h1>
-					<h1>A List</h1>
-					<h1>A List</h1>
-					<h1>A List</h1>
-					<h1>A List</h1>
-					<h1>A List</h1>
+					<CommentsListContainer id={'123foo'} viewId={this.props.viewId}/>
 				</div>
 			</div>
 		);

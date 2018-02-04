@@ -1,8 +1,9 @@
-import {Action} from '../../../models/action.model';
-import {CommentsListState} from '../../../models/comments.model';
+import { Action } from '../../../models/action.model';
+import { CommentsListState } from '../../../models/comments.model';
 
 export function commentsListReducer(action: Action, currentState: CommentsListState): CommentsListState {
-	switch(action.type) {
+
+	switch ( action.type ) {
 		case'ADD_COMMENT':
 			return {...{}, ...currentState, ...action.payload};
 		case'REMOVE_COMMENT':

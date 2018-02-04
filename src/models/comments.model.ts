@@ -1,5 +1,3 @@
-import {CommentsListContainer} from '../components/comments/comments-list/comments-list.container';
-
 export interface CommentsComponentState {
 	comments: CommentsListState;
 	testFooBar: string;
@@ -14,17 +12,17 @@ export interface CommentsComponentProps {
 export interface CommentsListProps {
 	id: string;
 	viewId: string;
-	owningCommentId?: string,
+	owningCommentId?: string;
 }
 
 export interface CommentsListState {
 	[comment_id: string]: {
-		comment: Comment,
+		comment: CommentProps;
 		repliesListId?: string;
 	};
 }
 
-export interface Comment {
+export interface CommentProps {
 	commentId: string;
 	userId: string;
 	create_date: number;
@@ -37,7 +35,7 @@ export interface Comment {
 	likes: number;
 }
 
-export function generateDemoComment(): Comment {
+export function generateDemoComment(): CommentProps {
 	return {
 		commentId: Math.random().toString(),
 		userId: Math.random().toString(),
