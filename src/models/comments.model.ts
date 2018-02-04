@@ -1,26 +1,30 @@
 export interface CommentsComponentState {
-	comments: CommentsList;
+	comments: CommentsListState;
 	testFooBar: string;
 }
 
-// Note: ids are *_id when being sent or received form a DB.
-// and camelCased when we are passing them internally. -r
 export interface CommentsComponentProps {
-	view_id: string;
-	getComments: (viewId: string) => CommentsList;
+	viewId: string;
+	getComments: (viewId: string) => CommentsListState;
 	editHandler: () => void;
 }
 
-export interface CommentsList {
+export interface CommentsListProps {
+	id: string;
+	viewId: string;
+	owningCommentId?: string,
+}
+
+export interface CommentsListState {
 	[comment_id: string]: {
 		comment: Comment,
-		replies?: CommentsList
+		repliesListId?: string;
 	};
 }
 
 export interface Comment {
-	comment_id: string;
-	user_id: string;
+	commentId: string;
+	userId: string;
 	create_date: number;
 	text: string;
 	replies: number;
@@ -33,8 +37,8 @@ export interface Comment {
 
 export function generateDemoComment(): Comment {
 	return {
-		comment_id: Math.random().toString(),
-		user_id: Math.random().toString(),
+		commentId: Math.random().toString(),
+		userId: Math.random().toString(),
 		create_date: Date.now(),
 		text: `Lorem Ipsum Foo Bat Metal ${Math.random()} times`,
 		replies: Math.random(),

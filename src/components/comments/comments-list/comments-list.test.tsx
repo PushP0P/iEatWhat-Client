@@ -2,10 +2,10 @@
 import * as React from 'react';
 import * as Enzyme from 'enzyme';
 import * as Adapter from 'enzyme-adapter-react-16';
-import { CommentsComponent } from './comments.container';
-import { CommentsComponentProps, generateDemoComment } from '../../models/comments.model';
+import {CommentsListProps, CommentsListState, generateDemoComment} from '../../../models/comments.model';
 import { shallow } from 'enzyme';
 import { ReactElement } from 'react';
+import {CommentsListContainer} from './comments-list.container';
 
 Enzyme.configure({ adapter: new Adapter() });
 
@@ -13,43 +13,36 @@ Enzyme.configure({ adapter: new Adapter() });
  * Testing
  * Set up dummy data.
  */
-const FIXTURE_COMMENTS_LIST = {
+const FIXTURE_COMMENTS_LIST_STATE: CommentsListState = {
 	testComment0: {
 		comment: generateDemoComment(),
 	},
 	testComment1: {
 		comment: generateDemoComment(),
-		replies: {
-			reply0: {
-				comment: generateDemoComment()
-			},
-			reply1: {
-				comment: generateDemoComment()
-			}
-		}
+		repliesListId: 'replies0'
 	},
 	testComment2: {
 		comment: generateDemoComment()
 	}
 };
-const userId = FIXTURE_COMMENTS_LIST[Object.keys(FIXTURE_COMMENTS_LIST)[0]].userId;
-const FIXTURE_COMMENTS_COMPONENT_PROPS: CommentsComponentProps = {
-	view_id: 'testing_fixture',
-	getComments() {
-		return FIXTURE_COMMENTS_LIST;
-	},
-	editHandler() {
-		console.log('yes it is test 42');
-	}
+export const FIXTURE_COMMENTS_LIST_PROPS: CommentsListProps = {
+	id: 'testList0',
+	viewId: 'testView'
 };
+export const FIXTURE_REPLY_LIST_PROPS: CommentsListProps = {
+	id: 'testReplyList0',
+	viewId: 'testView',
+	owningCommentId: 'testComment1'
+};
+const userId = FIXTURE_COMMENTS_LIST_STATE[Object.keys(FIXTURE_COMMENTS_LIST_STATE)[0]].comment.userId;
 
 /**
  * Testing
  * Get component(s) to test.
  */
 const wrapper = shallow(
-	<CommentsComponent
-		{...FIXTURE_COMMENTS_COMPONENT_PROPS}
+	<CommentsListContainer
+		{...FIXTURE_COMMENTS_LIST_PROPS}
 	/>
 );
 
@@ -61,22 +54,23 @@ it(
 	`Make a request for comment data with a view id`,
 	() => {
 		expect(wrapper
-			.state().view_id)
-			.toBe(FIXTURE_COMMENTS_COMPONENT_PROPS.view_id);
+			.state().viewId)
+			.toBe(FIXTURE_COMMENTS_LIST_PROPS.viewId);
 
 		expect(Object
 			.keys(wrapper.prop('comments')).length)
 			.toBeGreaterThan(0);
-});
+	}
+);
 
 it(
-	`Should display ${Object.keys(FIXTURE_COMMENTS_LIST).length} comments.`,
+	`Should display ${Object.keys(FIXTURE_COMMENTS_LIST_STATE).length} comments.`,
 	() => {
 		expect(wrapper
 			.find('comments-list')
 			.children.length)
 			.toBe(Object
-				.keys(FIXTURE_COMMENTS_LIST).length);
+				.keys(FIXTURE_COMMENTS_LIST_STATE).length);
 	}
 );
 

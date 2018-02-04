@@ -7,6 +7,7 @@
  * @param {{}} body
  * @returns {Promise<{}>}
  */
+
 export async function httpRequest(path: string, verb?: string, headers?: Headers, body?: {} ): Promise<Response> {
 	const req: Request = await new Request(path, <RequestInit> {
 		method: verb || 'get',
