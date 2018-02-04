@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { MAIN_ROUTES_SWITCH } from  '../../../router/main.routes';
-import { MainComponentProps, MainComponentState } from '../../../models/main.model';
+import { MAIN_ROUTES_SWITCH } from '../../router/main.routes';
+import { MainComponentProps, MainComponentState } from '../../models/main.model';
 
 export class MainComponent extends React.Component<MainComponentProps, MainComponentState> {
 
