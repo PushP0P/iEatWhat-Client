@@ -14,7 +14,7 @@ export const MAIN_ROUTES_SWITCH = () => {
 							<LandingComponent
 								{...routes}
 							/>
-						)
+						);
 					}
 				}
 			/>

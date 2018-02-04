@@ -19,5 +19,5 @@ export const SearchBarComponent = () => {
 				</div>
 			</div>
 		</div>
-	)
+	);
 };
