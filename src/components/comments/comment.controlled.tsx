@@ -6,6 +6,7 @@ export const CommentComponent = (props: CommentProps) => {
 		<div>
 			<h1>Im A Comment</h1>
 			TODO...
+			{props.commentId}
 		</div>
 	);
 };

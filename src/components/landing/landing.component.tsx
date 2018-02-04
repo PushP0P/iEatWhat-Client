@@ -1,32 +1,47 @@
 import * as React from 'react';
-import { Link } from 'react-router-dom';
-import { CommentsComponent } from '../comments/comments.component';
-import { CommentsListState } from '../../models/comments.model';
+import { ReactElement } from 'react';
+import {SearchBarComponent} from '../search-bar/search-bar.component';
 
-export class LandingComponent extends React.Component {
-	// tslint:disable
+export class LandingComponent extends React.Component<any, any> {
+
 	constructor(public props: any) {
 		super(props);
+		this.state = {foo: 'not lol'};
 	}
-	public render() {
-		return(
+
+	public componentDidMount() {
+		this.setState({
+			foo: 'lol'
+		});
+	}
+
+	public render(): ReactElement<HTMLDivElement> {
+		console.log('react component props', this.props);
+		return (
 			<div
 				className="landing-component container"
 			>
-				<h1>Landing Component</h1>
-
-				TODO...
-
-				<Link to={'/sign-in'}>Sign In</Link>
-				<CommentsComponent
-					viewId={'foo'}
-					getComments={() => {
-						return {} as CommentsListState
-					}}
-					editHandler={() => {
-						return {};
-				}} />
+				<NavbarComponent />
+				<div
+					className="search-area row"
+				>
+					<SearchBarComponent />
+				</div>
+				<div
+					className="row"
+				>
+					<div
+						className="col-sm-12"
+					>
+						SEARCH RESULT PLACEHOLDER
+					</div>
+				</div>
+				<FooterComponent />
 			</div>
 		);
 	}
 }
+
+
+export const NavbarComponent = () => <div>NAVBAR</div>;
+export const FooterComponent = () => <div>FOOTER</div>;
