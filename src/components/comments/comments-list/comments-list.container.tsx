@@ -18,5 +18,4 @@ export class CommentsListContainer extends React.Component<CommentsListProps, Co
 		)
 	}
 
-	private
 }
