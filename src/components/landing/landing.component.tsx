@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { ReactElement } from 'react';
 import { SearchBarComponent } from '../reusable/search-bar/search-bar.component';
-import { CommentsComponent } from '../comments/comments.component';
 
 /**
  *  FIXTURES - Placeholders
