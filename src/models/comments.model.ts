@@ -1,12 +1,9 @@
 export interface CommentsComponentState {
 	comments: CommentsListState;
-	testFooBar: string;
 }
 
 export interface CommentsComponentProps {
 	viewId: string;
-	getComments: (viewId: string) => CommentsListState;
-	editHandler: () => void;
 }
 
 export interface CommentsListProps {
@@ -24,6 +21,7 @@ export interface CommentsListState {
 
 export interface CommentProps {
 	commentId: string;
+	name: string;
 	userId: string;
 	create_date: number;
 	text: string;
@@ -38,6 +36,7 @@ export interface CommentProps {
 export function generateDemoComment(): CommentProps {
 	return {
 		commentId: Math.random().toString(),
+		name: 'Demo Dave',
 		userId: Math.random().toString(),
 		create_date: Date.now(),
 		text: `Lorem Ipsum Foo Bat Metal ${Math.random()} times`,
@@ -49,3 +48,25 @@ export function generateDemoComment(): CommentProps {
 		likes: 0
 	};
 }
+
+export const FIXTURE_COMMENTS_LIST_STATE: CommentsListState = {
+	testComment0: {
+		comment: generateDemoComment(),
+	},
+	testComment1: {
+		comment: generateDemoComment(),
+		repliesListId: 'replies0'
+	},
+	testComment2: {
+		comment: generateDemoComment()
+	}
+};
+export const FIXTURE_COMMENTS_LIST_PROPS: CommentsListProps = {
+	id: 'testList0',
+	viewId: 'testView'
+};
+export const FIXTURE_REPLY_LIST_PROPS: CommentsListProps = {
+	id: 'testReplyList0',
+	viewId: 'testView',
+	owningCommentId: 'testComment1'
+};

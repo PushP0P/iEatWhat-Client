@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { ReactElement } from 'react';
-import { CommentsListProps, CommentsListState } from '../../../models/comments.model';
-import { FIXTURE_COMMENTS_LIST_STATE } from './comments-list.test';
+import { CommentsListProps, CommentsListState, FIXTURE_COMMENTS_LIST_STATE } from '../../../models/comments.model';
 import { CommentComponent } from '../comment.controlled';
 
 export class CommentsListContainer extends React.Component<CommentsListProps, CommentsListState> {

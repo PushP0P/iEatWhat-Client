@@ -1,12 +1,14 @@
 import * as React from 'react';
 import { ReactElement } from 'react';
 import { SearchBarComponent } from '../reusable/search-bar/search-bar.component';
+import { CommentsComponent } from '../comments/comments.component';
 
 /**
  *  FIXTURES - Placeholders
  */
-export const NavbarComponent = () => <div>NAVBAR</div>;
-export const FooterComponent = () => <div>FOOTER</div>;
+export const NavbarComponent = () => <div>NAVBAR PLACEHOLDER</div>;
+export const FooterComponent = () => <div>FOOTER PLACEHOLDER</div>;
+export const SearchResultsComponent = () => <div>SEARCH RESULTS PLACEHOLDER</div>;
 
 export class LandingComponent extends React.Component<any, any> {
 
@@ -25,15 +27,7 @@ export class LandingComponent extends React.Component<any, any> {
 				>
 					<SearchBarComponent />
 				</div>
-				<div
-					className="row"
-				>
-					<div
-						className="col-sm-12"
-					>
-						SEARCH RESULT PLACEHOLDER
-					</div>
-				</div>
+				<SearchResultsComponent />
 				<FooterComponent />
 			</div>
 		);

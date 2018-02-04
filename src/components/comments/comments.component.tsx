@@ -8,25 +8,19 @@ export class CommentsComponent extends React.Component<CommentsComponentProps, C
 	constructor(public props: CommentsComponentProps) {
 		super(props);
 		this.state = {
-			testFooBar: 'loading',
 			comments: {}
 		};
-	}
-
-	public componentDidMount(): void {
-		this.setState({testFooBar: 'BAT METAL!'});
-		this.getComments();
 	}
 
 	public render(): ReactElement<HTMLDivElement> {
 		return(
 			<div
-				className={'comments-component ' + this.state.testFooBar}
+				className="comments-component"
 			>
 				<div
 					className="comments-header"
 				>
-					<h3>Comment:</h3>
+					<h1>Comments</h1>
 				</div>
 				<form
 					id="CommentForm"
@@ -38,6 +32,16 @@ export class CommentsComponent extends React.Component<CommentsComponentProps, C
 					>
 						Editable
 					</div>
+					<div
+						className="controls"
+					>
+						<button
+							className="btn btn-success btn-lg"
+						>
+							Submit
+						</button>
+					</div>
+
 				</form>
 				<div
 					className="comments-list"
@@ -48,7 +52,4 @@ export class CommentsComponent extends React.Component<CommentsComponentProps, C
 		);
 	}
 
-	private async getComments(): Promise<void> {
-		console.log('yes it is 56');
-	}
 }

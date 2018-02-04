@@ -1,19 +1,14 @@
-// // tslint:disable
+/* tslint:disable */
 import * as React from 'react';
-import * as Enzyme from 'enzyme';
-import * as Adapter from 'enzyme-adapter-react-16';
 import { CommentsListProps, CommentsListState, generateDemoComment } from '../../../models/comments.model';
-import { shallow } from 'enzyme';
-import { ReactElement } from 'react';
+import * as renderer from 'react-test-renderer';
 import { CommentsListContainer } from './comments-list.container';
-
-Enzyme.configure({ adapter: new Adapter() });
 
 /**
  * Testing
  * Set up dummy data.
  */
-export const FIXTURE_COMMENTS_LIST_STATE: CommentsListState = {
+const FIXTURE_COMMENTS_LIST_STATE: CommentsListState = {
 	testComment0: {
 		comment: generateDemoComment(),
 	},
@@ -25,23 +20,16 @@ export const FIXTURE_COMMENTS_LIST_STATE: CommentsListState = {
 		comment: generateDemoComment()
 	}
 };
-export const FIXTURE_COMMENTS_LIST_PROPS: CommentsListProps = {
+const FIXTURE_COMMENTS_LIST_PROPS: CommentsListProps = {
 	id: 'testList0',
 	viewId: 'testView'
 };
-export const FIXTURE_REPLY_LIST_PROPS: CommentsListProps = {
-	id: 'testReplyList0',
-	viewId: 'testView',
-	owningCommentId: 'testComment1'
-};
-const userId = FIXTURE_COMMENTS_LIST_STATE[Object.keys(FIXTURE_COMMENTS_LIST_STATE)[0]].comment.userId;
 
 /**
  * Testing
  * Get component(s) to test.
  */
-const wrapper = {} as any;
-	shallow(
+const component: any = renderer.create(
 	<CommentsListContainer
 		{...FIXTURE_COMMENTS_LIST_PROPS}
 	/>
@@ -52,75 +40,66 @@ const wrapper = {} as any;
  * Write tests :)
  */
 it(
-	`Make a request for comment data with a view id`,
+	`Should have viewId for comment data services`,
 	() => {
-		expect(wrapper
-			.state().viewId)
+		expect(
+			component.toTree().props.viewId
+		)
 			.toBe(FIXTURE_COMMENTS_LIST_PROPS.viewId);
-
-		expect(Object
-			.keys(wrapper.prop('comments')).length)
-			.toBeGreaterThan(0);
 	}
 );
 
 it(
 	`Should display ${Object.keys(FIXTURE_COMMENTS_LIST_STATE).length} comments.`,
 	() => {
-		expect(wrapper
-			.find('comments-list')
-			.children.length)
+		expect(
+			Object
+				.keys(component.toTree().instance.state).length
+		)
 			.toBe(Object
-				.keys(FIXTURE_COMMENTS_LIST_STATE).length);
+			.keys(FIXTURE_COMMENTS_LIST_STATE).length);
 	}
 );
 
 it(
 	`Should render comments in order by latest to oldest`,
 	() => {
-		expect(() => {
-			const currentCommentOrder: ReactElement<any>[] = wrapper
-				.find('comments-list')
-				.getNodes();
-			let lastDate = currentCommentOrder[0].props.createDate;
+		expect(testDates()).toBeTruthy();
+
+		function testDates(): boolean {
+			const currentCommentOrder = Object
+				.keys(component.toTree().instance.state)
+				.map(key => component.toTree().instance.state[key]);
+			let lastDate = currentCommentOrder[0].create_date;
 
 			for (let comment of currentCommentOrder) {
-				if (lastDate < comment.props.createDate) {
+				if (lastDate < comment.create_date) {
 					return false;
 				}
-				lastDate = comment.props.createDate;
+				lastDate = comment.create_date;
 			}
 			return true;
-		}).toBe(true);
+		}
 	}
 );
 
-it(
-	`Should have a true editable prop if userId matches comment's user_id.`,
-	() => {
-		expect(
-			() => {
-				const comments: ReactElement<any>[] = wrapper
-					.find('comments-list')
-					.getNodes();
-
-				for (let comment of comments) {
-					// noinspection TypeScriptUnresolvedVariable
-					if (comment.props.userId === userId && !comment.props.editable) {
-						return false;
-					} else if (comment.props.editable) {
-						return false;
-					}
-				}
-				return true;
-			}
-		).toBe(true);
-	}
-);
-
+// Blocked until we strategize user resolutions
 // it(
-// 	`Should send a comment edited event to the server when editable div is blurred.`,
+// 	`Should have a true editable prop if userId matches comment's user_id.`,
 // 	() => {
+// 		expect(
+// 			() => {
+// 				const comments: ReactElement<any>[] = component.toTree().instance.state;
 //
+// 				for (let comment of comments) {
+// 					if (comment.props.userId === userId && !comment.props.editable) {
+// 						return false;
+// 					} else if (comment.props.editable) {
+// 						return false;
+// 					}
+// 				}
+// 				return true;
+// 			}
+// 		).toBe(true);
 // 	}
 // );

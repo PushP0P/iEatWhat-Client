@@ -18,6 +18,7 @@
     "noUnusedLocals": true
   },
   "exclude": [
+    "*.test.*",
     "node_modules",
     "build",
     "scripts",
