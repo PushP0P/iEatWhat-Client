@@ -7,7 +7,10 @@ import {
 import { CommentsListContainer } from './comments-list/comments-list.container';
 import { getCommentsListMeta } from '../../services/comments.service';
 
+declare var window: any;
+
 export class CommentsComponent extends React.Component<CommentsComponentProps, CommentsComponentState> {
+	private formText = '';
 
 	constructor(public props: CommentsComponentProps) {
 		super(props);
@@ -39,14 +42,22 @@ export class CommentsComponent extends React.Component<CommentsComponentProps, C
 						className="comment-input"
 						suppressContentEditableWarning={true}
 						contentEditable={true}
+						onClick={() => this.setState({formPristine: false})}
+						onInput={(event: React.FormEvent<HTMLElement>) => {
+							this.formText = (event.target as any).innerHTML;
+						}}
 					>
-						Editable
+						{this.state.formPristine ? 'Leave a comment!' : ''}
 					</div>
 					<div
 						className="controls"
 					>
 						<button
 							className="btn btn-success btn-lg"
+							onClick={(event: any) => {
+								event.preventDefault();
+								this.formHandler();
+							}}
 						>
 							Submit
 						</button>
@@ -66,5 +77,10 @@ export class CommentsComponent extends React.Component<CommentsComponentProps, C
 				</div>
 			</div>
 		);
+	}
+
+	private formHandler(): void {
+		window.event.preventDefault();
+		console.log('current text', this.formText);
 	}
 }

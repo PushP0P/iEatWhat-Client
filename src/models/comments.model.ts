@@ -13,6 +13,7 @@ export interface CommentProps {
 }
 
 export interface CommentsComponentState {
+	formPristine: boolean;
 	dataReady: boolean;
 	commentListMeta: CommentsListProps;
 }
@@ -22,6 +23,7 @@ export interface CommentsComponentProps {
 }
 
 export const COMMENTS_COMPONENT_STATE_INIT: CommentsComponentState = {
+	formPristine: true,
 	dataReady: false,
 	commentListMeta: <CommentsListProps> {}
 };

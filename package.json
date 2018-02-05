@@ -5,6 +5,7 @@
   "authors": [
     "Rob Rex Beatie (rdev1163@outlook.com)"
   ],
+  "license": "MIT",
   "dependencies": {
     "bootstrap": "^4.0.0",
     "moment": "^2.20.1",

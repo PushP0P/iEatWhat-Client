@@ -8,10 +8,12 @@ let db = openIDBUtilities({
 });
 
 export async function getUserComments(): Promise<CommentsList> {
+	const stores = await db;
+	const userData = await stores.get('userData', 'account');
 	return {
-		'Message123': generateDemoComment(),
-		'Message143': generateDemoComment(),
-		'Message423': generateDemoComment(),
+		'Message123': generateDemoComment(userData.id),
+		'Message143': generateDemoComment(userData.id),
+		'Message423': generateDemoComment(userData.id),
 	};
 }
 
@@ -24,14 +26,16 @@ export async function getComments(listId: string): Promise<CommentsList> {
 }
 
 export async function getCommentsListMeta(containerId: string): Promise<CommentsListProps> {
-	// TODO make request
-
 	return {
 		id: 'FooBat123',
 		topic: 'Demo',
 		containerId: containerId,
 	};
 }
+
+/**
+ * Helpers
+ */
 
 function enableEditForUserComments(comments: CommentsList, userId: string): CommentsList {
 	return Object.keys(comments).reduce(
