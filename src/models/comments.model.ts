@@ -15,7 +15,8 @@ export interface CommentProps {
 export interface CommentsComponentState {
 	formPristine: boolean;
 	dataReady: boolean;
-	commentListMeta: CommentsListProps;
+	commentListMeta: CommentsListMeta;
+	comments: CommentsList;
 }
 
 export interface CommentsComponentProps {
@@ -25,13 +26,18 @@ export interface CommentsComponentProps {
 export const COMMENTS_COMPONENT_STATE_INIT: CommentsComponentState = {
 	formPristine: true,
 	dataReady: false,
-	commentListMeta: <CommentsListProps> {}
+	commentListMeta: <CommentsListMeta> {},
+	comments: <CommentsList> {}
 };
 
-export interface CommentsListProps {
-	id?: string;
+export interface CommentsListMeta {
+	listId: string;
 	topic: string;
-	containerId: string;
+}
+
+export interface CommentsListProps extends CommentsListMeta {
+	onUpdateList: () => void;
+	comments: CommentsList;
 }
 
 export interface CommentsListState {
@@ -42,17 +48,6 @@ export interface CommentsListState {
 export interface CommentsList {
 	[commentId: string]: CommentProps;
 }
-
-export const COMMENTS_LIST_STATE_INIT = {
-	dataReady: false,
-	comments: {}
-};
-
-export const FIXTURE_COMMENTS_LIST: CommentsList = {
-	testComment0: generateDemoComment(),
-	testComment1: generateDemoComment(),
-	testComment2: generateDemoComment(),
-};
 
 export function generateDemoComment(userId?: string): CommentProps {
 	return {

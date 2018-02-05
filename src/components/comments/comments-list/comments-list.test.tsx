@@ -6,7 +6,7 @@ import {
 	generateDemoComment
 } from '../../../models/comments.model';
 import * as renderer from 'react-test-renderer';
-import { CommentsListContainer } from './comments-list.container';
+import { CommentsListComponent } from './comments-list.controlled';
 declare var window: any;
 
 /**
@@ -27,14 +27,18 @@ export function setFetchReturnVal(val: any){
  * Testing
  * Set up dummy data.
  */
-const FIXTURE_COMMENTS_LIST_PROPS: CommentsListProps = {
-	containerId: 'testList0',
-	topic: 'testView'
-};
 const FIXTURE_COMMENTS_LIST: CommentsList = {
 	testComment0: generateDemoComment(),
 	testComment1: generateDemoComment(),
 	testComment2: generateDemoComment(),
+};
+const FIXTURE_COMMENTS_LIST_PROPS: CommentsListProps = {
+	onUpdateList: () => {
+		return;
+	},
+	comments: FIXTURE_COMMENTS_LIST,
+	listId: 'testList0',
+	topic: 'testView'
 };
 
 setFetchReturnVal(FIXTURE_COMMENTS_LIST);
@@ -44,7 +48,7 @@ setFetchReturnVal(FIXTURE_COMMENTS_LIST);
  * Get component(s) to test.
  */
 const component: any = renderer.create(
-	<CommentsListContainer
+	<CommentsListComponent
 		{...FIXTURE_COMMENTS_LIST_PROPS}
 	/>
 );

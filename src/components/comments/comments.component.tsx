@@ -1,11 +1,11 @@
 import * as React from 'react';
-import { ReactElement } from 'react';
+import { ReactElement, SyntheticEvent } from 'react';
 import {
 	COMMENTS_COMPONENT_STATE_INIT, CommentsComponentProps,
 	CommentsComponentState
 } from '../../models/comments.model';
-import { CommentsListContainer } from './comments-list/comments-list.container';
-import { getCommentsListMeta } from '../../services/comments.service';
+import { CommentsListComponent } from './comments-list/comments-list.controlled';
+import { getComments, getCommentsListMeta } from '../../services/comments.service';
 
 export class CommentsComponent extends React.Component<CommentsComponentProps, CommentsComponentState> {
 	private formText = '';
@@ -13,12 +13,16 @@ export class CommentsComponent extends React.Component<CommentsComponentProps, C
 	constructor(public props: CommentsComponentProps) {
 		super(props);
 		this.state = COMMENTS_COMPONENT_STATE_INIT;
+		this.updateListHandler = this.updateListHandler.bind(this);
 	}
 
 	public async componentDidMount(): Promise<void> {
 		const listMeta = await getCommentsListMeta(this.props.viewId);
+		const comments = await getComments(listMeta.listId);
+		console.log('comments', comments);
 		this.setState({
 			commentListMeta: listMeta,
+			comments: comments,
 			dataReady: true
 		});
 	}
@@ -38,7 +42,9 @@ export class CommentsComponent extends React.Component<CommentsComponentProps, C
 					className="comments-list"
 				>
 					{this.state.dataReady
-						? <CommentsListContainer
+						? <CommentsListComponent
+							onUpdateList={this.formHandler}
+							comments={this.state.comments}
 							{...this.state.commentListMeta}
 						/> : <div>
 							Loading Comments .......
@@ -51,6 +57,10 @@ export class CommentsComponent extends React.Component<CommentsComponentProps, C
 
 	private formHandler(): void {
 		console.log('current text', this.formText);
+	}
+
+	private updateListHandler(evt: Event): void {
+		console.log('updated', evt);
 	}
 
 	private renderCommentForm(): ReactElement<HTMLFormElement> {
@@ -74,8 +84,8 @@ export class CommentsComponent extends React.Component<CommentsComponentProps, C
 				>
 					<button
 						className="btn btn-success btn-lg"
-						onClick={(event: any) => {
-							event.preventDefault();
+						onClick={(evt: SyntheticEvent<MouseEvent> | any) => {
+							evt.preventDefault();
 							this.formHandler();
 						}}
 					>

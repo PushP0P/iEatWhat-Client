@@ -1,4 +1,4 @@
-import { CommentsList, CommentsListProps, generateDemoComment } from '../models/comments.model';
+import { CommentsList, CommentsListMeta, generateDemoComment } from '../models/comments.model';
 import { openIDBUtilities } from 'indexed-db-utilities/dist/utilities/index-db.utility';
 let db = openIDBUtilities({
 	version: 1,
@@ -20,16 +20,20 @@ export async function getUserComments(): Promise<CommentsList> {
 export async function getComments(listId: string): Promise<CommentsList> {
 	const stores = await db;
 	const userData = await stores.get('userData', 'account');
-	const responsePack = await fetch(`//localhost:5000/${listId}`);
-	const response: CommentsList = await responsePack.json();
+	// const responsePack = await fetch(`//localhost:5000/${listId}`);
+	// const response: CommentsList = await responsePack.json();
+
+	// FIXTURES
+	const responsePack = await getUserComments();
+	const response: CommentsList = responsePack;
+	// END
 	return enableEditForUserComments(response, userData.id);
 }
 
-export async function getCommentsListMeta(containerId: string): Promise<CommentsListProps> {
+export async function getCommentsListMeta(containerId: string): Promise<CommentsListMeta> {
 	return {
-		id: 'FooBat123',
+		listId: containerId,
 		topic: 'Demo',
-		containerId: containerId,
 	};
 }
 
