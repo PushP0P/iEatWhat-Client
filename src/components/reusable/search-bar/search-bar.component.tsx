@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { SVGS } from '../../../assets/react-svgs.asset';
 
 export const SearchBarComponent = () => {
 	return(
@@ -15,7 +16,7 @@ export const SearchBarComponent = () => {
 				<div
 					className="cancel-icon"
 				>
-					X
+					{SVGS.cross}
 				</div>
 			</div>
 		</div>

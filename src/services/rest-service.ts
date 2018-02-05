@@ -8,7 +8,7 @@
  * @returns {Promise<{}>}
  */
 
-export async function httpRequest(path: string, verb?: string, headers?: Headers, body?: {} ): Promise<Response> {
+export async function httpRequest(path: string, verb?: string, headers?: {}, body?: {} ): Promise<Response> {
 	const req: Request = await new Request(path, <RequestInit> {
 		method: verb || 'get',
 		cache: 'default',

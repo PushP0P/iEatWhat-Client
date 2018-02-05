@@ -6,7 +6,6 @@ import {
 import { SignInOptions } from './sign-in-options.controlled';
 import { getSignInOptions } from '../../services/sign-in.service';
 import { Link } from 'react-router-dom';
-import './sign-in.style.css';
 
 export class SignInComponent extends React.Component<SignInComponentProps, SignInComponentState> {
 

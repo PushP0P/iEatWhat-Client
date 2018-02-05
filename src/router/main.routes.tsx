@@ -8,6 +8,7 @@ export const MAIN_ROUTES_SWITCH = () => {
 		<Switch>
 			<Route
 				path="/"
+				exact={true}
 				render={
 					(routes) => {
 						return(
