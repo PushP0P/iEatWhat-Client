@@ -1,4 +1,4 @@
-import { CommentsList, CommentsListProps, FIXTURE_COMMENTS_LIST, generateDemoComment } from '../models/comments.model';
+import { CommentsList, CommentsListProps, generateDemoComment } from '../models/comments.model';
 
 export async function getUserComments(userId: string): Promise<CommentsList> {
 	return {
@@ -9,7 +9,9 @@ export async function getUserComments(userId: string): Promise<CommentsList> {
 }
 
 export async function getComments(listId: string): Promise<CommentsList> {
-	return FIXTURE_COMMENTS_LIST;
+	const response = await fetch('//localhost:5000/demo');
+	console.log('I THINK THIS SHOWS IN TEST', response);
+	return response.json();
 }
 
 export async function getCommentsListMeta(containerId: string): Promise<CommentsListProps> {

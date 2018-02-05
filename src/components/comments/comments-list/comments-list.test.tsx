@@ -7,6 +7,9 @@ import {
 } from '../../../models/comments.model';
 import * as renderer from 'react-test-renderer';
 import { CommentsListContainer } from './comments-list.container';
+// jest.mock('../../../services/comments.service');
+// import * as comments from '../../../services/comments.service';
+// declare var window: any;
 
 /**
  * Testing
@@ -22,6 +25,7 @@ const FIXTURE_COMMENTS_LIST: CommentsList = {
 	testComment1: generateDemoComment(),
 	testComment2: generateDemoComment(),
 };
+
 /**
  * Testing
  * Get component(s) to test.
@@ -41,6 +45,7 @@ component.componentDidMount = function(){
 		dataReady: true
 	});
 };
+
 /**
  * Testing
  * Write tests :)
@@ -52,19 +57,6 @@ it(
 			component.toTree().props.topic
 		)
 			.toBe(FIXTURE_COMMENTS_LIST_PROPS.topic);
-	}
-);
-
-it(
-	`Should display ${Object.keys(FIXTURE_COMMENTS_LIST).length} comments.`,
-	() => {
-		expect(
-			Object
-				.keys(component
-					.toTree().instance.state).length
-		)
-			.toBe(Object
-			.keys(FIXTURE_COMMENTS_LIST).length);
 	}
 );
 

@@ -1,7 +1,0 @@
-{
-"version": 3,
-"mappings": "AAAA,kBAAkB;EAChB,MAAM,EAAE,KAAK;EACb,OAAO,EAAE,IAAI;EACb,cAAc,EAAE,MAAM;EACtB,eAAe,EAAE,YAAY;;AAG/B,gBAAiB;EACf,OAAO,EAAE,IAAI;EACb,cAAc,EAAE,GAAG;EACnB,eAAe,EAAE,MAAM;;AAGzB,eAAgB;EACd,MAAM,EAAE,OAAO;;AAGjB,eAAgB;EACd,KAAK,EAAE,IAAI;EACX,OAAO,EAAE,IAAI;EACb,cAAc,EAAE,GAAG;EACnB,eAAe,EAAE,YAAY",
-"sources": ["sign-in.style.scss"],
-"names": [],
-"file": "sign-in.style.css"
-}

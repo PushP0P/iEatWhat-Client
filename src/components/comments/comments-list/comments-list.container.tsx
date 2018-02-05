@@ -4,7 +4,7 @@ import {
 	COMMENTS_LIST_STATE_INIT,
 	CommentsList, CommentsListProps, CommentsListState,
 } from '../../../models/comments.model';
-import { CommentComponent } from '../comment.controlled';
+import { CommentComponent } from '../comment/comment.controlled';
 import { getComments } from '../../../services/comments.service';
 
 export class CommentsListContainer extends React.Component<CommentsListProps, CommentsListState> {
