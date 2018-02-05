@@ -7,8 +7,6 @@ import {
 import { CommentsListContainer } from './comments-list/comments-list.container';
 import { getCommentsListMeta } from '../../services/comments.service';
 
-declare var window: any;
-
 export class CommentsComponent extends React.Component<CommentsComponentProps, CommentsComponentState> {
 	private formText = '';
 
@@ -35,35 +33,7 @@ export class CommentsComponent extends React.Component<CommentsComponentProps, C
 				>
 					<h1>Comments</h1>
 				</div>
-				<form
-					id="CommentForm"
-				>
-					<div
-						className="comment-input"
-						suppressContentEditableWarning={true}
-						contentEditable={true}
-						onClick={() => this.setState({formPristine: false})}
-						onInput={(event: React.FormEvent<HTMLElement>) => {
-							this.formText = (event.target as any).innerHTML;
-						}}
-					>
-						{this.state.formPristine ? 'Leave a comment!' : ''}
-					</div>
-					<div
-						className="controls"
-					>
-						<button
-							className="btn btn-success btn-lg"
-							onClick={(event: any) => {
-								event.preventDefault();
-								this.formHandler();
-							}}
-						>
-							Submit
-						</button>
-					</div>
-
-				</form>
+				{this.renderCommentForm()}
 				<div
 					className="comments-list"
 				>
@@ -80,7 +50,39 @@ export class CommentsComponent extends React.Component<CommentsComponentProps, C
 	}
 
 	private formHandler(): void {
-		window.event.preventDefault();
 		console.log('current text', this.formText);
+	}
+
+	private renderCommentForm(): ReactElement<HTMLFormElement> {
+		return(
+			<form
+				id="CommentForm"
+			>
+				<div
+					className="comment-input"
+					suppressContentEditableWarning={true}
+					contentEditable={true}
+					onClick={() => this.setState({formPristine: false})}
+					onInput={(event: React.FormEvent<HTMLElement>) => {
+						this.formText = (event.target as any).innerHTML;
+					}}
+				>
+					{this.state.formPristine ? 'Leave a comment!' : ''}
+				</div>
+				<div
+					className="controls"
+				>
+					<button
+						className="btn btn-success btn-lg"
+						onClick={(event: any) => {
+							event.preventDefault();
+							this.formHandler();
+						}}
+					>
+						Submit
+					</button>
+				</div>
+			</form>
+		);
 	}
 }
