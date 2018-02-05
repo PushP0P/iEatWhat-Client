@@ -1,15 +1,25 @@
 import * as React from 'react';
 import { ReactElement } from 'react';
-import { CommentsComponentProps, CommentsComponentState } from '../../models/comments.model';
+import {
+	COMMENTS_COMPONENT_STATE_INIT, CommentsComponentProps,
+	CommentsComponentState
+} from '../../models/comments.model';
 import { CommentsListContainer } from './comments-list/comments-list.container';
+import { getCommentsListMeta } from '../../services/comments.service';
 
 export class CommentsComponent extends React.Component<CommentsComponentProps, CommentsComponentState> {
 
 	constructor(public props: CommentsComponentProps) {
 		super(props);
-		this.state = {
-			comments: {}
-		};
+		this.state = COMMENTS_COMPONENT_STATE_INIT;
+	}
+
+	public async componentDidMount(): Promise<void> {
+		const listMeta = await getCommentsListMeta(this.props.viewId);
+		this.setState({
+			commentListMeta: listMeta,
+			dataReady: true
+		});
 	}
 
 	public render(): ReactElement<HTMLDivElement> {
@@ -46,10 +56,15 @@ export class CommentsComponent extends React.Component<CommentsComponentProps, C
 				<div
 					className="comments-list"
 				>
-					<CommentsListContainer id={'123foo'} viewId={this.props.viewId}/>
+					{this.state.dataReady
+						? <CommentsListContainer
+							{...this.state.commentListMeta}
+						/> : <div>
+							Loading Comments .......
+						</div>
+					}
 				</div>
 			</div>
 		);
 	}
-
 }

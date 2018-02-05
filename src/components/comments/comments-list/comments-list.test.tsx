@@ -1,6 +1,10 @@
 /* tslint:disable */
 import * as React from 'react';
-import { CommentsListProps, CommentsListState, generateDemoComment } from '../../../models/comments.model';
+import {
+	CommentProps,
+	CommentsList, CommentsListProps, CommentsListState,
+	generateDemoComment
+} from '../../../models/comments.model';
 import * as renderer from 'react-test-renderer';
 import { CommentsListContainer } from './comments-list.container';
 
@@ -8,23 +12,16 @@ import { CommentsListContainer } from './comments-list.container';
  * Testing
  * Set up dummy data.
  */
-const FIXTURE_COMMENTS_LIST_STATE: CommentsListState = {
-	testComment0: {
-		comment: generateDemoComment(),
-	},
-	testComment1: {
-		comment: generateDemoComment(),
-		repliesListId: 'replies0'
-	},
-	testComment2: {
-		comment: generateDemoComment()
-	}
-};
 const FIXTURE_COMMENTS_LIST_PROPS: CommentsListProps = {
-	id: 'testList0',
-	viewId: 'testView'
+	containerId: 'testList0',
+	topic: 'testView'
 };
 
+const FIXTURE_COMMENTS_LIST: CommentsList = {
+	testComment0: generateDemoComment(),
+	testComment1: generateDemoComment(),
+	testComment2: generateDemoComment(),
+};
 /**
  * Testing
  * Get component(s) to test.
@@ -36,6 +33,15 @@ const component: any = renderer.create(
 );
 
 /**
+ * Stubbing Component Service
+ */
+component.componentDidMount = function(){
+	this.setState({
+		comments: FIXTURE_COMMENTS_LIST,
+		dataReady: true
+	});
+};
+/**
  * Testing
  * Write tests :)
  */
@@ -43,21 +49,22 @@ it(
 	`Should have viewId for comment data services`,
 	() => {
 		expect(
-			component.toTree().props.viewId
+			component.toTree().props.topic
 		)
-			.toBe(FIXTURE_COMMENTS_LIST_PROPS.viewId);
+			.toBe(FIXTURE_COMMENTS_LIST_PROPS.topic);
 	}
 );
 
 it(
-	`Should display ${Object.keys(FIXTURE_COMMENTS_LIST_STATE).length} comments.`,
+	`Should display ${Object.keys(FIXTURE_COMMENTS_LIST).length} comments.`,
 	() => {
 		expect(
 			Object
-				.keys(component.toTree().instance.state).length
+				.keys(component
+					.toTree().instance.state).length
 		)
 			.toBe(Object
-			.keys(FIXTURE_COMMENTS_LIST_STATE).length);
+			.keys(FIXTURE_COMMENTS_LIST).length);
 	}
 );
 
@@ -83,23 +90,29 @@ it(
 	}
 );
 
-// Blocked until we strategize user resolutions
-// it(
-// 	`Should have a true editable prop if userId matches comment's user_id.`,
-// 	() => {
-// 		expect(
-// 			() => {
-// 				const comments: ReactElement<any>[] = component.toTree().instance.state;
-//
-// 				for (let comment of comments) {
-// 					if (comment.props.userId === userId && !comment.props.editable) {
-// 						return false;
-// 					} else if (comment.props.editable) {
-// 						return false;
-// 					}
-// 				}
-// 				return true;
-// 			}
-// 		).toBe(true);
-// 	}
-// );
+it(
+	`Should have a true editable prop if userId matches comment's user_id.`,
+	() => {
+		expect(
+			() => {
+				const comments: CommentsListState = component
+					.toTree().instance.state;
+				const commentsArray: CommentProps[] = Object
+					.keys(comments)
+					.map(key => {
+						return comments[key].comment;
+				});
+				const userId = commentsArray[1].userId;
+
+				for (let comment of commentsArray) {
+					if (comment.userId === userId && !comment.editable) {
+						return false;
+					} else if (comment.editable) {
+						return false;
+					}
+				}
+				return true;
+			}
+		).toBe(true);
+	}
+);

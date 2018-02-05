@@ -14,8 +14,9 @@ interface TextBoxProps {
 }
 
 interface OptionsBoxProps {
-
+	editable: boolean;
 }
+
 const CommentMetaBox = (props: MetaBoxProps) => {
 	return (
 			<div
@@ -61,18 +62,21 @@ const OptionsBox = (props: OptionsBoxProps) => {
 		>
 			<div
 				className="options_edit"
+				hidden={props.editable}
 			>
 				{SVGS.pencil}
 			</div>
 			<div
-				className="options_reply"
-			>
-				Reply
-			</div>
-			<div
-				className="options_report"
+				className="options_remove"
+				hidden={props.editable}
 			>
 				Remove
+			</div>
+			<div
+				className="options_reply"
+				hidden={!props.editable}
+			>
+				Reply
 			</div>
 		</div>
 	);
@@ -83,9 +87,17 @@ export const CommentComponent = (props: CommentProps) => {
 		<div
 			className="comment-component"
 		>
-			<CommentMetaBox name={props.name} date={props.create_date} userId={props.userId}/>
-			<CommentText text={props.text}/>
-			<OptionsBox/>
+			<CommentMetaBox
+				name={props.name}
+				date={props.create_date}
+				userId={props.userId}
+			/>
+			<CommentText
+				text={props.text}
+			/>
+			<OptionsBox
+				editable={props.editable}
+			/>
 		</div>
 	);
 };

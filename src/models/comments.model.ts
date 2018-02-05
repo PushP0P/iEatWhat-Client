@@ -1,37 +1,56 @@
-export interface CommentsComponentState {
-	comments: CommentsListState;
-}
-
-export interface CommentsComponentProps {
-	viewId: string;
-}
-
-export interface CommentsListProps {
-	id: string;
-	viewId: string;
-	owningCommentId?: string;
-}
-
-export interface CommentsListState {
-	[comment_id: string]: {
-		comment: CommentProps;
-		repliesListId?: string;
-	};
-}
-
 export interface CommentProps {
 	commentId: string;
 	name: string;
 	userId: string;
 	create_date: number;
 	text: string;
-	replies: number;
 	editable: boolean;
 	removed: boolean;
 	reported: boolean;
 	reports: number;
 	likes: number;
+	replies?: CommentsList;
 }
+
+export interface CommentsComponentState {
+	dataReady: boolean;
+	commentListMeta: CommentsListProps;
+}
+
+export interface CommentsComponentProps {
+	viewId: string;
+}
+
+export const COMMENTS_COMPONENT_STATE_INIT: CommentsComponentState = {
+	dataReady: false,
+	commentListMeta: <CommentsListProps> {}
+};
+
+export interface CommentsListProps {
+	id?: string;
+	topic: string;
+	containerId: string;
+}
+
+export interface CommentsListState {
+	dataReady: boolean;
+	comments: CommentsList;
+}
+
+export interface CommentsList {
+	[commentId: string]: CommentProps;
+}
+
+export const COMMENTS_LIST_STATE_INIT = {
+	dataReady: false,
+	comments: {}
+};
+
+export const FIXTURE_COMMENTS_LIST: CommentsList = {
+	testComment0: generateDemoComment(),
+	testComment1: generateDemoComment(),
+	testComment2: generateDemoComment(),
+};
 
 export function generateDemoComment(): CommentProps {
 	return {
@@ -40,7 +59,6 @@ export function generateDemoComment(): CommentProps {
 		userId: Math.random().toString(),
 		create_date: Date.now(),
 		text: `Lorem Ipsum Foo Bat Metal ${Math.random()} times`,
-		replies: Math.random(),
 		editable: false,
 		removed: false,
 		reported: false,
@@ -48,25 +66,3 @@ export function generateDemoComment(): CommentProps {
 		likes: 0
 	};
 }
-
-export const FIXTURE_COMMENTS_LIST_STATE: CommentsListState = {
-	testComment0: {
-		comment: generateDemoComment(),
-	},
-	testComment1: {
-		comment: generateDemoComment(),
-		repliesListId: 'replies0'
-	},
-	testComment2: {
-		comment: generateDemoComment()
-	}
-};
-export const FIXTURE_COMMENTS_LIST_PROPS: CommentsListProps = {
-	id: 'testList0',
-	viewId: 'testView'
-};
-export const FIXTURE_REPLY_LIST_PROPS: CommentsListProps = {
-	id: 'testReplyList0',
-	viewId: 'testView',
-	owningCommentId: 'testComment1'
-};

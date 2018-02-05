@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { ReactElement } from 'react';
 import { SearchBarComponent } from '../reusable/search-bar/search-bar.component';
+import { CommentsComponent } from '../comments/comments.component';
 
 /**
  *  FIXTURES - Placeholders
@@ -27,6 +28,7 @@ export class LandingComponent extends React.Component<any, any> {
 					<SearchBarComponent />
 				</div>
 				<SearchResultsComponent />
+				<CommentsComponent viewId={'demo'}/>
 				<FooterComponent />
 			</div>
 		);
