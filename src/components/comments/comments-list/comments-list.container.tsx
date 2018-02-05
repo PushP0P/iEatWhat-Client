@@ -15,6 +15,7 @@ export class CommentsListContainer extends React.Component<CommentsListProps, Co
 	}
 
 	public async componentDidMount(): Promise<void> {
+
 		const comments: CommentsList = await getComments(this.props.containerId);
 		this.setState({
 			comments: {

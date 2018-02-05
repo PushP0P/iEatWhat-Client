@@ -7,9 +7,21 @@ import {
 } from '../../../models/comments.model';
 import * as renderer from 'react-test-renderer';
 import { CommentsListContainer } from './comments-list.container';
-// jest.mock('../../../services/comments.service');
-// import * as comments from '../../../services/comments.service';
-// declare var window: any;
+declare var window: any;
+
+/**
+ * Faking the Func, Fetch :)
+ * @param val
+ */
+export function setFetchReturnVal(val: any){
+	window.fetch = async function(url?: string, init?: any){
+		return{
+			json(){
+				return val;
+			}
+		}
+	};
+}
 
 /**
  * Testing
@@ -19,12 +31,13 @@ const FIXTURE_COMMENTS_LIST_PROPS: CommentsListProps = {
 	containerId: 'testList0',
 	topic: 'testView'
 };
-
 const FIXTURE_COMMENTS_LIST: CommentsList = {
 	testComment0: generateDemoComment(),
 	testComment1: generateDemoComment(),
 	testComment2: generateDemoComment(),
 };
+
+setFetchReturnVal(FIXTURE_COMMENTS_LIST);
 
 /**
  * Testing
@@ -35,16 +48,6 @@ const component: any = renderer.create(
 		{...FIXTURE_COMMENTS_LIST_PROPS}
 	/>
 );
-
-/**
- * Stubbing Component Service
- */
-component.componentDidMount = function(){
-	this.setState({
-		comments: FIXTURE_COMMENTS_LIST,
-		dataReady: true
-	});
-};
 
 /**
  * Testing
@@ -85,26 +88,26 @@ it(
 it(
 	`Should have a true editable prop if userId matches comment's user_id.`,
 	() => {
-		expect(
-			() => {
-				const comments: CommentsListState = component
-					.toTree().instance.state;
-				const commentsArray: CommentProps[] = Object
-					.keys(comments)
-					.map(key => {
-						return comments[key].comment;
-				});
-				const userId = commentsArray[1].userId;
-
-				for (let comment of commentsArray) {
-					if (comment.userId === userId && !comment.editable) {
-						return false;
-					} else if (comment.editable) {
-						return false;
-					}
+		function compareCommentsEditable(): boolean {
+			const comments: CommentsListState = component
+				.toTree().instance.state;
+			const commentsArray: CommentProps[] = Object
+				.keys(comments)
+				.map(key => {
+					return comments[key];
+			});
+			const userId = commentsArray[1].userId;
+			for (let comment of commentsArray) {
+				console.log('COMMENT FOR LOOP', comment, userId);
+				if (comment.userId === userId && !comment.editable) {
+					return false;
+				} else if (comment.editable) {
+					return false;
 				}
-				return true;
 			}
-		).toBe(true);
+			return true;
+		}
+		expect(compareCommentsEditable())
+			.toBe(true);
 	}
 );

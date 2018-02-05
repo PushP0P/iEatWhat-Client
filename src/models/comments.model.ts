@@ -52,11 +52,11 @@ export const FIXTURE_COMMENTS_LIST: CommentsList = {
 	testComment2: generateDemoComment(),
 };
 
-export function generateDemoComment(): CommentProps {
+export function generateDemoComment(userId?: string): CommentProps {
 	return {
 		commentId: Math.random().toString(),
 		name: 'Demo Dave',
-		userId: Math.random().toString(),
+		userId: userId || Math.random().toString(),
 		create_date: Date.now(),
 		text: `Lorem Ipsum Foo Bat Metal ${Math.random()} times`,
 		editable: false,
