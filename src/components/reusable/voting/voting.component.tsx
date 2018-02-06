@@ -16,16 +16,24 @@ export class VotingComponent extends React.Component {
 				<div
 					className="control_box"
 				>
-					<button
-						className="btn btn-lg btn-success"
+					<div
+						className="col-sm-6"
 					>
-						YES
-					</button>
-					<button
-						className="btn btn-lg btn-warning"
+						<button
+							className="btn btn-block btn-success"
+						>
+							YES
+						</button>
+					</div>
+					<div
+						className="col-sm-6"
 					>
-						NO
-					</button>
+						<button
+							className="btn btn-block btn-warning"
+						>
+							NO
+						</button>
+					</div>
 				</div>
 			</div>
 		);

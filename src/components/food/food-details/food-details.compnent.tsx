@@ -64,6 +64,7 @@ export class FoodDetailsComponent extends React.Component<FoodDetailsComponentPr
 									}
 								)}
 						</div>
+						<hr />
 						<DescriptionComponent
 							name={this.state.foodDetails.foodName}
 							isbn={this.state.foodDetails.isbn}
@@ -71,10 +72,13 @@ export class FoodDetailsComponent extends React.Component<FoodDetailsComponentPr
 							updatedOn={this.state.foodDetails.lastUpdated}
 							blurb={this.state.foodDetails.description.blurb}
 						/>
+						<hr />
 						<IngredientsComponent
 							ingredients={this.state.foodDetails.ingredients}
 						/>
+						<hr />
 						<CommentsComponent viewId={this.props.foodId}/>
+						<hr />
 						<VotingComponent/>
 					</div>
 				</div>

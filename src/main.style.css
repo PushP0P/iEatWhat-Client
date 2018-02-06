@@ -155,7 +155,7 @@ body {
       font-size: 0.8em; }
 
 .food-details-component {
-  background: url("https://static.pexels.com/photos/326278/pexels-photo-326278.jpeg") no-repeat top fixed;
+  background: url("https://static.pexels.com/photos/326278/pexels-photo-326278.jpeg") no-repeat 50% 0 fixed;
   background-size: cover;
   padding-top: 270px; }
   .food-details-component .content_wrapper {
@@ -165,20 +165,66 @@ body {
     margin: auto;
     height: 300px;
     max-width: 70%;
-    overflow-x: hidden; }
+    overflow-x: hidden;
+    border-radius: 5px;
+    box-shadow: 2px 5px 5px 2px rgba(0, 0, 0, 0.8);
+    margin-bottom: -50px; }
     .food-details-component .header_image_box img {
       height: 100%; }
   .food-details-component .food-details_header {
-    height: 300px;
+    margin-bottom: -125px;
     width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     text-align: center;
-    margin-bottom: 50px;
-    padding: 0px 0 0 0;
     transform: translateY(-150px); }
+    .food-details-component .food-details_header h1 {
+      text-shadow: -1px -1px 0 #FEF8F6, 1px -1px 0 #FEF8F6, -1px 1px 0 #FEF8F6, 1px 1px 0 #FEF8F6;
+      opacity: 0.8; }
   .food-details-component .categories_box {
-    background: #FEF8F6; }
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start; }
+
+.category-component {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  text-align: center;
+  margin-right: 10px;
+  width: 100px; }
+  .category-component .category_icon {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center; }
+    .category-component .category_icon .icon_wrapper {
+      position: relative;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      background: #ffd7bb;
+      border-radius: 100%;
+      height: 50px;
+      width: 50px;
+      padding: 20px;
+      overflow: hidden; }
+      .category-component .category_icon .icon_wrapper svg {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%); }
+
+.voting-component {
+  padding: 50px 20px 50px 20px; }
+  .voting-component .control_box {
+    text-align: center;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around; }
+    .voting-component .control_box button {
+      height: 50px; }
 
 /*# sourceMappingURL=main.style.css.map */
