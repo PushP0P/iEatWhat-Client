@@ -24,7 +24,6 @@ export interface FoodIngredient {
 }
 
 export interface FoodDetailsComponentProps {
-	backgroundURL: string;
 	foodId: string;
 	topic: string;
 }

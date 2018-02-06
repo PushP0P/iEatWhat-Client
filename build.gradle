@@ -1,0 +1,25 @@
+plugins {
+    id "com.moowork.node" version "1.2.0"
+}
+
+apply plugin: "java"
+
+buildDir = new File("gradleBuild")
+
+sourceSets {
+    main {
+      resources {
+              srcDir 'build'
+          }
+      }
+}
+
+task cleanNode() {
+    delete 'build'
+    delete 'node_modules'
+}
+
+processResources.dependsOn = ['yarn_build']
+yarn_build.dependsOn = ['yarn_install']
+yarn_start.dependsOn = ['yarn_install']
+clean.dependsOn("cleanNode")
