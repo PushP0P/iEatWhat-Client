@@ -4,7 +4,7 @@ plugins {
 
 apply plugin: "java"
 
-buildDir = new File("gradleBuild")
+buildDir = new File("clientBuild")
 
 sourceSets {
     main {
@@ -20,6 +20,4 @@ task cleanNode() {
 }
 
 processResources.dependsOn = ['yarn_build']
-yarn_build.dependsOn = ['yarn_install']
-yarn_start.dependsOn = ['yarn_install']
 clean.dependsOn("cleanNode")
