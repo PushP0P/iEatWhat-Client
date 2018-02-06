@@ -20,25 +20,25 @@ export interface FoodDescription {
 export interface FoodIngredient {
 	id: string;
 	name: string;
-	nutrientGroup: string
+	nutrientGroup: string;
 }
 
 export interface FoodDetailsComponentProps {
 	backgroundURL: string;
-	foodPicURL: string;
 	foodId: string;
 	topic: string;
 }
 
 export interface FoodDetailsComponentState {
+	dataReady: boolean;
 	foodDetails: FoodItem;
-	slug: string;
 }
 
 export const FOOD_DETAILS_STATE_INIT: FoodDetailsComponentState = {
-	foodDetails: <FoodItem>{},
-	slug: '',
+	dataReady: false,
+	foodDetails: <FoodItem> {},
 };
+
 // Data From The USDA
 // "desc": {
 // 	"ndbno": "01009",

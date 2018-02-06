@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { ReactElement } from 'react';
 import { SearchBarComponent } from '../reusable/search-bar/search-bar.component';
-import { CommentsComponent } from '../comments/comments.component';
+import { FoodDetailsComponent } from '../food/food-details/food-details.compnent';
 
 /**
  *  FIXTURES - Placeholders
@@ -28,7 +28,11 @@ export class LandingComponent extends React.Component<any, any> {
 					<SearchBarComponent />
 				</div>
 				<SearchResultsComponent />
-				<CommentsComponent viewId={'demo'}/>
+				<FoodDetailsComponent
+					backgroundURL={'https://static.pexels.com/photos/54455/cook-food-kitchen-eat-54455.jpeg'}
+					foodId={'demoFood'}
+					topic={'Test Food'}
+				/>
 				<FooterComponent />
 			</div>
 		);

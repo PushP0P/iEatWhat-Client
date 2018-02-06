@@ -3,6 +3,7 @@
  **/
 @import url('https://fonts.googleapis.com/css?family=Raleway|Source+Sans+Pro');
 $pizza-pic: url('https://static.pexels.com/photos/710916/pexels-photo-710916.jpeg');
+$pasta-salad: url("https://static.pexels.com/photos/326278/pexels-photo-326278.jpeg");
 
 /**
  * Custom Globals
@@ -71,3 +72,4 @@ body {
 @import './components/landing/landing.style';
 @import './components/sign-in/sign-in.style';
 @import './components/comments/comments.style';
+@import './components/food/food-details/food-details.style';
