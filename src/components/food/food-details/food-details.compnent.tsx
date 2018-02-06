@@ -8,7 +8,7 @@ import { ReactElement } from 'react';
 import { CommentsComponent } from '../../comments/comments.component';
 import { VotingComponent } from '../../reusable/voting/voting.component';
 import { getFoodDetails } from '../../../services/food.service';
-import { CategoryComponent } from './category.controlled';
+import { CategoryComponent } from '../../reusable/categories/category.controlled';
 import { IngredientsComponent } from './igredients.controlled';
 import { DescriptionComponent } from './description.controlled';
 
