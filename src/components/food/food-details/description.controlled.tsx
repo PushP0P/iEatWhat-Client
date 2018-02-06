@@ -18,19 +18,19 @@ export const DescriptionComponent = (props: DescriptionComponentProps): ReactEle
 			<ul>
 				<li>
 					<span>
-						<b>Name:</b>
+						<b>Name: </b>
 						{props.name}
 					</span>
 				</li>
 				<li>
 					<span>
-						<b>ISBN:</b>
+						<b>ISBN: </b>
 						{props.isbn}
 					</span>
 				</li>
 				<li>
 					<span>
-						<b>Type:</b>
+						<b>Type: </b>
 						{props.type}
 					</span>
 				</li>
