@@ -1,15 +1,14 @@
 import * as React from 'react';
 import { ReactElement } from 'react';
-// import { SearchBarComponent } from '../reusable/search-bar/search-bar.component';
-import { FoodDetailsComponent } from '../food/food-details/food-details.compnent';
+import { SearchBarComponent } from '../reusable/search-bar/search-bar.component';
 
 /**
  *  FIXTURES - Placeholders
  */
-// export const NavbarComponent = () => <div>NAVBAR PLACEHOLDER</div>;
-// export const FooterComponent = () => <div>FOOTER PLACEHOLDER</div>;
-// export const SearchResultsComponent = () => <div>SEARCH RESULTS PLACEHOLDER</div>;
-//
+export const NavbarComponent = () => <div>NAVBAR PLACEHOLDER</div>;
+export const FooterComponent = () => <div>FOOTER PLACEHOLDER</div>;
+export const SearchResultsComponent = () => <div>SEARCH RESULTS PLACEHOLDER</div>;
+
 export class LandingComponent extends React.Component<any, any> {
 
 	constructor(public props: any) {
@@ -21,11 +20,10 @@ export class LandingComponent extends React.Component<any, any> {
 			<div
 				className="landing-component container"
 			>
-				<FoodDetailsComponent
-					backgroundURL={'https://static.pexels.com/photos/54455/cook-food-kitchen-eat-54455.jpeg'}
-					foodId={'demoFood'}
-					topic={'Test Food'}
-				/>
+				<NavbarComponent />
+				<SearchBarComponent />
+				<SearchResultsComponent />
+				<FooterComponent />
 			</div>
 		);
 	}
