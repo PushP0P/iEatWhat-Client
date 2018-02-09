@@ -29,6 +29,18 @@ $H4: 1.1em;
   transition: $props $time $curve;
 }
 
+@mixin btn-overwrite($background, $background-hover, $txt-color, $txt-color-hover) {
+  background-color: $background;
+  border-color: $background;
+  color:$txt-color;
+
+  &:hover, &:active, &:focus {
+    background-color:$background-hover !important;
+    border-color: $background-hover !important;
+    color:$txt-color-hover !important;
+  }
+}
+
 
 /**
  * Overwrites and Settings
@@ -52,6 +64,10 @@ h3 {
 
 h4 {
   font-size: $H4;
+}
+
+.btn-primary {
+  @include btn-overwrite($color-primary,$color-text,white,white)
 }
 
 body {

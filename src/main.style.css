@@ -23,6 +23,15 @@ h3 {
 h4 {
   font-size: 1.1em; }
 
+.btn-primary {
+  background-color: #DA5015;
+  border-color: #DA5015;
+  color: white; }
+  .btn-primary:hover, .btn-primary:active, .btn-primary:focus {
+    background-color: #280E04 !important;
+    border-color: #280E04 !important;
+    color: white !important; }
+
 body {
   margin: 0;
   padding: 0;
@@ -163,12 +172,12 @@ body {
     background: #FEF8F6; }
   .food-details-component .header_image_box {
     margin: auto;
+    margin-bottom: -50px;
     height: 300px;
     max-width: 70%;
     overflow-x: hidden;
     border-radius: 5px;
-    box-shadow: 2px 5px 5px 2px rgba(0, 0, 0, 0.8);
-    margin-bottom: -50px; }
+    box-shadow: 2px 5px 5px 2px rgba(0, 0, 0, 0.8); }
     .food-details-component .header_image_box img {
       height: 100%; }
   .food-details-component .food-details_header {

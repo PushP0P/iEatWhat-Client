@@ -3,7 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "authors": [
-    "Rob Rex Beatie (rdev1163@outlook.com)"
+    "Rob Rex Beatie (rdev1163@outlook.com)",
+    "Patrick Lippert (patrick.lippert1@gmail.com)"
   ],
   "license": "MIT",
   "dependencies": {
