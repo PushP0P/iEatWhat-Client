@@ -1,23 +1,4 @@
 /**
- * FIXTURES : dummy data
- */
-
-export const FIXTURE_SIGN_IN_OPTIONS: SignInOption[] = [
-	{
-		id: '1234',
-		title: 'Google Sign-In',
-		link: '#',
-		icon: 'google',
-	},
-	{
-		id: '5678',
-		title: 'Twitter Sign-In',
-		link: '#',
-		icon: 'twitter',
-	}
-];
-
-/**
  *  END FIXTURES
  */
 
@@ -26,6 +7,7 @@ export interface SignInOption {
 	title: string;
 	link: string;
 	icon: string;
+	handler: () => any;
 }
 
 export interface SignInOptionsProps {
