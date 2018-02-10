@@ -29,15 +29,19 @@ $H4: 1.1em;
   transition: $props $time $curve;
 }
 
-@mixin btn-overwrite($background, $background-hover, $txt-color, $txt-color-hover) {
+@mixin btn-overwrite($background, $txt-color, $txt-color-hover) {
   background-color: $background;
   border-color: $background;
   color:$txt-color;
 
   &:hover, &:active, &:focus {
-    background-color:$background-hover !important;
-    border-color: $background-hover !important;
-    color:$txt-color-hover !important;
+    background-color: darken($background, 15%) !important;
+    border-color: darken($background, 15%) !important;
+    color: $txt-color-hover !important;
+  }
+
+  &:focus {
+    box-shadow:0 0 4px darken($background, 25%) !important;
   }
 }
 
@@ -67,7 +71,19 @@ h4 {
 }
 
 .btn-primary {
-  @include btn-overwrite($color-primary,$color-text,white,white)
+  @include btn-overwrite($color-primary,$color-background,$color-background)
+}
+
+.btn-success {
+  @include btn-overwrite($Success,$color-background,$color-background)
+}
+
+.btn-warning {
+  @include btn-overwrite($Warning,$color-text,$color-background)
+}
+
+.btn-danger {
+  @include btn-overwrite($Danger,$color-background,$color-background)
 }
 
 body {
