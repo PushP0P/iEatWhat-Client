@@ -90,7 +90,7 @@ body {
     .sign-in-component form input.question,
     .sign-in-component form textarea.question {
       text-align: center;
-      font-size: 48px;
+      font-size: 2em;
       font-weight: 300;
       border-radius: 2px;
       margin: 0;

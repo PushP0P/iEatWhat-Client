@@ -21,11 +21,11 @@ export class SignInComponent extends React.Component<SignInComponentProps, SignI
 					className="content"
 				>
 					<p>Please, sign up or In with the following options.</p>
-					<PhoneSignInForm
-						onSubmit={onPhoneSignIn}
-					/>
 					<EmailSignInForm
 						onSubmit={onEmailSignIn}
+					/>
+					<PhoneSignInForm
+						onSubmit={onPhoneSignIn}
 					/>
 					<SignInOptions
 						signInOptions={SIGN_IN_OPTIONS}

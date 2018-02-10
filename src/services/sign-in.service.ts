@@ -1,10 +1,11 @@
-declare var window: any;
 import * as fb from 'firebase';
+import { StoreService } from './store.service';
+const store = new StoreService();
+declare var window: any;
 
 export function onGoogleSignIn(): void {
 	const provider = new fb.auth.GoogleAuthProvider();
 	provider.addScope('profile');
-	provider.addScope('email');
 	signInWithPopup(provider);
 }
 
@@ -13,13 +14,11 @@ export function onTwitterSignIn(): void {
 	signInWithPopup(provider);
 }
 
-export function signInWithPopup(provider: any): void {
-	fb.auth().signInWithPopup(provider).then((res: any) => {
-		// Handle Token Store
-		console.log('signed in', res);
-		console.log('User', res.user);
-		console.log('Token', res.credential.accessToken);
-	});
+export async function signInWithPopup(provider: any): Promise<void> {
+	const result = await fb.auth().signInWithPopup(provider);
+	console.log('signed in', result);
+	store.setStore('user', {...result.user});
+	store.setStore('tokens', {...result.credential});
 }
 
 export async function onEmailSignIn(email: string, password: string): Promise<void> {
@@ -68,6 +67,7 @@ export function captchaVerified(verificationId: any): any {
 }
 
 export function handleSignedInUser(user: any): void {
+
 	console.log('User Signed In', user);
 }
 
