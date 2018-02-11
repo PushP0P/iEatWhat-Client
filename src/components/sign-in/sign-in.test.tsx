@@ -4,7 +4,7 @@ import * as ReactDOM from 'react-dom';
 import {Router} from 'react-router';
 import * as renderer from 'react-test-renderer';
 import history from '../../router/router.history';
-import {SignInOptions} from './sign-in-options.controlled';
+import { SignInOptions } from './sign-in-options.controlled';
 
 let component: any;
 let doc: any = document;
@@ -14,12 +14,14 @@ const FIXTURE_SIGN_IN_OPTIONS = [
 		title: 'Google Sign-In',
 		link: '#',
 		icon: 'google',
+		handler: () => {}
 	},
 	{
 		id: '5678',
 		title: 'Twitter Sign-In',
 		link: '#',
 		icon: 'twitter',
+		handler: () => {}
 	}
 ];
 
@@ -35,7 +37,9 @@ it('renders without crashing', () => {
 
 it(`SignInOptions has ${FIXTURE_SIGN_IN_OPTIONS.length} buttons`, () => {
 	component = renderer.create(
-		<SignInOptions signInOptions={FIXTURE_SIGN_IN_OPTIONS}/>
+		<SignInOptions
+			signInOptions={FIXTURE_SIGN_IN_OPTIONS}
+		/>
 	);
 	let tree = component.toJSON();
 	expect(tree).toMatchSnapshot();

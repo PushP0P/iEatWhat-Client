@@ -7,23 +7,25 @@ export const SignInOptions = (props: SignInOptionsProps) => {
 		<div
 			className="sign-in-options"
 		>
-			{
-				props.signInOptions
-					.map((signInOption: SignInOption) => {
-						return (
+			{props.signInOptions
+				.map((signInOption: SignInOption) => {
+					return (
+						<div
+							key={signInOption.id.toString()}
+							className={`sign_in_option btn-lg btn-outline-primary`}
+							onClick={() => {
+								signInOption.handler();
+							}}
+						>
 							<div
-								className="sign_in_option btn-lg btn-outline-primary"
-								key={signInOption.id.toString()}
+								className="sign_in_title"
 							>
-								<div
-									className="sign_in_title"
-								>
-									{signInOption.title}
-								</div>
-								{SVGS[signInOption.icon]}
+								{signInOption.title}
 							</div>
-						);
-					})
+							{SVGS[signInOption.icon]}
+						</div>
+					);
+				})
 			}
 		</div>
 	);

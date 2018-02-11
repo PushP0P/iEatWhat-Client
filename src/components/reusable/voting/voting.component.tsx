@@ -37,5 +37,4 @@ export class VotingComponent extends React.Component {
 				</div>
 			</div>
 		);
-	}
-}
+	}}

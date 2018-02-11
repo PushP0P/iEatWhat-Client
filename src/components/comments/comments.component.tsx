@@ -30,6 +30,7 @@ export class CommentsComponent extends React.Component<CommentsComponentProps, C
 	public render(): ReactElement<HTMLDivElement> {
 		return(
 			<div
+
 				className="comments-component"
 			>
 				<div

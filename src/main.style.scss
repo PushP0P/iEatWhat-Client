@@ -1,6 +1,7 @@
 /**
  * External Assets/Resources
  **/
+
 @import "./../node_modules/bootstrap/scss/bootstrap";
 @import url('https://fonts.googleapis.com/css?family=Raleway|Source+Sans+Pro');
 $pizza-pic: url('https://static.pexels.com/photos/710916/pexels-photo-710916.jpeg');
@@ -46,6 +47,14 @@ $H4: 1.1em;
   }
 }
 
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.6);
+}
 
 /**
  * Overwrites and Settings
@@ -97,6 +106,16 @@ body {
   background: $color-background;
 }
 
+input {
+  outline: none;
+  text-align: center;
+  padding: 5px;
+  background: rgba(254, 248, 256, 0.95);
+  border: $color-primary solid 1px;
+  border-radius: 5px;
+  margin-bottom: 5px;
+}
+
 /**
  * Modular/Component Styles
  */
@@ -109,3 +128,5 @@ body {
 @import './components/reusable/categories/category.style';
 @import './components/reusable/voting/voting.style';
 @import './components/dashboard/dashboard.style';
+@import './components/reusable/modal/modal.style';
+@import './components/sign-in/password-reset/password-reset.style';
