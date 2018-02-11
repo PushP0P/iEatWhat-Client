@@ -23,7 +23,7 @@ export class DashboardComponent extends React.Component<DashboardComponentProps,
 							className="col-lg-3 col-md-6 col-sm-6"
 						>
 							<button
-								className="btn btn-primary btn-block btn-dashboard"
+								className="btn btn-primary btn-block"
 							>
 								Loren Ipsum
 							</button>
@@ -33,7 +33,7 @@ export class DashboardComponent extends React.Component<DashboardComponentProps,
 							className="col-lg-3 col-md-6 col-sm-6"
 						>
 							<button
-								className="btn btn-primary btn-block btn-dashboard"
+								className="btn btn-primary btn-block"
 							>
 								Loren Ipsum
 							</button>
@@ -43,7 +43,7 @@ export class DashboardComponent extends React.Component<DashboardComponentProps,
 							className="col-lg-3 col-md-6 col-sm-6"
 						>
 							<button
-								className="btn btn-primary btn-block btn-dashboard"
+								className="btn btn-primary btn-block"
 							>
 								Loren Ipsum
 							</button>
@@ -53,7 +53,7 @@ export class DashboardComponent extends React.Component<DashboardComponentProps,
 							className="col-lg-3 col-md-6 col-sm-6"
 						>
 							<button
-								className="btn btn-primary btn-block btn-dashboard"
+								className="btn btn-primary btn-block"
 							>
 								Loren Ipsum
 							</button>
