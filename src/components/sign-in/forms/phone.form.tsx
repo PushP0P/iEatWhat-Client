@@ -21,7 +21,7 @@ export const PhoneSignInForm = (props: PhoneFormProps) => {
 				className="btn btn-outline-success"
 				onClick={() => props.onSubmit(phoneNumber)}
 			>
-				SignIn With Phone
+				Sign-In With Phone
 			</div>
 		</form>
 	);
