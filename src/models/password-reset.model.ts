@@ -3,5 +3,5 @@ export interface ResetPasswordComponentProps {
 }
 
 export interface ResetPasswordComponentState {
-	email: string;
+	showModal: boolean;
 }

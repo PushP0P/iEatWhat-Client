@@ -1,39 +1,38 @@
 import * as React from 'react';
 import { SyntheticEvent } from 'react';
-import { MODAL_STATE_INIT, ModalComponentProps, ModalComponentState, ModalControl } from '../../../models/modal.model';
-import { modalReducer } from './modal.reducer';
-import { toggleVisibilityOn } from './modal.actions';
+import { ModalComponentProps, ModalControl } from '../../../models/modal.model';
 
-export class ModalComponent extends React.Component<ModalComponentProps, ModalComponentState> {
-	public state = MODAL_STATE_INIT;
+export const ModalComponent = (props: ModalComponentProps) => {
+	const hiddenStyle = () => {
+		return {
+			display: props.visible ? 'flex' : 'none'
+		};
+	};
 
-	render() {
-		return(
+	return (
+		<div
+			className="modal-component"
+			style={{...hiddenStyle()}}
+		>
+			{props.children}
 			<div
-				className="modal-component"
-				hidden={this.state.visible}
+				className="control_box"
 			>
-				{this.props.children}
-				<div
-					className="control_box"
-				>
-					{this.props.controls.map((control: ModalControl ) => {
-						return (
-							<div
-								key={control.id}
-								className="modal-control"
-								onClick={(event: SyntheticEvent<HTMLDivElement>) => {
-									control.onClick(event);
-									this.setState(modalReducer(toggleVisibilityOn(), this.state));
-								}}
-								style={control.style || {}}
-							>
-								{control.label}
-							</div>
-						);
-					})}
-				</div>
+				{props.controls.map((control: ModalControl ) => {
+					return (
+						<div
+							key={control.id}
+							className="modal-control"
+							onClick={(event: SyntheticEvent<HTMLDivElement>) => {
+								control.onClick(event);
+							}}
+							style={control.style || {}}
+						>
+							{control.label}
+						</div>
+					);
+				})}
 			</div>
-		);
-	}
-}
+		</div>
+	);
+};

@@ -1,6 +1,7 @@
 /**
  * External Assets/Resources
  **/
+
 @import "./../node_modules/bootstrap/scss/bootstrap";
 @import url('https://fonts.googleapis.com/css?family=Raleway|Source+Sans+Pro');
 $pizza-pic: url('https://static.pexels.com/photos/710916/pexels-photo-710916.jpeg');
@@ -100,7 +101,6 @@ body {
 /**
  * Modular/Component Styles
  */
-
 
 @import './components/reusable/search-bar/search-bar.style';
 @import './components/landing/landing.style';

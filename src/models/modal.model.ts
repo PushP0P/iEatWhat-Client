@@ -10,12 +10,5 @@ export interface ModalControl {
 export interface ModalComponentProps {
 	controls: ModalControl[];
 	children?: any;
-}
-
-export interface ModalComponentState {
 	visible: boolean;
 }
-
-export const MODAL_STATE_INIT: ModalComponentState = {
-	visible: false
-};

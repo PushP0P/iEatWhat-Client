@@ -3,7 +3,7 @@ import { Route, Switch } from 'react-router';
 import { SignInComponent } from '../components/sign-in/sign-in.component';
 import { LandingComponent } from '../components/landing/landing.component';
 import { FoodDetailsComponent } from '../components/food/food-details/food-details.compnent';
-import { ResetPasswordComponent } from '../components/sign-in/reset-password.component';
+import { ResetPasswordComponent } from '../components/sign-in/password-reset/reset-password.component';
 
 export const MAIN_ROUTES_SWITCH = () => {
 	return (
