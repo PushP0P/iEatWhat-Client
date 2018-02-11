@@ -12,7 +12,7 @@ export const PhoneSignInForm = (props: PhoneFormProps) => {
 			className="phone-form"
 		>
 			<input
-				className="question"
+				className="input-group-text"
 				type="tel"
 				placeholder="phone number"
 				onChange={(evt: any) => phoneNumber = evt.target.value}

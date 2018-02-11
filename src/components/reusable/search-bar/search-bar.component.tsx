@@ -16,7 +16,7 @@ export const SearchBarComponent = () => {
 				<div
 					className="cancel-icon"
 				>
-					{SVGS.cross}
+					{SVGS.search}
 				</div>
 			</div>
 		</div>

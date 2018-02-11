@@ -62,28 +62,3 @@ export async function eventRequest(eventTrans: EventTransport): Promise<any> {
 		xhr.send(data);
 	}));
 }
-// export async function eventRequest(eventTrans: EventTransport): Promise<any> {
-// 	// Todo Token System
-// 	console.log('Event Request', eventTrans, EVENT_PATH);
-// 	const headers: Headers = new Headers({
-// 		'token': 'FooBatMetal163',
-// 		'Content-Type': 'form-data'
-// 	});
-// 	const req: Request = await new Request(EVENT_PATH, {
-// 		method: 'post',
-// 		cache: 'default',
-// 		mode: 'cors',
-// 		headers: headers,
-// 		body: JSON.stringify({
-// 			type: eventTrans.type,
-// 			payload: eventTrans.payload
-// 		})
-// 	});
-// 	const response: Response | void = await fetch(req)
-// 		.catch(err => alert('Event Error: ' + err));
-// 	if (response) {
-// 		console.log('server response raw', response);
-// 		return await response.json();
-// 	}
-// 	// return await ERROR_RESPONSE('Error with event request.', eventTrans.type);
-// }

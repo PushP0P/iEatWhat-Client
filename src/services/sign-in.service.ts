@@ -1,22 +1,43 @@
 import * as fb from 'firebase';
 import { StoreService } from './store.service';
-const store = new StoreService();
+import * as firebase from 'firebase/app';
+import AuthProvider = firebase.auth.AuthProvider;
 declare var window: any;
+// import history from './../router/router.history';
+const store = new StoreService();
 
 export function onGoogleSignIn(): void {
 	const provider = new fb.auth.GoogleAuthProvider();
-	provider.addScope('profile');
-	signInWithPopup(provider);
+	signInWithRedirect(provider);
 }
 
 export function onTwitterSignIn(): void {
 	const provider = new fb.auth.TwitterAuthProvider();
-	signInWithPopup(provider);
+	signInWithRedirect(provider);
 }
 
-export async function signInWithPopup(provider: any): Promise<void> {
+export async function signInWithPopup(provider: AuthProvider): Promise<void> {
 	const result = await fb.auth().signInWithPopup(provider);
-	console.log('signed in', result);
+	if (!result) {
+		return Promise.reject('Error with SignIn');
+	}
+	console.log('signed in with popup', result);
+	store.setStore('user', {...result.user});
+	store.setStore('tokens', {...result.credential});
+}
+
+export async function signInWithRedirect(provider: AuthProvider): Promise<void> {
+	const user = fb.auth().currentUser;
+	if (user) {
+		console.log('Link User', user);
+		await user.linkWithRedirect(provider);
+		return;
+	}
+	const result = await fb.auth().signInWithRedirect(provider);
+	if (!result) {
+		return Promise.reject('Error with SignIn');
+	}
+	console.log('Signed in with redirect', result);
 	store.setStore('user', {...result.user});
 	store.setStore('tokens', {...result.credential});
 }
@@ -58,7 +79,7 @@ export async function initializeReCAPTCHA(): Promise<void> {
 	await window.reCAPTCHA.render()
 		.then((widgetId: any) => {
 			window.recaptchaWidgetId = widgetId;
-	});
+		});
 }
 
 export function captchaVerified(verificationId: any): any {
@@ -67,24 +88,27 @@ export function captchaVerified(verificationId: any): any {
 }
 
 export function handleSignedInUser(user: any): void {
-
 	console.log('User Signed In', user);
+	// history.push('/dashboard');
 }
 
 export function handleSignedOutUser(): void {
-	console.log('USer Signed Out');
+	console.log('User Signed Out');
+	// history.push('/');
 }
 
-export function transformAndVerifyPhoneNumber(phoneNumber: string): string | null {
-	// Trim spaces and remove any '-'
-	const noSpaces: string = phoneNumber.trim().replace(/[-]/g, '');
+export function resetPasswordHandler(email: string): void {
+	fb.auth().sendPasswordResetEmail(email);
+}
 
+function transformAndVerifyPhoneNumber(phoneNumber: string): string | null {
+	// Trim spaces and remove any '-'s
+	const noSpaces: string = phoneNumber.trim().replace(/[-]/g, '');
 	// Ensure US prefixed number
 	const prefix: string = `${noSpaces.slice(0, 1) === '+1'
 		? noSpaces
 		: noSpaces[0] === '1'
 			? `+${noSpaces}`
 			: `+1${noSpaces}`}`;
-	console.log(prefix);
 	return prefix.length === 12 ? prefix : null;
 }
