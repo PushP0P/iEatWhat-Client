@@ -1,12 +1,16 @@
 import * as React from 'react';
 import { ReactElement, SyntheticEvent } from 'react';
 import { ModalComponent } from '../../reusable/modal/modal.component';
-import { ResetPasswordComponentProps, ResetPasswordComponentState } from '../../../models/password-reset.model';
+import {
+	PASSWORD_RESET_STATE_INIT, ResetPasswordComponentProps,
+	ResetPasswordComponentState
+} from '../../../models/password-reset.model';
 import { passwordResetReducer } from './password-reset.reducer';
 import { toggleModalVisibilityOff, toggleModalVisibilityOn } from './password-reset.actions';
 import { resetPasswordHandler } from '../../../services/sign-in.service';
 
 export class ResetPasswordComponent extends React.Component<ResetPasswordComponentProps, ResetPasswordComponentState> {
+	public state = PASSWORD_RESET_STATE_INIT;
 	private email = '';
 
 	constructor(public props: ResetPasswordComponentProps) {
