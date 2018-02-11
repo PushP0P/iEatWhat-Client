@@ -1,6 +1,7 @@
 /**
  * External Assets/Resources
  **/
+@import "./../node_modules/bootstrap/scss/bootstrap";
 @import url('https://fonts.googleapis.com/css?family=Raleway|Source+Sans+Pro');
 $pizza-pic: url('https://static.pexels.com/photos/710916/pexels-photo-710916.jpeg');
 $pasta-salad: url("https://static.pexels.com/photos/326278/pexels-photo-326278.jpeg");
@@ -29,6 +30,22 @@ $H4: 1.1em;
   transition: $props $time $curve;
 }
 
+@mixin btn-overwrite($background, $txt-color, $txt-color-hover) {
+  background-color: $background;
+  border-color: $background;
+  color:$txt-color;
+
+  &:hover, &:active, &:focus {
+    background-color: darken($background, 15%) !important;
+    border-color: darken($background, 15%) !important;
+    color: $txt-color-hover !important;
+  }
+
+  &:focus {
+    box-shadow:0 0 4px darken($background, 25%) !important;
+  }
+}
+
 
 /**
  * Overwrites and Settings
@@ -54,6 +71,22 @@ h4 {
   font-size: $H4;
 }
 
+.btn-primary {
+  @include btn-overwrite($color-primary,$color-background,$color-background)
+}
+
+.btn-success {
+  @include btn-overwrite($Success,$color-background,$color-background)
+}
+
+.btn-warning {
+  @include btn-overwrite($Warning,$color-text,$color-background)
+}
+
+.btn-danger {
+  @include btn-overwrite($Danger,$color-background,$color-background)
+}
+
 body {
   margin: 0;
   padding: 0;
@@ -68,10 +101,11 @@ body {
  * Modular/Component Styles
  */
 
-@import 'components/reusable/search-bar/search-bar.style';
+@import './components/reusable/search-bar/search-bar.style';
 @import './components/landing/landing.style';
 @import './components/sign-in/sign-in.style';
 @import './components/comments/comments.style';
 @import './components/food/food-details/food-details.style';
-@import 'components/reusable/categories/category.style';
+@import './components/reusable/categories/category.style';
 @import './components/reusable/voting/voting.style';
+@import './components/dashboard/dashboard.style';

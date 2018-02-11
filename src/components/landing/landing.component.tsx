@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { ReactElement } from 'react';
 import { SearchBarComponent } from '../reusable/search-bar/search-bar.component';
+import { DashboardComponent } from '../dashboard/dashboard.component';
 
 /**
  *  FIXTURES - Placeholders
@@ -24,6 +25,7 @@ export class LandingComponent extends React.Component<any, any> {
 				<SearchBarComponent />
 				<SearchResultsComponent />
 				<FooterComponent />
+				<DashboardComponent />
 			</div>
 		);
 	}
