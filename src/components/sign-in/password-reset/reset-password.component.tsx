@@ -21,7 +21,7 @@ export class ResetPasswordComponent extends React.Component<ResetPasswordCompone
 	public render(): ReactElement<HTMLDivElement> {
 		return (
 			<form
-				className="reset-component"
+				className="password-reset-component"
 			>
 				<h1>Reset Your Password</h1>
 				<p>Please provide your accounts email address and an email will be sent to that accounts email with

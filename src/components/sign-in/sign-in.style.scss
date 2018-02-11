@@ -4,18 +4,6 @@
   flex-direction: row;
   justify-content: center;
 
-  form {
-    input {
-      outline: none;
-      text-align: center;
-      padding: 5px;
-      background: none;
-      border: $color-primary solid 1px;
-      border-radius: 5px;
-      margin-bottom: 5px;
-    }
-  }
-
   .content {
     height: 100%;
     display: flex;
@@ -42,6 +30,10 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+  }
+
+  input {
+    margin-bottom: 10px;
   }
 
   .btn {

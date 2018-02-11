@@ -5,6 +5,7 @@ export interface ModalControl {
 	label: string;
 	onClick: (event: SyntheticEvent<HTMLDivElement>) => void;
 	style?: {};
+	classNames?: string;
 }
 
 export interface ModalComponentProps {

@@ -22,6 +22,7 @@
     .cancel-box {
       position: relative;
       background: $color-primary ;
+      border-radius: 5px;
       width: 50px;
       height: 50px;
       color: $color-background;
@@ -29,7 +30,8 @@
       text-align: center;
       @include transition();
 
-      .cancel-icon {
+      .search-icon {
+        //overflow: hidden;
         align-content: center;
         height: 100%;
         cursor: pointer;
