@@ -4,9 +4,10 @@ import { SignInComponent } from '../components/sign-in/sign-in.component';
 import { LandingComponent } from '../components/landing/landing.component';
 import { FoodDetailsComponent } from '../components/food/food-details/food-details.compnent';
 import { ResetPasswordComponent } from '../components/sign-in/password-reset/reset-password.component';
-import {MapBoxComponent} from '../components/map-box/map-box.component';
+import { MapBoxComponent } from '../components/map-box/map-box.component';
+import { StoreService } from '../services/store.service';
 
-export const MAIN_ROUTES_SWITCH = () => {
+export const MAIN_ROUTES_SWITCH = (store: StoreService) => {
 	return (
 		<Switch>
 			<Route
@@ -17,6 +18,7 @@ export const MAIN_ROUTES_SWITCH = () => {
 						return(
 							<LandingComponent
 								{...routes}
+								store={store}
 							/>
 						);
 					}
@@ -32,6 +34,7 @@ export const MAIN_ROUTES_SWITCH = () => {
 								locations={new Map()}
 								mapName="Demo"
 								{...routes}
+								store={store}
 							/>
 						);
 					}

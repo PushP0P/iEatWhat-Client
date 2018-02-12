@@ -45,8 +45,8 @@ export class MapBoxComponent extends React.Component<MapBoxComponentProps, MapBo
 					imgURL={this.state.targetDetails.storeFrontImgURL}
 					targetDetails={this.state.targetDetails}
 					product={this.state}
-					navigationMode={}
-					eta={}
+					navigationMode={this.state.navigationType}
+					eta={this.state.}
 				/>
 				<div
 					className="options"

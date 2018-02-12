@@ -1,10 +1,21 @@
 import * as fb from 'firebase';
-import { StoreService } from './store.service';
 import * as firebase from 'firebase/app';
 import AuthProvider = firebase.auth.AuthProvider;
+import {FIREBASE_CONFIG} from '../configs/firebase.config';
+import {BehaviorSubject, Observable, Observer} from '@reactivex/rxjs';
 declare var window: any;
 // import history from './../router/router.history';
-const store = new StoreService();
+
+firebase.initializeApp(FIREBASE_CONFIG);
+
+const userAuthStateSource: BehaviorSubject<firebase.User | null> = new BehaviorSubject<firebase.User|null>(null);
+export const userAuthStat$: Observable<firebase.User | null> = userAuthStateSource.asObservable();
+
+firebase.auth()
+	.onAuthStateChanged(
+		(user: firebase.User) => {
+			user ? userAuthStateSource.next(user) : userAuthStateSource.next(null);
+	});
 
 export function onGoogleSignIn(): void {
 	const provider = new fb.auth.GoogleAuthProvider();
@@ -22,8 +33,6 @@ export async function signInWithPopup(provider: AuthProvider): Promise<void> {
 		return Promise.reject('Error with SignIn');
 	}
 	console.log('signed in with popup', result);
-	store.setStore('user', {...result.user});
-	store.setStore('tokens', {...result.credential});
 }
 
 export async function signInWithRedirect(provider: AuthProvider): Promise<void> {
@@ -38,8 +47,6 @@ export async function signInWithRedirect(provider: AuthProvider): Promise<void> 
 		return Promise.reject('Error with SignIn');
 	}
 	console.log('Signed in with redirect', result);
-	store.setStore('user', {...result.user});
-	store.setStore('tokens', {...result.credential});
 }
 
 export async function onEmailSignIn(email: string, password: string): Promise<void> {
@@ -88,6 +95,7 @@ export function captchaVerified(verificationId: any): any {
 }
 
 export function handleSignedInUser(user: any): void {
+
 	console.log('User Signed In', user);
 	// history.push('/dashboard');
 }

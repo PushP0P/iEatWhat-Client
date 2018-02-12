@@ -20,14 +20,22 @@ const ERROR_RESPONSE: ((message: string, eventType: string) => Response) = (mess
  * @returns {Promise<{}>}
  */
 export async function httpRequest(path: string, verb?: string, headers?: {}, body?: {} ): Promise<Response> {
-	const req: Request = await new Request(path, <RequestInit> {
+	const request: Request = await new Request(path, <RequestInit> {
 		method: verb || 'get',
 		cache: 'default',
 		mode: 'cors',
 		headers: headers ? await new Headers(headers) : {},
 		body: body ? body : null
 	});
-	const response: Response | void = await fetch(req)
+
+	// might get stuck on stale content
+	const cached = await new Cache()
+		.match(request);
+	if (cached) {
+		return cached;
+	}
+
+	const response: Response | void = await fetch(request)
 		.catch(err => alert('Fetch Error: ' + err));
 	if (response) {
 		return await response.json();
@@ -41,6 +49,7 @@ export async function httpRequest(path: string, verb?: string, headers?: {}, bod
  * @returns {Promise<EventResponse>}
  */
 export async function eventRequest(eventTrans: EventTransport): Promise<any> {
+
 	return new Promise(((resolve, reject) => {
 		const data = new FormData();
 		const xhr = new XMLHttpRequest();

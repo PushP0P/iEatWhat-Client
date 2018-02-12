@@ -8,6 +8,7 @@ import { registerWorkers } from './registerServiceWorker';
 import * as firebase from 'firebase';
 import { handleSignedInUser, handleSignedOutUser } from './services/sign-in.service';
 import { FIREBASE_CONFIG } from './configs/firebase.config';
+import {Observable, Observer} from '@reactivex/rxjs';
 
 // If Service Worker is supported then register
 if ('serviceWorker' in navigator) {
@@ -17,10 +18,7 @@ if ('serviceWorker' in navigator) {
 }
 
 // Initialize FireBase and check for user session.
-firebase.initializeApp(FIREBASE_CONFIG);
-firebase.auth().onAuthStateChanged((user: any) => {
-	user ? handleSignedInUser(user) : handleSignedOutUser();
-});
+
 
 // Launch ReactJS
 ReactDOM.render(
