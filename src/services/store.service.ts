@@ -2,18 +2,7 @@ import { STORE_CONFIG, STORE_NAMES } from '../configs/store.config';
 import { openIDBUtilities } from 'indexed-db-utilities/dist/utilities/index-db.utility';
 import { IDBUtility } from 'indexed-db-utilities/dist/models/idb-utility.model';
 import { CommentsList } from '../models/comments.model';
-
-interface UserStore {
-	id: string;
-	firstName: string;
-	lastName: string;
-	name: string;
-	email: string;
-	photoURL: string;
-	searchConstraints: string[];
-	commentsHistory: CommentsList;
-	signedIn: boolean;
-}
+import {BehaviorSubject} from '@reactivex/rxjs';
 
 interface TokenStore {
 	googleAccess: string;
@@ -24,6 +13,7 @@ interface TokenStore {
 }
 
 export class StoreService {
+	private globalStore = BehaviorSubject<>()
 	public stores: IDBUtility;
 	public user: UserStore = <UserStore> {};
 	public tokens: TokenStore = <TokenStore> {};

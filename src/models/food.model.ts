@@ -1,4 +1,4 @@
-export interface FoodItem {
+export interface FoodItem extends FoodItemMeta{
 	id: string;
 	isbn: string;
 	slug: string;
@@ -9,6 +9,25 @@ export interface FoodItem {
 	categoryTags: string[];
 	description: FoodDescription;
 	ingredients: FoodIngredient[];
+}
+
+export interface Category {
+	icon: string;
+	label: string;
+	foodGroups: string[];
+	blackListedNutrients: FoodIngredient[];
+}
+
+export interface FoodItemMeta {
+	rating: number;
+	reviewed: boolean;
+	reviews: number;
+	restaurantItem: boolean;
+	storeItem: boolean;
+	homeMadeItem: boolean;
+	SoldAt: string[];
+	verifiedCategories: Category[];
+	lastUpdated: number;
 }
 
 export interface FoodDescription {
