@@ -17,7 +17,7 @@ function makeUSDAEndpoint(
 			case'search':
 				return queries.reduce(
 					(acc: string, query: string) => {
-						return `&${acc}${USDA_SEARCH_KEYS.search_terms}=${query}`;
+						return `${acc}&${USDA_SEARCH_KEYS.search_terms}=${query}`;
 					},
 					''
 				);
@@ -30,7 +30,8 @@ function makeUSDAEndpoint(
 		}
 	}
 
-	const urlString = url + insertOptions() + `${USDA_SEARCH_KEYS.apiKey}=${USDA_CONFIG.apiKey}`;
+	const urlString = `${url}/${requestType}/?${options.search.queries}&${insertOptions()}&${USDA_SEARCH_KEYS.apiKey}=${USDA_CONFIG.apiKey}`;
+	console.log('url', urlString);
 	return urlString;
 	// add query
 

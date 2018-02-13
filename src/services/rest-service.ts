@@ -24,16 +24,20 @@ export async function httpRequest(path: string, verb?: string, headers?: {}, bod
 		method: verb || 'get',
 		cache: 'default',
 		mode: 'cors',
-		headers: headers ? await new Headers(headers) : {},
+		headers: {
+			'origin': 'localhost:3000'
+		},
 		body: body ? body : null
 	});
 
 	// might get stuck on stale content
-	const cached = await new Cache()
-		.match(request);
-	if (cached) {
-		return cached;
-	}
+	// if ('Cache' in navigator) {
+	// 	const cached = await new Cache()
+	// 		.match(request);
+	// 	if (cached) {
+	// 		return cached;
+	// 	}
+	// }
 
 	const response: Response | void = await fetch(request)
 		.catch(err => alert('Fetch Error: ' + err));
