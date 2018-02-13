@@ -1,3 +1,5 @@
+import { StoreService } from '../services/store.service';
+
 export interface Category {
 	icon: string;
 	label: string;
@@ -43,6 +45,7 @@ export interface FoodIngredient {
 }
 
 export interface FoodDetailsComponentProps {
+	store: StoreService;
 	foodId: string;
 	topic: string;
 }

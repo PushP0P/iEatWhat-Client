@@ -7,7 +7,7 @@ export interface USDARequestOptions {
 export interface USDASearchParams {
 	queries?: string[];
 	foodGroupId?: string;
-	dataSource: 'Branded Food Products' | 'Standard Reference';
+	dataSource?: 'Branded Food Products' | 'Standard Reference';
 	pagination?: {
 		offset?: number;
 		max?: number;

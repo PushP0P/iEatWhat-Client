@@ -1,26 +1,44 @@
-// import { FoodItem } from '../models/food.model';
-import { USDA_SEARCH_KEYS, USDARequestOptions } from '../models/usda.model';
+// tslint:disable
+import {
+	USDA_SEARCH_KEYS, USDAListParams, USDARequestParams,
+	USDASearchParams
+} from '../models/usda.model';
 import { FoodItem } from '../models/food.model';
 import { httpRequest } from './rest-service';
 import { USDA_CONFIG } from '../configs/usda.private.config';
-
 const rootPath: string = 'https://api.nal.usda.gov/ndb';
 
+interface USDADBOptions {
+	url?: string;
+	queries: string[];
+	params?: USDASearchParams | USDAListParams | USDARequestParams;
+	requestType?: 'report' | 'search' | 'list';
+}
+
 function makeUSDAEndpoint(
-	queries: string[],
-	options?: USDARequestOptions,
-	url: string = rootPath,
-	requestType: 'report' | 'search' | 'list' = 'search'
+	options: USDADBOptions
 ): string {
-	function insertOptions(): string {
-		switch (requestType) {
+	function interpolateURL(): string {
+		switch (options.requestType) {
 			case'search':
-				return queries.reduce(
-					(acc: string, query: string) => {
+				const queryString: string = options.queries.reduce(
+					(
+						acc: string,
+						query: string
+					) => {
 						return `${acc}&${USDA_SEARCH_KEYS.search_terms}=${query}`;
-					},
-					''
-				);
+							},'');
+				if (options && options.params) {
+					const paramsString: string = Object.keys(options.params).reduce(
+						(acc: string, key: string) => {
+							if(options && options.params) {
+								return `${acc}&${USDA_SEARCH_KEYS[key]}=${options.params[key]}`
+							}
+							return acc;
+						}, '');
+					return `${options.url || rootPath}/${options.requestType}/?${queryString}&${paramsString}&${USDA_SEARCH_KEYS.apiKey}=${USDA_CONFIG.apiKey}`;
+				}
+				return `${options.url || rootPath}/${options.requestType}/?${queryString}&${USDA_SEARCH_KEYS.apiKey}=${USDA_CONFIG.apiKey}`;
 			case'report':
 				return '';
 			case'list':
@@ -30,7 +48,7 @@ function makeUSDAEndpoint(
 		}
 	}
 
-	const urlString = `${url}/${requestType}/?${options.search.queries}&${insertOptions()}&${USDA_SEARCH_KEYS.apiKey}=${USDA_CONFIG.apiKey}`;
+	const urlString = interpolateURL();
 	console.log('url', urlString);
 	return urlString;
 	// add query
@@ -44,8 +62,8 @@ function makeUSDAEndpoint(
 	// if add report type
 }
 
-export async function queryFood(query: string[]): Promise<Set<FoodItem>> {
-	const url: string = await makeUSDAEndpoint(query);
+export async function queryFood(options: USDADBOptions): Promise<Set<FoodItem>> {
+	const url: string = await makeUSDAEndpoint(options);
 	const response: Response = await httpRequest(url, 'GET');
 	console.log('get', response);
 	return response.json();

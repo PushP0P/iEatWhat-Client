@@ -1,30 +1,34 @@
-import { BehaviorSubject, Subject } from '@reactivex/rxjs';
-import { MAIN_COMPONENT_STATE_INIT } from '../models/main.model';
+import { BehaviorSubject, Observable } from '@reactivex/rxjs';
 import { Action } from '../models/action.model';
 import { Reducer } from '../models/reducer.model';
+import { openIDBUtilities } from 'indexed-db-utilities/dist/utilities/index-db.utility';
+import { IDBU_CONFIG } from '../configs/store.config';
 
-interface MasterState {
+export interface MasterState {
 	[stateProps: string]: any;
 }
 
-class Dispatcher extends Subject<any> {
-	public dispatch(action: Action): void {
-		this.next(action);
-	}
-}
-
 export class StoreService extends BehaviorSubject<MasterState> {
-	private reducers: Map<string, Reducer> = new Map<string, Reducer>();
+	public reducers: Set<Reducer> = new Set<Reducer>();
 
-	public static initializeStore(): StoreService {
-		return new StoreService(new Dispatcher());
+	constructor() {
+		super({});
 	}
 
-	public constructor(public dispatcher: Dispatcher) {
-		super(MAIN_COMPONENT_STATE_INIT);
+	public registerStore$(reducer: Reducer, initialState: {[prop: string]: any}): Observable<MasterState> {
+		this.reducers.add(reducer);
+		this.next({...this.value, ...initialState});
+		return this.asObservable();
 	}
 
-	public registerReducer(componentName: string, reducer: Reducer): void {
-		this.reducers.set(componentName, reducer);
+	public dispatch(action: Action) {
+		this.reducers
+			.forEach(reducer =>
+				this.next(reducer(action, this.value)));
+	}
+
+	public async cacheContent(cacheable: any, request: Request): Promise<void> {
+		const idbu = await openIDBUtilities(IDBU_CONFIG);
+		console.log('indexedDB', idbu);
 	}
 }

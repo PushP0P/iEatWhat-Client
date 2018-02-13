@@ -5,6 +5,7 @@ import { MainComponent } from './components/main/main.component';
 import history from './router/router.history';
 import './main.style.css';
 import { registerWorkers } from './registerServiceWorker';
+import { StoreService } from './services/store.service';
 
 // If Service Worker is supported then register
 if ('serviceWorker' in navigator) {
@@ -16,7 +17,9 @@ if ('serviceWorker' in navigator) {
 // Launch ReactJS
 ReactDOM.render(
 	<Router history={history}>
-		<MainComponent/>
+		<MainComponent
+			store={new StoreService()}
+		/>
 	</Router>,
 	document.getElementById('iEatWhat') as HTMLElement
 );

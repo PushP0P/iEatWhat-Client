@@ -4,7 +4,6 @@ import { SearchBarProps } from '../../../models/search-bar.model';
 import { SyntheticEvent } from 'react';
 
 export const SearchBarComponent = (props: SearchBarProps) => {
-
 	return(
 		<div
 			className="search-bar-component"

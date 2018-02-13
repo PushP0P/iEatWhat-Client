@@ -2,45 +2,51 @@ import * as React from 'react';
 import { ReactElement } from 'react';
 import { SearchBarComponent } from '../reusable/search-bar/search-bar.component';
 import { DashboardComponent } from '../dashboard/dashboard.component';
-import { LandingComponentProps, LandingComponentState } from '../../models/landing.model';
-import { BehaviorSubject, Observable, Subscription } from '@reactivex/rxjs';
+import { LANDING_STATE_INIT, LandingComponentProps } from '../../models/landing.model';
+import { Subscription } from '@reactivex/rxjs';
 import { queryFood, transformInputValToQuery } from '../../services/search.service';
+import { landingReducer } from './landing.reducer';
+import { MasterState } from '../../services/store.service';
+import { actionSelectItem, actionShowResults } from './landing.actions';
 
 /**
  *  FIXTURES - Placeholders
  */
 export const NavbarComponent = () => <div>NAVBAR PLACEHOLDER</div>;
 export const FooterComponent = () => <div>FOOTER PLACEHOLDER</div>;
-export const SearchResultsComponent = (props: any) => <div>SEARCH RESULTS PLACEHOLDER</div>;
+export const SearchResultsComponent = (props: any) => {
+	const style = props.visible ? {} : {display: 'none'};
+	return (
+		<div
+			style={{...style}}
+		>
+			SEARCH RESULTS PLACEHOLDER
+		</div>
+	);
+};
 
-export class LandingComponent extends React.Component<LandingComponentProps, LandingComponentState> {
-	private searchValueSource: BehaviorSubject<string> = new BehaviorSubject<string>('');
-	private searchValue$: Observable<string> = this.searchValueSource.asObservable();
-	private subscriptions: Subscription;
+export class LandingComponent extends React.Component<LandingComponentProps, MasterState> {
+	private searchValue: string = '';
+	private stateSubscription: Subscription = this.props.store.registerStore$(landingReducer, LANDING_STATE_INIT)
+		.subscribe((state: MasterState) => {
+			this.setState(state);
+			self.addEventListener('onkeyup', (evt: KeyboardEvent) => {
+				evt.preventDefault();
+				if (evt.key) {
+					this.queryHandler();
+				}
+			});
+		});
 
-	constructor(public props: any) {
+	constructor(public props: LandingComponentProps) {
 		super(props);
 		this.foodItemSelectHandler = this.foodItemSelectHandler.bind(this);
 		this.queryHandler = this.queryHandler.bind(this);
 		this.handleInputChange = this.handleInputChange.bind(this);
 	}
 
-	public componentDidMount(): void {
-		addEventListener('onKeyUp', (evt: KeyboardEvent) => {
-			evt.preventDefault();
-			if (evt.key) {
-				this.queryHandler();
-			}
-		});
-		this.subscriptions = this.searchValue$.subscribe((searchVal: string) => {
-			this.setState({
-				searchValue: searchVal
-			});
-		});
-	}
-
 	public componentWillUnmount(): void {
-		this.subscriptions.unsubscribe();
+		this.stateSubscription.unsubscribe();
 	}
 
 	public render(): ReactElement<HTMLDivElement> {
@@ -53,25 +59,33 @@ export class LandingComponent extends React.Component<LandingComponentProps, Lan
 					onQuery={this.queryHandler}
 					onInputChange={this.handleInputChange}
 				/>
-				<SearchResultsComponent
-					onItemSelect={this.foodItemSelectHandler}
-				/>
+				{this.state.searchResultsVisible
+					? <SearchResultsComponent
+						searchResults={this.state.searchResults}
+						onItemSelect={this.foodItemSelectHandler}
+						visible={this.state.searchResultsVisible}
+					/>
+						: <div/>
+				}
 				<FooterComponent />
 				<DashboardComponent />
 			</div>
 		);
 	}
 
-	private handleInputChange(val: string): void {
-		this.searchValueSource.next(val);
+	private handleInputChange(searchValue: string): void {
+		this.searchValue = searchValue;
 	}
 
 	private async queryHandler(): Promise<void> {
-		const query = await queryFood(transformInputValToQuery(this.state.searchValue));
-		console.log('Query return', query);
+		const searchResult = await queryFood({
+			queries: transformInputValToQuery(this.searchValue),
+			requestType: 'search'
+		});
+		this.props.store.dispatch(actionShowResults(searchResult));
 	}
 
-	private foodItemSelectHandler(evt: Event, foodItemId: string): void {
-		console.log('kthxbye');
+	private async foodItemSelectHandler(evt: Event, foodItemId: string): Promise<void> {
+		this.props.store.dispatch(actionSelectItem(this.state.searchResults[foodItemId]));
 	}
 }

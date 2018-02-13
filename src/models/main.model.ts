@@ -1,7 +1,8 @@
 import { FoodItem } from './food.model';
+import { StoreService } from '../services/store.service';
 
 export interface MainComponentProps {
-
+	store: StoreService;
 }
 
 export interface MainComponentState {

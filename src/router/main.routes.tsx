@@ -73,6 +73,7 @@ export const MAIN_ROUTES_SWITCH = (store: StoreService) => {
 								foodId={'TestFood1234'}
 								topic={'Food Details'}
 								{...routes}
+								store={store}
 							/>
 						);
 					}

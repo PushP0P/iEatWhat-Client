@@ -1,8 +1,9 @@
 import { MainComponentState } from '../../models/main.model';
 import { Action } from '../../models/action.model';
 import { FoodItem } from '../../models/food.model';
+import { Reducer } from '../../models/reducer.model';
 
-export function mainReducer(action: Action, currentState: MainComponentState): MainComponentState {
+export const mainReducer: Reducer = function(action: Action, currentState: MainComponentState): MainComponentState {
 	const {type, payload} = action;
 	switch (type) {
 		case'APP_DONE_BOOTING':
@@ -12,7 +13,7 @@ export function mainReducer(action: Action, currentState: MainComponentState): M
 		default:
 			return currentState;
 	}
-}
+};
 
 export function appDoneBooting(): Action {
 	return {type: 'APP_DONE_BOOTING', payload: {}};
