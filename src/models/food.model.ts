@@ -1,16 +1,3 @@
-export interface FoodItem extends FoodItemMeta{
-	id: string;
-	isbn: string;
-	slug: string;
-	topic: string;
-	lastUpdated: number;
-	imageURL: string;
-	foodName: string;
-	categoryTags: string[];
-	description: FoodDescription;
-	ingredients: FoodIngredient[];
-}
-
 export interface Category {
 	icon: string;
 	label: string;
@@ -25,9 +12,22 @@ export interface FoodItemMeta {
 	restaurantItem: boolean;
 	storeItem: boolean;
 	homeMadeItem: boolean;
-	SoldAt: string[];
+	soldAt: string[];
 	verifiedCategories: Category[];
 	lastUpdated: number;
+}
+
+export interface FoodItem extends FoodItemMeta {
+	id: string;
+	isbn: string;
+	slug: string;
+	topic: string;
+	lastUpdated: number;
+	imageURL: string;
+	foodName: string;
+	categoryTags: string[];
+	description: FoodDescription;
+	ingredients: FoodIngredient[];
 }
 
 export interface FoodDescription {

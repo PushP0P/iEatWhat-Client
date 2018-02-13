@@ -2,10 +2,18 @@ import { FoodItem } from '../models/food.model';
 
 const FIXTURE_FOOD_DETAILS: FoodItem = {
 	id: 'TestFood',
+	restaurantItem: false,
+	storeItem: false,
+	homeMadeItem: true,
+	soldAt: [],
+	verifiedCategories: [],
+	lastUpdated: Date.now(),
+	reviews: 123,
+	reviewed: false,
+	rating: 1234,
 	isbn: '12432foobar',
 	slug: 'test-food-12432foobar',
 	topic: 'Test Food',
-	lastUpdated: Date.now(),
 	imageURL: 'https://static.pexels.com/photos/461198/pexels-photo-461198.jpeg',
 	foodName: 'Demo Food for Thought',
 	categoryTags: ['No Gluten', 'No Dairy', 'Protein'],
@@ -35,6 +43,7 @@ const FIXTURE_FOOD_DETAILS: FoodItem = {
 	],
 };
 
-export async function getFoodDetails(foodId: string): Promise<FoodItem> {
-	return FIXTURE_FOOD_DETAILS;
+export async function getFoodDetails(foodId: string): Promise<Set<any>> {
+	// return await queryFood(['cheeze','wiz'], {});
+	return new Set([FIXTURE_FOOD_DETAILS]);
 }

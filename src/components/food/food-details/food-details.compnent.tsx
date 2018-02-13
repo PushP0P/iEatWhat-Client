@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {
 	FOOD_DETAILS_STATE_INIT, FoodDetailsComponentProps,
-	FoodDetailsComponentState
+	FoodDetailsComponentState, FoodItem
 
 } from '../../../models/food.model';
 import { ReactElement } from 'react';
@@ -20,15 +20,15 @@ export class FoodDetailsComponent extends React.Component<FoodDetailsComponentPr
 	}
 
 	public async componentDidMount(): Promise<void> {
-		const details = await getFoodDetails(this.props.foodId);
+		const details: Set<FoodItem> = await getFoodDetails(this.props.foodId);
 		this.setState({
-			foodDetails: details,
+			foodDetails: details.values()[0],
 			dataReady: true
 		});
 	}
 
 	public render(): ReactElement<HTMLDivElement> {
-		console.log('imgURL', this.state.foodDetails.imageURL);
+		console.log('imgURL', this.state);
 		if (this.state.dataReady) {
 			return (
 				<div

@@ -1,6 +1,6 @@
 export interface ContentCache {
 	[components: string]: {
-		[eventType: string]: EventRequest
+		[eventType: string]: EventRequest;
 	};
 }
 
@@ -16,6 +16,6 @@ export interface BundleCache {
 }
 
 export interface EventRequest {
-	request: Request
+	request: Request;
 	response: Response;
 }

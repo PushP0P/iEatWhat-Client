@@ -1,4 +1,4 @@
-import {MapBoxLocation} from '../models/map-box.model';
+import { MapBoxLocation } from '../models/map-box.model';
 
 export async function getDeviceLocation(): Promise<MapBoxLocation | PositionError | {} | void> {
 	if (!('geolocation' in navigator)) {
@@ -7,14 +7,14 @@ export async function getDeviceLocation(): Promise<MapBoxLocation | PositionErro
 	}
 	return await new Promise((resolve, reject): void => {
 		const successhandler: PositionCallback = (position: Position) => {
-			resolve(<MapBoxLocation>{
+			resolve(<MapBoxLocation> {
 				long: position.coords.longitude,
 				lat: position.coords.latitude
 			});
 		};
 		const errorHandler: PositionErrorCallback = (error: PositionError) => {
-			reject(<PositionError>error);
+			reject(<PositionError> error);
 		};
-        navigator.geolocation.getCurrentPosition(successhandler, errorHandler);
+		navigator.geolocation.getCurrentPosition(successhandler, errorHandler);
 	});
 }

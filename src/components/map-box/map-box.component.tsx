@@ -10,16 +10,15 @@ export class MapBoxComponent extends React.Component<MapBoxComponentProps, MapBo
 	private map: Map;
 
 	public componentDidMount(): void {
-
 		this.map = new mapboxgl.Map({
 			container: 'MapContainer',
 			style: 'mapbox://styles/mapbox/light-v10'
 		});
 		console.log('map', this.map);
-
 	}
-	public render(): ReactElement<HTMLDivElement>{
-		return(
+
+	public render(): ReactElement<HTMLDivElement> {
+		return (
 			<div
 				className="map-box-component"
 			>
@@ -32,10 +31,7 @@ export class MapBoxComponent extends React.Component<MapBoxComponentProps, MapBo
 				<div
 					className="map"
 					id="MapContainer"
-				>
-
-				</div>
-
+				/>
 				<div>
 					^
 				</div>
@@ -44,17 +40,14 @@ export class MapBoxComponent extends React.Component<MapBoxComponentProps, MapBo
 					sideList={[]}
 					imgURL={this.state.targetDetails.storeFrontImgURL}
 					targetDetails={this.state.targetDetails}
-					product={this.state}
+					product={this.props.store.value.selectedFoodItem}
 					navigationMode={this.state.navigationType}
-					eta={this.state.}
+					eta={this.state.distance}
 				/>
 				<div
 					className="options"
-				>
-
-				</div>
-
+				/>
 			</div>
-		)
+		);
 	}
 }

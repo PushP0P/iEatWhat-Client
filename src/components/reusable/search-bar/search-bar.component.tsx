@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { SVGS } from '../../../assets/react-svgs.asset';
-import {SearchBarProps} from '../../../models/search-bar.model';
+import { SearchBarProps } from '../../../models/search-bar.model';
+import { SyntheticEvent } from 'react';
 
 export const SearchBarComponent = (props: SearchBarProps) => {
 
@@ -11,7 +12,12 @@ export const SearchBarComponent = (props: SearchBarProps) => {
 			<input
 				type="text"
 				className="search-input"
-				onBlur={props.onQuery}
+				onChange={(evt: SyntheticEvent<HTMLInputElement>) => {
+					props.onInputChange((evt.target as any).value);
+				}}
+				onBlur={(evt: SyntheticEvent<HTMLInputElement>) => {
+					props.onQuery((evt.target as any).value);
+				}}
 			/>
 			<div
 				className="cancel-box"

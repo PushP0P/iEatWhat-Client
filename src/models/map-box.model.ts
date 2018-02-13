@@ -1,26 +1,27 @@
-import {StoreService} from '../services/store.service';
+import { StoreService } from '../services/store.service';
 
 export interface MapBoxComponentProps {
-	locations: Map<string, MapBoxLocation>
+	locations: Map<string, MapBoxLocation>;
 	mapName: string;
 	store: StoreService;
 }
 
 export interface MapBoxComponentState {
+	id: string;
 	dataReady: boolean;
-	targetLocation: MapBoxLocation
+	targetLocation: MapBoxLocation;
 	targetDetails: DestinationDetails;
-	userLocation : MapBoxLocation;
+	userLocation: MapBoxLocation;
 	distance: number;
 	eta: number;
-	zoom: number,
+	zoom: number;
 	navigationOn: boolean;
-	navigationType: 'walking' | 'driving' | 'public'
+	navigationType: 'walking' | 'driving' | 'public';
 }
 
 export interface MapBoxLocation {
-	long: number,
-	lat: number,
+	long: number;
+	lat: number;
 }
 
 export interface DestinationDetails {
@@ -37,7 +38,7 @@ export interface DestinationDetails {
 
 export const MAP_BOX_STATE_INIT: MapBoxComponentState = {
 	dataReady: false,
-
+	id: '',
 	targetLocation: <MapBoxLocation> {},
 	targetDetails: <DestinationDetails> {},
 	userLocation: <MapBoxLocation> {},

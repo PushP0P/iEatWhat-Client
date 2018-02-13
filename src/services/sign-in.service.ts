@@ -1,8 +1,8 @@
 import * as fb from 'firebase';
 import * as firebase from 'firebase/app';
 import AuthProvider = firebase.auth.AuthProvider;
-import {FIREBASE_CONFIG} from '../configs/firebase.config';
-import {BehaviorSubject, Observable, Observer} from '@reactivex/rxjs';
+import { FIREBASE_CONFIG } from '../configs/firebase.config';
+import { BehaviorSubject, Observable } from '@reactivex/rxjs';
 declare var window: any;
 // import history from './../router/router.history';
 

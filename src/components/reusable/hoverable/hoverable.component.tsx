@@ -4,7 +4,7 @@ import { ReactElement } from 'react';
 interface HoverableProps {
 	label: string;
 	icon: string;
-	children?: ReactElement<HTMLDivElement> | HTMLDivElement
+	children?: ReactElement<HTMLDivElement> | HTMLDivElement;
 }
 
 export const Hoverable = (props: HoverableProps) => {

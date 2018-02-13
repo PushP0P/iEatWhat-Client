@@ -7,8 +7,8 @@ import { Hoverable } from '../reusable/hoverable/hoverable.component';
 
 interface InfoPanelControlledProps {
 	collapsed: boolean;
-	sideList: string[]
-	imgURL: string
+	sideList: string[];
+	imgURL: string;
 	targetDetails: DestinationDetails;
 	product: FoodItem;
 	navigationMode: string;
@@ -16,7 +16,7 @@ interface InfoPanelControlledProps {
 }
 
 export const InfoPanelComponent = (props: InfoPanelControlledProps) => {
-	return(
+	return (
 		<div
 			className="info-panel-component"
 		>
@@ -59,17 +59,16 @@ export const InfoPanelComponent = (props: InfoPanelControlledProps) => {
 						icon={'building'}
 					>
 						<ul>
-						    <li>
-							    {props.targetDetails.street}
-						    </li>
 							<li>
-							    {props.targetDetails.city}
-
-							    {props.targetDetails.zipCode}
-						    </li>
+								{props.targetDetails.street}
+							</li>
 							<li>
-							    {props.targetDetails.county}
-						    </li>
+								{props.targetDetails.city}
+								{props.targetDetails.zipCode}
+							</li>
+							<li>
+								{props.targetDetails.county}
+							</li>
 						</ul>
 					</Hoverable>
 				</div>
@@ -79,10 +78,10 @@ export const InfoPanelComponent = (props: InfoPanelControlledProps) => {
 				<div>
 					<Hoverable
 						label={`Arive in: ${moment(props.eta).format('LT')}`}
-		                icon="map-marker"
+						icon="map-marker"
 					/>
 				</div>
 			</div>
 		</div>
-	)
+	);
 };
