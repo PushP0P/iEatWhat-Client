@@ -12,7 +12,10 @@ export class StoreService extends BehaviorSubject<MasterState> {
 	public reducers: Set<Reducer> = new Set<Reducer>();
 
 	constructor() {
-		super({});
+		super({
+			currentUser: {}
+		});
+		console.log('calling store');
 	}
 
 	public registerStore$(reducer: Reducer, initialState: {[prop: string]: any}): Observable<MasterState> {

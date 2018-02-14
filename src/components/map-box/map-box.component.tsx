@@ -10,6 +10,7 @@ export class MapBoxComponent extends React.Component<MapBoxComponentProps, MapBo
 	private map: Map;
 
 	public componentDidMount(): void {
+		console.log('loaded map');
 		this.map = new mapboxgl.Map({
 			container: 'MapContainer',
 			style: 'mapbox://styles/mapbox/light-v10'

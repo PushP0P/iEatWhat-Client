@@ -16,7 +16,9 @@ if ('serviceWorker' in navigator) {
 
 // Launch ReactJS
 ReactDOM.render(
-	<Router history={history}>
+	<Router
+		history={history}
+	>
 		<MainComponent
 			store={new StoreService()}
 		/>

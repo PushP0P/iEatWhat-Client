@@ -6,6 +6,7 @@ export interface LandingComponentProps {
 }
 
 export interface LandingComponentState {
+	dataReady: boolean;
 	searchResultsVisible: boolean;
 	searchValue: string;
 	navbarExpanded: boolean;
@@ -18,4 +19,5 @@ export const LANDING_STATE_INIT = {
 	searchResultsVisible: false,
 	navbarExpanded: false,
 	selectedItem: <FoodItem> {},
+	dataReady: false
 };

@@ -1,17 +1,22 @@
 import * as React from 'react';
 import { MAIN_ROUTES_SWITCH } from '../../router/main.routes';
 import { MAIN_COMPONENT_STATE_INIT, MainComponentProps, MainComponentState } from '../../models/main.model';
-import { MasterState } from '../../services/store.service';
 import { mainReducer } from './main.reducer';
+import { Subscription } from '@reactivex/rxjs';
 
-export class MainComponent extends React.Component<MainComponentProps, MasterState> {
+export class MainComponent extends React.Component<MainComponentProps, MainComponentState> {
 	public state: MainComponentState = MAIN_COMPONENT_STATE_INIT;
 
-	private stateSubscribe = this.props.store
-		.registerStore$(mainReducer, MAIN_COMPONENT_STATE_INIT)
-		.subscribe((res: MasterState) => {
-			this.setState(res);
+	private stateSubscribe: Subscription;
+
+	public componentDidMount(): void {
+		this.stateSubscribe = this.props.store
+			.registerStore$(mainReducer, MAIN_COMPONENT_STATE_INIT)
+			.subscribe((res: MainComponentState) => {
+				console.log('registering reducer')
+				this.setState(res);
 		});
+	}
 
 	public componentWillUnmount(): void {
 		this.stateSubscribe.unsubscribe();

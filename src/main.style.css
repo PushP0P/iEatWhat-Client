@@ -6836,4 +6836,27 @@ input {
   .password-reset-component input {
     margin-bottom: 10px; }
 
+.loading-component {
+  display: flex;
+  flex-direction: row;
+  width: 100vw; }
+  .loading-component .animation-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 50vw;
+    height: 100vh;
+    font-size: 3em;
+    transform: translateX(25%); }
+    .loading-component .animation-wrapper div.text {
+      text-align: right; }
+    .loading-component .animation-wrapper .dots-box span {
+      float: left; }
+      .loading-component .animation-wrapper .dots-box span:nth-child(3n + 3) {
+        color: #DA5015; }
+      .loading-component .animation-wrapper .dots-box span:nth-child(1n + 1) {
+        color: #7B9F43; }
+      .loading-component .animation-wrapper .dots-box span:nth-child(2n + 2) {
+        color: #A1CFFF; }
+
 /*# sourceMappingURL=main.style.css.map */
