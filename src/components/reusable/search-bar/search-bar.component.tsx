@@ -22,9 +22,13 @@ export const SearchBarComponent = (props: SearchBarProps) => {
 				}}
 			/>
 			<div
-				className="search-icon"
+				className="icon-box"
 			>
-				{SVGS.search}
+				<div
+					className="search-icon"
+				>
+					{SVGS.search}
+				</div>
 			</div>
 		</div>
 	);

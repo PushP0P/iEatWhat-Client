@@ -2,7 +2,7 @@ import * as React from 'react';
 import { ReactElement } from 'react';
 import { SearchBarComponent } from '../reusable/search-bar/search-bar.component';
 import { LANDING_STATE_INIT, LandingComponentProps } from '../../models/landing.model';
-import { Subscription } from '@reactivex/rxjs';
+import { Observable, Subject, Subscription } from '@reactivex/rxjs';
 import { queryFood, transformInputValToQuery } from '../../services/search.service';
 import { landingReducer } from './landing.reducer';
 import { actionSelectItem, actionShowResults } from './landing.actions';
@@ -29,6 +29,8 @@ export const SearchResultsComponent = (props: any) => {
 
 export class LandingComponent extends React.Component<LandingComponentProps, LandingComponentState> {
 	public state = LANDING_STATE_INIT;
+	public inputChangeSource: Subject<string> = new Subject<string>();
+	public inputChange$: Observable<string> = this.inputChangeSource.asObservable();
 	private stateSubscription: Subscription;
 
 	constructor(public props: LandingComponentProps) {
@@ -36,7 +38,7 @@ export class LandingComponent extends React.Component<LandingComponentProps, Lan
 
 		this.foodItemSelectHandler = this.foodItemSelectHandler.bind(this);
 		this.queryHandler = this.queryHandler.bind(this);
-		this.handleInputChange = this.handleInputChange.bind(this);
+		this.inputValueChangeHandler = this.inputValueChangeHandler.bind(this);
 	}
 
 	public componentDidMount(): void {
@@ -46,6 +48,15 @@ export class LandingComponent extends React.Component<LandingComponentProps, Lan
 
 			});
 		this.props.store.dispatch(actionDataReady());
+	
+		this.stateSubscription
+			.add(this.inputChange$
+				.distinctUntilChanged()
+				.debounceTime(3000)
+				.subscribe(nextVal => {
+					console.log('res', nextVal);
+				}
+			));
 	}
 
 	public componentWillUnmount(): void {
@@ -61,7 +72,7 @@ export class LandingComponent extends React.Component<LandingComponentProps, Lan
 					<NavbarComponent />
 					<SearchBarComponent
 						onQuery={this.queryHandler}
-						onInputChange={this.handleInputChange}
+						onInputChange={this.inputValueChangeHandler}
 					/>
 					{this.state.searchResultsVisible
 						? (
@@ -83,11 +94,9 @@ export class LandingComponent extends React.Component<LandingComponentProps, Lan
 				/>
 			);
 	}
-
-	private handleInputChange(searchValue: string): void {
-		this.state.searchValue = searchValue;
+	private inputValueChangeHandler(value: string) {
+		this.inputChangeSource.next(value);
 	}
-
 	private async queryHandler(): Promise<void> {
 		const searchResult = await queryFood({
 			queries: transformInputValToQuery(this.state.searchValue),

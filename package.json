@@ -21,9 +21,8 @@
     "react-scripts-ts": "2.13.0"
   },
   "scripts": {
-    "start": "react-scripts-ts start",
+    "start": "react-scripts-ts start & yarn sass",
     "prodBuild": "yarn build && ",
-    "removeSelf": "rm developer-resources* node_modules* public* src* .gitignore package.json README.md tsconfig.json tsconfig.test.json tslint.json yarn.lock",
     "sass": "sass ./src/main.style.scss --watch",
     "build": "react-scripts-ts build",
     "test": "react-scripts-ts test --env=jsdom",

@@ -6604,7 +6604,7 @@ input {
     .search-bar-component .search-input input {
       margin: 0;
       padding-left: 10px; }
-  .search-bar-component .cancel-box {
+  .search-bar-component .icon-box {
     position: relative;
     background: #DA5015;
     border-radius: 5px;
@@ -6614,20 +6614,20 @@ input {
     font-size: 2em;
     text-align: center;
     transition: all 0.6s linear; }
-    .search-bar-component .cancel-box .search-icon {
+    .search-bar-component .icon-box .search-icon {
       align-content: center;
       height: 100%;
       cursor: pointer; }
-      .search-bar-component .cancel-box .search-icon svg {
+      .search-bar-component .icon-box .search-icon svg {
         position: absolute;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
         fill: #FEF8F6; }
-    .search-bar-component .cancel-box:hover {
+    .search-bar-component .icon-box:hover {
       background: #FEF8F6;
       transition: all 0.3s linear; }
-      .search-bar-component .cancel-box:hover svg {
+      .search-bar-component .icon-box:hover svg {
         fill: #DA5015; }
 
 .sign-in-component {
