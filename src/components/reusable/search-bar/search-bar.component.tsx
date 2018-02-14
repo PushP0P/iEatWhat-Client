@@ -17,15 +17,14 @@ export const SearchBarComponent = (props: SearchBarProps) => {
 				onBlur={(evt: SyntheticEvent<HTMLInputElement>) => {
 					props.onQuery((evt.target as any).value);
 				}}
+				onKeyUp={(evt: SyntheticEvent<HTMLInputElement>) => {
+					props.onQuery((evt.target as any).value);
+				}}
 			/>
 			<div
-				className="cancel-box"
+				className="search-icon"
 			>
-				<div
-					className="search-icon"
-				>
-					{SVGS.search}
-				</div>
+				{SVGS.search}
 			</div>
 		</div>
 	);

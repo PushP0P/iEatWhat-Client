@@ -34,35 +34,11 @@ export const MAIN_ROUTES_SWITCH = (store: StoreService) => {
 	return (
 		<Switch>
 			<Route
-				path="/email-validation/:code"
-				render={(routes) => {
-					return (
-						<EmailValidationComponent
-							{...routes}
-						/>
-					);
-				}}
-			/>
-			<Route
 				path="/"
 				exact={true}
 				render={(routes) => {
-					return(
+					return (
 						<LandingComponent
-							{...routes}
-							store={store}
-						/>
-					);
-				}}
-			/>
-			<Route
-				path="/map-box/:mode"
-				exact={true}
-				render={(routes) => {
-					return(
-						<MapBoxComponent
-							locations={new Map()}
-							mapName="Demo"
 							{...routes}
 							store={store}
 						/>
@@ -75,18 +51,6 @@ export const MAIN_ROUTES_SWITCH = (store: StoreService) => {
 					(routes) => {
 						return (
 							<SignInComponent
-								{...routes}
-							/>
-						);
-					}
-				}
-			/>
-			<Route
-				path="/password-reset"
-				render={
-					(routes) => {
-						return(
-							<ResetPasswordComponent
 								{...routes}
 							/>
 						);
@@ -107,6 +71,42 @@ export const MAIN_ROUTES_SWITCH = (store: StoreService) => {
 						);
 					}
 				}
+			/>
+			<Route
+				path="/password-reset"
+				render={
+					(routes) => {
+						return (
+							<ResetPasswordComponent
+								{...routes}
+							/>
+						);
+					}
+				}
+			/>
+			<Route
+				path="/map-box/:mode"
+				exact={true}
+				render={(routes) => {
+					return (
+						<MapBoxComponent
+							locations={new Map ()}
+							mapName="Demo"
+							{...routes}
+							store={store}
+						/>
+					);
+				}}
+			/>
+			<Route
+				path="/email-validation/:code"
+				render={(routes) => {
+					return (
+						<EmailValidationComponent
+							{...routes}
+						/>
+					);
+				}}
 			/>
 		</Switch>
 	);

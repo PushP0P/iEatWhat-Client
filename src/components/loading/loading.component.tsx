@@ -1,28 +1,27 @@
 import * as React from 'react';
 import { LOADING_INIT, LoadingComponentProps, LoadingComponentState } from '../../models/loading.model';
 
-export const DotComponent = () => <span>.</span>;
+export const DotElement = () => <span>.</span>;
 
 export class LoadingComponent extends React.Component<LoadingComponentProps, LoadingComponentState> {
-	public state: LoadingComponentState = LOADING_INIT;
 	public interval: any;
+	public state: LoadingComponentState = LOADING_INIT;
 	public limit = 10;
 	public counter = 0;
 	public backwards = false;
 
 	public componentDidMount() {
-		console.log('loading loading');
 		this.interval = setInterval(
 		() => {
 			if (this.counter === this.limit) {
 				this.backwards = true;
 			}
-			if (this.state.dots.length) {
+			if (this.state.dots.length === 0) {
 				this.backwards = false;
 			}
 			this.backwards
 				? this.setState({dots: this.state.dots.slice(0, this.counter)})
-				: this.setState({dots: [...this.state.dots, <DotComponent key={this.counter.toString()}/>]});
+				: this.setState({dots: [...this.state.dots, <DotElement key={this.counter.toString()}/>]});
 			this.backwards
 				? this.counter--
 				: this.counter++;

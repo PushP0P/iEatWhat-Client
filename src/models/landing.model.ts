@@ -16,6 +16,7 @@ export interface LandingComponentState {
 
 export const LANDING_STATE_INIT = {
 	searchResults: new Set<FoodItem>(),
+	searchValue: '',
 	searchResultsVisible: false,
 	navbarExpanded: false,
 	selectedItem: <FoodItem> {},

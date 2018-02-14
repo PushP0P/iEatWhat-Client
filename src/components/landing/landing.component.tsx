@@ -1,14 +1,14 @@
 import * as React from 'react';
 import { ReactElement } from 'react';
 import { SearchBarComponent } from '../reusable/search-bar/search-bar.component';
-import { DashboardComponent } from '../dashboard/dashboard.component';
 import { LANDING_STATE_INIT, LandingComponentProps } from '../../models/landing.model';
 import { Subscription } from '@reactivex/rxjs';
 import { queryFood, transformInputValToQuery } from '../../services/search.service';
 import { landingReducer } from './landing.reducer';
-import { MasterState } from '../../services/store.service';
 import { actionSelectItem, actionShowResults } from './landing.actions';
 import { LoadingComponent } from '../loading/loading.component';
+import { LandingComponentState } from '../../models/landing.model';
+import { actionDataReady } from '../main/main.actions';
 
 /**
  *  FIXTURES - Placeholders
@@ -16,7 +16,6 @@ import { LoadingComponent } from '../loading/loading.component';
 export const NavbarComponent = () => <div>NAVBAR PLACEHOLDER</div>;
 export const FooterComponent = () => <div>FOOTER PLACEHOLDER</div>;
 export const SearchResultsComponent = (props: any) => {
-
 	const style = props.visible ? {} : {display: 'none'};
 
 	return (
@@ -28,9 +27,8 @@ export const SearchResultsComponent = (props: any) => {
 	);
 };
 
-export class LandingComponent extends React.Component<LandingComponentProps, MasterState> {
+export class LandingComponent extends React.Component<LandingComponentProps, LandingComponentState> {
 	public state = LANDING_STATE_INIT;
-	private searchValue: string = '';
 	private stateSubscription: Subscription;
 
 	constructor(public props: LandingComponentProps) {
@@ -40,18 +38,14 @@ export class LandingComponent extends React.Component<LandingComponentProps, Mas
 		this.queryHandler = this.queryHandler.bind(this);
 		this.handleInputChange = this.handleInputChange.bind(this);
 	}
+
 	public componentDidMount(): void {
 		this.stateSubscription = this.props.store.registerStore$(landingReducer, LANDING_STATE_INIT)
-			.subscribe((state: MasterState) => {
-				console.log('calling landing');
+			.subscribe((state: LandingComponentState) => {
 				this.setState(state);
-				self.addEventListener('onKeyUp', (evt: KeyboardEvent) => {
-					evt.preventDefault();
-					if (evt.key) {
-						this.queryHandler();
-					}
-				});
+
 			});
+		this.props.store.dispatch(actionDataReady());
 	}
 
 	public componentWillUnmount(): void {
@@ -70,30 +64,33 @@ export class LandingComponent extends React.Component<LandingComponentProps, Mas
 						onInputChange={this.handleInputChange}
 					/>
 					{this.state.searchResultsVisible
-						? <SearchResultsComponent
-							searchResults={this.state.searchResults}
-							onItemSelect={this.foodItemSelectHandler}
-							visible={this.state.searchResultsVisible}
-						/>
-						: <div> LOADING </div>
-					}
+						? (
+							<SearchResultsComponent
+								searchResults={this.state.searchResults}
+								onItemSelect={this.foodItemSelectHandler}
+								visible={this.state.searchResultsVisible}
+							/>
+						) : (
+							<div>
+								LOADING
+							</div>
+					)}
 					<FooterComponent />
-					<DashboardComponent />
 				</div>
 			) : (
 				<LoadingComponent
 					visible={!this.state.dataReady}
 				/>
-		);
+			);
 	}
 
 	private handleInputChange(searchValue: string): void {
-		this.searchValue = searchValue;
+		this.state.searchValue = searchValue;
 	}
 
 	private async queryHandler(): Promise<void> {
 		const searchResult = await queryFood({
-			queries: transformInputValToQuery(this.searchValue),
+			queries: transformInputValToQuery(this.state.searchValue),
 			requestType: 'search'
 		});
 		this.props.store.dispatch(actionShowResults(searchResult));
