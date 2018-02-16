@@ -28,7 +28,6 @@ export class FoodDetailsComponent extends React.Component<FoodDetailsComponentPr
 			});
 		const details: USDAReport = await searchUSDA(
 			{
-				queries: [],
 				params: {
 					ndbno: [this.props.foodId]
 				} as ReportOptions,

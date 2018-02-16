@@ -30,13 +30,15 @@ export async function eventRequest(eventTrans: EventTransport): Promise<any> {
 		xhr.send(data);
 	}));
 }
-
+// tslint:disable
 export function mixParamsURL(url: string, params: {[key: string]: string | number }): URLSearchParams | void {
-	const packedURL = Object
-		.keys(params)
-		.reduce((packedURL: URLSearchParams, key: string ): (URLSearchParams | void) => {
-			return packedURL.append(key, params[key].toString());
-	}, new URLSearchParams(url));
+	const packedURL = Object.keys(params)
+		.reduce((
+			urlPack: URLSearchParams,
+			key: string
+		): (URLSearchParams | void) => {
+			return urlPack.append(key, params[key].toString());
+		}, new URLSearchParams(url));
 	console.log('packedURL', packedURL);
 	return packedURL;
 }

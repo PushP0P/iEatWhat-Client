@@ -121,7 +121,9 @@ export class LandingComponent extends React.Component<LandingComponentProps, Lan
 
 	private async queryHandler(): Promise<void> {
 		const searchResult: USDASearchResponse = await searchUSDA({
-			query: this.state.searchValue,
+			params: {
+				query: this.state.searchValue,
+			},
 			requestType: 'search'
 		});
 		console.log('food search results', searchResult);

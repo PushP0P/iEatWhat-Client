@@ -3,6 +3,7 @@ export interface Nutrient {
 }
 export interface FoodSearchOptions {
 	fg?: string;
+	query: string;
 	format?: string;
 	max?: number;
 	offset?: number;
