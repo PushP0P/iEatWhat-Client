@@ -5,11 +5,11 @@ import {
 	CommentsComponentState
 } from '../../models/comments.model';
 import { CommentsListComponent } from './comments-list/comments-list.controlled';
-import { getComments, getCommentsListMeta } from '../../services/comments.service';
+import { CommentsService } from '../../services/comments.service';
 
 export class CommentsComponent extends React.Component<CommentsComponentProps, CommentsComponentState> {
 	private formText = '';
-
+	private commentService: CommentsService = new CommentsService();
 	constructor(public props: CommentsComponentProps) {
 		super(props);
 		this.state = COMMENTS_COMPONENT_STATE_INIT;
@@ -17,8 +17,8 @@ export class CommentsComponent extends React.Component<CommentsComponentProps, C
 	}
 
 	public async componentDidMount(): Promise<void> {
-		const listMeta = await getCommentsListMeta(this.props.viewId);
-		const comments = await getComments(listMeta.listId);
+		const listMeta = await this.commentService.getCommentsListMeta(this.props.viewId);
+		const comments = await this.commentService.getComments(listMeta.listId);
 		console.log('comments', comments);
 		this.setState({
 			commentListMeta: listMeta,

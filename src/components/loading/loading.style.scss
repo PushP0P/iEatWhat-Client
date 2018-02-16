@@ -1,0 +1,33 @@
+.loading-component {
+  display: flex;
+  flex-direction: row;
+  width: 100vw;
+
+  .animation-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 50vw;
+    height: 100vh;
+    font-size: 3em;
+    transform: translateX(25%);
+
+    div.text {
+      text-align: right;
+    }
+
+    .dots-box span {
+      float: left;
+
+      &:nth-child(3n + 3) {
+        color: $color-primary;
+      }
+      &:nth-child(1n + 1) {
+        color: $Success;
+      }
+      &:nth-child(2n + 2) {
+        color: $color-input-border
+      }
+    }
+  }
+}

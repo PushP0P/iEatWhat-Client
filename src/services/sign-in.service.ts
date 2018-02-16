@@ -1,10 +1,27 @@
 import * as fb from 'firebase';
-import { StoreService } from './store.service';
 import * as firebase from 'firebase/app';
 import AuthProvider = firebase.auth.AuthProvider;
+import { FIREBASE_CONFIG } from '../configs/firebase.config';
+import { BehaviorSubject, Observable } from '@reactivex/rxjs';
 declare var window: any;
 // import history from './../router/router.history';
-const store = new StoreService();
+
+firebase.initializeApp(FIREBASE_CONFIG);
+
+const userAuthStateSource: BehaviorSubject<firebase.User>
+	= new BehaviorSubject<firebase.User>(
+	<firebase.User> fb.auth().currentUser
+);
+export const currentUser: Observable<firebase.User>
+	= userAuthStateSource.asObservable();
+
+firebase.auth()
+	.onAuthStateChanged(
+		(user: firebase.User) => {
+			user
+				? userAuthStateSource.next(user)
+				: userAuthStateSource.next( <firebase.User> {});
+		});
 
 export function onGoogleSignIn(): void {
 	const provider = new fb.auth.GoogleAuthProvider();
@@ -22,10 +39,13 @@ export async function signInWithPopup(provider: AuthProvider): Promise<void> {
 		return Promise.reject('Error with SignIn');
 	}
 	console.log('signed in with popup', result);
-	store.setStore('user', {...result.user});
-	store.setStore('tokens', {...result.credential});
 }
 
+/**
+ * Sign in with redirect sends user to another page for permission grants and is more mobile friendly.
+ * @param {firebase.auth.AuthProvider} provider
+ * @returns {Promise<void>}
+ */
 export async function signInWithRedirect(provider: AuthProvider): Promise<void> {
 	const user = fb.auth().currentUser;
 	if (user) {
@@ -38,16 +58,21 @@ export async function signInWithRedirect(provider: AuthProvider): Promise<void> 
 		return Promise.reject('Error with SignIn');
 	}
 	console.log('Signed in with redirect', result);
-	store.setStore('user', {...result.user});
-	store.setStore('tokens', {...result.credential});
 }
 
 export async function onEmailSignIn(email: string, password: string): Promise<void> {
+	// Try and sign in user with email and password.
 	const result = await fb.auth()
 		.signInWithEmailAndPassword(email, password)
-		.catch((err: any) => {
+		// on fail will try and create new account with provided credentials
+		.catch(async (err: any) => {
+			// TODO create SignUp
 			console.log('Error Finding User with Email:', err);
-			return fb.auth().createUserWithEmailAndPassword(email, password)
+			const resposne = await fb.auth().createUserWithEmailAndPassword(email, password);
+			if (!resposne) {
+				return Promise.reject('Error: Email SignUp' + resposne);
+			}
+			return await resposne.sendEmailVerification()
 				.catch((error: any) => alert('Error Signing Up, please try again. \n' + error));
 		});
 	console.log('result e/p', result);
@@ -88,6 +113,7 @@ export function captchaVerified(verificationId: any): any {
 }
 
 export function handleSignedInUser(user: any): void {
+
 	console.log('User Signed In', user);
 	// history.push('/dashboard');
 }
@@ -95,6 +121,10 @@ export function handleSignedInUser(user: any): void {
 export function handleSignedOutUser(): void {
 	console.log('User Signed Out');
 	// history.push('/');
+}
+
+export function handleEmailVerification(code: string): boolean {
+	return true;
 }
 
 export function resetPasswordHandler(email: string): void {
