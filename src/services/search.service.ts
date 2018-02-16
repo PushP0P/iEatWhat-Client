@@ -17,7 +17,6 @@ function makeUSDAEndpoint(
 		requestType: 'search'
 	}
 ): URL | void {
-	console.log('buildURL', options);
 	const baseURL: string = rootPath + '/' + options.requestType;
 	const builtURL = new URL(baseURL);
 	builtURL.searchParams.append(USDA_SEARCH_KEYS.results_format, 'JSON');
@@ -26,6 +25,7 @@ function makeUSDAEndpoint(
 			builtURL.searchParams.append(USDA_SEARCH_KEYS[key], options.params[key]);
 	});
 	builtURL.searchParams.append(USDA_SEARCH_KEYS.apiKey, USDA_CONFIG.apiKey);
+	console.log(builtURL.toString());
 	return builtURL;
 }
 

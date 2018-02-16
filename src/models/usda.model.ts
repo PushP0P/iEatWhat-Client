@@ -1,9 +1,10 @@
 export interface Nutrient {
 	nutrient_id: string;
 }
+
 export interface FoodSearchOptions {
 	fg?: string;
-	query: string;
+	search_terms: string;
 	format?: string;
 	max?: number;
 	offset?: number;
@@ -201,7 +202,7 @@ export const USDA_SEARCH_KEYS = {
 	sort : 'sort',
 	maximum_rows : 'max',
 	beginning_row : 'offset',
-	results_format: 'format1',
+	results_format: 'format',
 };
 
 export interface NutrientList {

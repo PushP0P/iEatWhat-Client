@@ -29,13 +29,3 @@ export async function eventRequest(eventTrans: EventTransport): Promise<any> {
 		xhr.send(data);
 	});
 }
-// tslint:disable
-export function mixParamsURL(url: string, params: {[key: string]: string}): URL {
-	const rawURL: URL = new URL('');
-	const keys = Object.keys(params);
-
-	for (let key of keys) {
-		rawURL.searchParams.append(key, params[key].toString());
-	}
-	return new URL(url, rawURL.searchParams.toString());
-}

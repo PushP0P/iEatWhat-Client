@@ -2,7 +2,6 @@ import * as React from 'react';
 import {
 	FOOD_DETAILS_STATE_INIT, FoodDetailsComponentProps,
 	FoodDetailsComponentState
-
 } from '../../../models/food.model';
 import { ReactElement } from 'react';
 import { CommentsComponent } from '../../comments/comments.component';
@@ -44,7 +43,6 @@ export class FoodDetailsComponent extends React.Component<FoodDetailsComponentPr
 	}
 
 	public render(): ReactElement<HTMLDivElement> {
-		console.log('imgURL', this.state);
 		if (this.state.dataReady) {
 			return (
 				<div

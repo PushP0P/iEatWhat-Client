@@ -5,7 +5,6 @@ import { LoadingComponent } from '../loading/loading.component';
 import { SearchBarComponent } from '../reusable/search-bar/search-bar.component';
 import { LandingComponentState } from '../../models/landing.model';
 import { LANDING_STATE_INIT, LandingComponentProps } from '../../models/landing.model';
-import { USDAItem } from '../../models/usda-food.model';
 import { USDAReport } from '../../models/usda.model';
 import { USDASearchResult } from '../../models/usda-food.model';
 import { searchUSDA } from '../../services/search.service';
@@ -14,7 +13,7 @@ import { actionSelectItem } from './landing.actions';
 import { actionDataReady } from '../main/main.actions';
 import { actionShowResults } from './landing.actions';
 import { USDASearchResponse } from '../../models/usda-food.model';
-import { BehaviorSubject } from '@reactivex/rxjs';
+import { SearchResultsComponent } from '../search/search-result.controlled';
 
 /**
  *  FIXTURES - Placeholders
@@ -22,41 +21,11 @@ import { BehaviorSubject } from '@reactivex/rxjs';
 export const NavbarComponent = () => <div>NAVBAR PLACEHOLDER</div>;
 export const FooterComponent = () => <div>FOOTER PLACEHOLDER</div>;
 
-interface SearchResultsProps {
-	searchResults: USDAItem[];
-	itemSelectHandler: (ndbno: string) => {};
-	visible: boolean;
-}
-
-export const SearchResultsComponent = (props: SearchResultsProps) => {
-	const display = props.visible ? 'flex' : 'none';
-	const results: USDAItem[] = !props.searchResults ? [] : props.searchResults;
-	return (
-		<div
-			style={{
-				display: display
-			}}
-			className="search-results-component"
-		>
-			{results.map(item => {
-				return (
-					<div
-						key={item.ndbno.toString()}
-						className="search-item"
-						onClick={() => {
-							props.itemSelectHandler(item.ndbno);
-						}}
-					/>
-				);
-			})}
-		</div>
-	);
-};
-
 export class LandingComponent extends React.Component<LandingComponentProps, LandingComponentState> {
-	public state = LANDING_STATE_INIT;
-	private inputChangeSource: BehaviorSubject<string> = new BehaviorSubject<string>('');
+	public state: LandingComponentState = LANDING_STATE_INIT;
+	private searchInput: string = '';
 	private stateSubscription: Subscription;
+	// private inputChangeSource: BehaviorSubject<string> = new BehaviorSubject<string>('');
 
 	constructor(public props: LandingComponentProps) {
 		super(props);
@@ -107,14 +76,14 @@ export class LandingComponent extends React.Component<LandingComponentProps, Lan
 	}
 
 	private handleInputChange(value: string) {
-		this.inputChangeSource.next(value);
+		this.searchInput = value;
 	}
 
 	private async queryHandler(): Promise<void> {
 		const searchResult: USDASearchResponse = await searchUSDA({
 			requestType: 'search',
 			params: {
-				query: this.inputChangeSource.value
+				search_terms: this.searchInput
 			}
 		});
 		this.props.store.dispatch(actionShowResults(searchResult.list.item));
