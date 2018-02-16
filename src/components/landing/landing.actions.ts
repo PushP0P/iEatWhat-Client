@@ -16,6 +16,7 @@ export function actionCLoseNavigation(): Action {
 }
 
 export function actionShowResults(searchResults: USDAItem[]): Action {
+	console.log('search', searchResults);
 	return {
 		type:'SEARCH_RESULTS_SHOWN',
 		payload: {

@@ -26,7 +26,7 @@ export class FoodDetailsComponent extends React.Component<FoodDetailsComponentPr
 			.subscribe((state: FoodDetailsComponentState) => {
 				this.setState(state);
 			});
-		const details: USDAReport = await searchUSDA(
+		const details: USDAReport = await searchUSDA (
 			{
 				params: {
 					ndbno: [this.props.foodId]

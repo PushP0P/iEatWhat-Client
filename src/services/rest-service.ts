@@ -8,8 +8,7 @@ const EVENT_PATH: string = `//localhost:5000/post/event`;
  * @returns {Promise<EventResponse>}
  */
 export async function eventRequest(eventTrans: EventTransport): Promise<any> {
-
-	return new Promise(((resolve, reject) => {
+	return new Promise((resolve, reject) => {
 		const data = new FormData();
 		const xhr = new XMLHttpRequest();
 
@@ -28,17 +27,15 @@ export async function eventRequest(eventTrans: EventTransport): Promise<any> {
 
 		xhr.open('POST', EVENT_PATH);
 		xhr.send(data);
-	}));
+	});
 }
 // tslint:disable
-export function mixParamsURL(url: string, params: {[key: string]: string | number }): URLSearchParams | void {
-	const packedURL = Object.keys(params)
-		.reduce((
-			urlPack: URLSearchParams,
-			key: string
-		): (URLSearchParams | void) => {
-			return urlPack.append(key, params[key].toString());
-		}, new URLSearchParams(url));
-	console.log('packedURL', packedURL);
-	return packedURL;
+export function mixParamsURL(url: string, params: {[key: string]: string}): URL {
+	const rawURL: URL = new URL('');
+	const keys = Object.keys(params);
+
+	for (let key of keys) {
+		rawURL.searchParams.append(key, params[key].toString());
+	}
+	return new URL(url, rawURL.searchParams.toString());
 }

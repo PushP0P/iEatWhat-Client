@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { ReactElement } from 'react';
-import { Observable, Subject, Subscription } from '@reactivex/rxjs';
+import { Subscription } from '@reactivex/rxjs';
 import { LoadingComponent } from '../loading/loading.component';
 import { SearchBarComponent } from '../reusable/search-bar/search-bar.component';
 import { LandingComponentState } from '../../models/landing.model';
@@ -14,6 +14,7 @@ import { actionSelectItem } from './landing.actions';
 import { actionDataReady } from '../main/main.actions';
 import { actionShowResults } from './landing.actions';
 import { USDASearchResponse } from '../../models/usda-food.model';
+import { BehaviorSubject } from '@reactivex/rxjs';
 
 /**
  *  FIXTURES - Placeholders
@@ -28,10 +29,8 @@ interface SearchResultsProps {
 }
 
 export const SearchResultsComponent = (props: SearchResultsProps) => {
-	console.log('props', props);
 	const display = props.visible ? 'flex' : 'none';
 	const results: USDAItem[] = !props.searchResults ? [] : props.searchResults;
-	console.log('map', results);
 	return (
 		<div
 			style={{
@@ -56,33 +55,22 @@ export const SearchResultsComponent = (props: SearchResultsProps) => {
 
 export class LandingComponent extends React.Component<LandingComponentProps, LandingComponentState> {
 	public state = LANDING_STATE_INIT;
-	public inputChangeSource: Subject<string> = new Subject<string>();
-	public inputChange$: Observable<string> = this.inputChangeSource.asObservable();
+	private inputChangeSource: BehaviorSubject<string> = new BehaviorSubject<string>('');
 	private stateSubscription: Subscription;
 
 	constructor(public props: LandingComponentProps) {
 		super(props);
 		this.foodItemSelectHandler = this.foodItemSelectHandler.bind(this);
 		this.queryHandler = this.queryHandler.bind(this);
-		this.inputValueChangeHandler = this.inputValueChangeHandler.bind(this);
+		this.handleInputChange = this.handleInputChange.bind(this);
+		this.handleStateChange = this.handleStateChange.bind(this);
 	}
 
 	public componentDidMount(): void {
-		this.stateSubscription = this.props.store.registerStore$(landingReducer, LANDING_STATE_INIT)
-			.subscribe((state: LandingComponentState) => {
-				this.setState(state);
-
-			});
+		this.stateSubscription = this.props.store
+			.registerStore$(landingReducer, LANDING_STATE_INIT)
+			.subscribe(this.handleStateChange);
 		this.props.store.dispatch(actionDataReady());
-
-		this.stateSubscription
-			.add(this.inputChange$
-				.distinctUntilChanged()
-				.debounceTime(3000)
-				.subscribe(nextVal => {
-					console.log('res', nextVal);
-				}
-		));
 	}
 
 	public componentWillUnmount(): void {
@@ -90,7 +78,6 @@ export class LandingComponent extends React.Component<LandingComponentProps, Lan
 	}
 
 	public render(): ReactElement<HTMLDivElement> {
-		console.log('landing state', this.state);
 		return this.state.dataReady
 			? (
 				<div
@@ -99,7 +86,7 @@ export class LandingComponent extends React.Component<LandingComponentProps, Lan
 					<NavbarComponent />
 					<SearchBarComponent
 						onQuery={this.queryHandler}
-						onInputChange={this.inputValueChangeHandler}
+						onInputChange={this.handleInputChange}
 					/>
 					<SearchResultsComponent
 						searchResults={this.state.searchResults || []}
@@ -115,18 +102,21 @@ export class LandingComponent extends React.Component<LandingComponentProps, Lan
 			);
 	}
 
-	private inputValueChangeHandler(value: string) {
+	private handleStateChange(state: LandingComponentState): void {
+		this.setState(state);
+	}
+
+	private handleInputChange(value: string) {
 		this.inputChangeSource.next(value);
 	}
 
 	private async queryHandler(): Promise<void> {
 		const searchResult: USDASearchResponse = await searchUSDA({
+			requestType: 'search',
 			params: {
-				query: this.state.searchValue,
-			},
-			requestType: 'search'
+				query: this.inputChangeSource.value
+			}
 		});
-		console.log('food search results', searchResult);
 		this.props.store.dispatch(actionShowResults(searchResult.list.item));
 	}
 
@@ -140,7 +130,6 @@ export class LandingComponent extends React.Component<LandingComponentProps, Lan
 			},
 		});
 
-		console.log('Report', food);
 		this.props.store
 			.dispatch(actionSelectItem(food as USDAReport));
 	}
