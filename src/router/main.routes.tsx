@@ -76,7 +76,7 @@ export const MAIN_ROUTES_SWITCH = (store: StoreService) => {
 				path="/password-reset"
 				render={
 					(routes) => {
-						return (
+						return(
 							<ResetPasswordComponent
 								{...routes}
 							/>

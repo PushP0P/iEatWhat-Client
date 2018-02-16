@@ -10,7 +10,7 @@ firebase.initializeApp(FIREBASE_CONFIG);
 
 const userAuthStateSource: BehaviorSubject<firebase.User>
 	= new BehaviorSubject<firebase.User>(
-		<firebase.User> fb.auth().currentUser
+	<firebase.User> fb.auth().currentUser
 );
 export const currentUser: Observable<firebase.User>
 	= userAuthStateSource.asObservable();
@@ -21,7 +21,7 @@ firebase.auth()
 			user
 				? userAuthStateSource.next(user)
 				: userAuthStateSource.next( <firebase.User> {});
-	});
+		});
 
 export function onGoogleSignIn(): void {
 	const provider = new fb.auth.GoogleAuthProvider();

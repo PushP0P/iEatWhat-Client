@@ -4,7 +4,7 @@ export const STORE_NAMES = {
 	state: 'state'
 };
 
-export const IDBU_CONFIG = {
+export const STORE_CONFIG = {
 	version: 1,
 	dbName: 'dev-user-data',
 	storeNames: Object.keys(STORE_NAMES).map(key => STORE_NAMES[key]),
