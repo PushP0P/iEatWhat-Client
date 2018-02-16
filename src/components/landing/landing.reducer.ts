@@ -17,7 +17,7 @@ export const landingReducer = function(action: Action, currentState: LandingComp
 		case'NAVIGATION_BAR_CLOSED':
 			return {...currentState, navbarExpanded: false};
 		case'SEARCH_RESULTS_SHOWN':
-			return {...currentState, searchResultsVisible: true, searchResults: payload};
+			return {...currentState, ...payload};
 		case'SEARCH_RESULTS_HIDDEN':
 			return {...currentState, searchResultsVisible: false, searchResults: payload};
 		default:

@@ -6,7 +6,6 @@ export interface LoadingComponentState {
 	dots: {}[];
 }
 
-export const LOADING_INIT = {
-	visible: false,
+export const LOADING_INIT: LoadingComponentState = {
 	dots: []
 };

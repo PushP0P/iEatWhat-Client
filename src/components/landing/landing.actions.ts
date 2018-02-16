@@ -1,8 +1,9 @@
 import { Action } from '../../models/action.model';
-import { FoodItem } from '../../models/food.model';
+import { USDAItem } from '../../models/usda-food.model';
+import { USDAReport } from '../../models/usda.model';
 
 // tslint:disable
-export function actionSelectItem(item: FoodItem): Action {
+export function actionSelectItem(item: USDAItem | USDAReport): Action {
 	return { type:'SEARCH_ITEM_SELECTED', payload: item}
 }
 
@@ -14,10 +15,22 @@ export function actionCLoseNavigation(): Action {
 	return {type:'NAVIGATION_BAR_CLOSED', payload: false}
 }
 
-export function actionShowResults(searchResults: Set<FoodItem>): Action {
-	return {type:'SEARCH_RESULTS_SHOWN', payload: searchResults}
+export function actionShowResults(searchResults: USDAItem[]): Action {
+	return {
+		type:'SEARCH_RESULTS_SHOWN',
+		payload: {
+			searchResultsVisible: true,
+			searchResults: searchResults
+		}
+	}
 }
 
-export function actionHideResults(searchResults: Set<FoodItem>): Action {
-	return {type:'SEARCH_RESULTS_HIDDEN', payload: searchResults}
+export function actionHideResults(searchResults: USDAItem[]): Action {
+	return {
+		type:'SEARCH_RESULTS_HIDDEN',
+		payload: {
+			searchResultsVisible: true,
+			searchResults: searchResults
+		}
+	}
 }

@@ -1,28 +1,55 @@
 import * as React from 'react';
 import { ReactElement } from 'react';
-import { SearchBarComponent } from '../reusable/search-bar/search-bar.component';
-import { LANDING_STATE_INIT, LandingComponentProps } from '../../models/landing.model';
 import { Observable, Subject, Subscription } from '@reactivex/rxjs';
-import { queryFood, transformInputValToQuery } from '../../services/search.service';
-import { landingReducer } from './landing.reducer';
-import { actionSelectItem, actionShowResults } from './landing.actions';
 import { LoadingComponent } from '../loading/loading.component';
+import { SearchBarComponent } from '../reusable/search-bar/search-bar.component';
 import { LandingComponentState } from '../../models/landing.model';
+import { LANDING_STATE_INIT, LandingComponentProps } from '../../models/landing.model';
+import { USDAItem } from '../../models/usda-food.model';
+import { USDAReport } from '../../models/usda.model';
+import { USDASearchResult } from '../../models/usda-food.model';
+import { searchUSDA } from '../../services/search.service';
+import { landingReducer } from './landing.reducer';
+import { actionSelectItem } from './landing.actions';
 import { actionDataReady } from '../main/main.actions';
+import { actionShowResults } from './landing.actions';
+import { USDASearchResponse } from '../../models/usda-food.model';
 
 /**
  *  FIXTURES - Placeholders
  */
 export const NavbarComponent = () => <div>NAVBAR PLACEHOLDER</div>;
 export const FooterComponent = () => <div>FOOTER PLACEHOLDER</div>;
-export const SearchResultsComponent = (props: any) => {
-	const style = props.visible ? {} : {display: 'none'};
 
+interface SearchResultsProps {
+	searchResults: USDAItem[];
+	itemSelectHandler: (ndbno: string) => {};
+	visible: boolean;
+}
+
+export const SearchResultsComponent = (props: SearchResultsProps) => {
+	console.log('props', props);
+	const display = props.visible ? 'flex' : 'none';
+	const results: USDAItem[] = !props.searchResults ? [] : props.searchResults;
+	console.log('map', results);
 	return (
 		<div
-			style={{...style}}
+			style={{
+				display: display
+			}}
+			className="search-results-component"
 		>
-			SEARCH RESULTS PLACEHOLDER
+			{results.map(item => {
+				return (
+					<div
+						key={item.ndbno.toString()}
+						className="search-item"
+						onClick={() => {
+							props.itemSelectHandler(item.ndbno);
+						}}
+					/>
+				);
+			})}
 		</div>
 	);
 };
@@ -35,7 +62,6 @@ export class LandingComponent extends React.Component<LandingComponentProps, Lan
 
 	constructor(public props: LandingComponentProps) {
 		super(props);
-
 		this.foodItemSelectHandler = this.foodItemSelectHandler.bind(this);
 		this.queryHandler = this.queryHandler.bind(this);
 		this.inputValueChangeHandler = this.inputValueChangeHandler.bind(this);
@@ -48,7 +74,7 @@ export class LandingComponent extends React.Component<LandingComponentProps, Lan
 
 			});
 		this.props.store.dispatch(actionDataReady());
-	
+
 		this.stateSubscription
 			.add(this.inputChange$
 				.distinctUntilChanged()
@@ -56,7 +82,7 @@ export class LandingComponent extends React.Component<LandingComponentProps, Lan
 				.subscribe(nextVal => {
 					console.log('res', nextVal);
 				}
-			));
+		));
 	}
 
 	public componentWillUnmount(): void {
@@ -64,6 +90,7 @@ export class LandingComponent extends React.Component<LandingComponentProps, Lan
 	}
 
 	public render(): ReactElement<HTMLDivElement> {
+		console.log('landing state', this.state);
 		return this.state.dataReady
 			? (
 				<div
@@ -74,18 +101,11 @@ export class LandingComponent extends React.Component<LandingComponentProps, Lan
 						onQuery={this.queryHandler}
 						onInputChange={this.inputValueChangeHandler}
 					/>
-					{this.state.searchResultsVisible
-						? (
-							<SearchResultsComponent
-								searchResults={this.state.searchResults}
-								onItemSelect={this.foodItemSelectHandler}
-								visible={this.state.searchResultsVisible}
-							/>
-						) : (
-							<div>
-								LOADING
-							</div>
-					)}
+					<SearchResultsComponent
+						searchResults={this.state.searchResults || []}
+						itemSelectHandler={this.foodItemSelectHandler}
+						visible={this.state.searchResultsVisible}
+					/>
 					<FooterComponent />
 				</div>
 			) : (
@@ -94,21 +114,32 @@ export class LandingComponent extends React.Component<LandingComponentProps, Lan
 				/>
 			);
 	}
+
 	private inputValueChangeHandler(value: string) {
 		this.inputChangeSource.next(value);
 	}
+
 	private async queryHandler(): Promise<void> {
-		const searchResult = await queryFood({
-			queries: transformInputValToQuery(this.state.searchValue),
+		const searchResult: USDASearchResponse = await searchUSDA({
+			query: this.state.searchValue,
 			requestType: 'search'
 		});
-		this.props.store.dispatch(actionShowResults(searchResult));
+		console.log('food search results', searchResult);
+		this.props.store.dispatch(actionShowResults(searchResult.list.item));
 	}
 
-	private async foodItemSelectHandler(
-		evt: Event,
-		foodItemId: string): Promise<void> {
+	private async foodItemSelectHandler(ndbno: string): Promise<void> {
+		const food: USDASearchResult  = await searchUSDA({
+			requestType: 'food',
+			params: {
+				ndbno: [ndbno],
+				type: 'f',
+				format: 'JSON'
+			},
+		});
+
+		console.log('Report', food);
 		this.props.store
-			.dispatch(actionSelectItem(this.state.searchResults[foodItemId]));
+			.dispatch(actionSelectItem(food as USDAReport));
 	}
 }

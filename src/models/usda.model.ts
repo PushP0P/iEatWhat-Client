@@ -1,108 +1,43 @@
-export interface USDARequestOptions {
-	search?: USDASearchParams;
-	list?: USDAListParams;
-	report?: USDAReportParams;
+export interface Nutrient {
+	nutrient_id: string;
+}
+export interface FoodSearchOptions {
+	fg?: string;
+	format?: string;
+	max?: number;
+	offset?: number;
+	ndbno?: string[];
+	nutrients?: string[];
+	sort?: string;
+	subset?: string;
+	n_db?: string;
 }
 
-export interface USDASearchParams {
-	queries?: string[];
-	foodGroupId?: string;
-	dataSource?: 'Branded Food Products' | 'Standard Reference';
-	pagination?: {
-		offset?: number;
-		max?: number;
-		total?: number;
-	};
+export interface ReportOptions {
+	ndbno: string[];
+	type: 'b' | 'f' | 's';
+	format: 'JSON';
 }
 
-export interface USDAListParams {
-	pagination?: {
-		offset?: number;
-		max?: number;
-		total?: number;
-	};
-	groupFilter: string;
-	version: string;
-}
-
-export interface USDAReportParams {
-	n_db: string;
-	report_type?: string;
-	response_format?: string;
-}
-export interface USDAFoods {
-	number_of_foods?: string;
-	not_found?: string;
-	api_version?: string;
-}
-export interface USDAFood {
-	report_type?: string;
-	report_version?: string;
-}
-
-export interface USDADescMeta {
-	ndb_food_number?: string;
-	food_name?: string;
-	short_description?: string;
-	food_group?: string;
-	scientific_name?: string;
-	commercial_name?: string;
-	manufacture_?: string;
-	nitrogen_to_protein_conversion_factor?: string;
-	carbohydrate_factor?: string;
-	fat_factor?: string;
-	protein_factor?: string;
-	refuse?: string;
-	refuse_description?: string;
-	database_source?: string;
-	reporting_unit?: string;
-	list_of_ingredients?: string;
-}
-
-export interface USDAIngredients {
-	last_updated_by_company?: string;
-	metadata_nutrient?: string;
-}
-
-export interface USDANutrient {
-	nutrient_number?: string;
-	nutrient_name?: string;
-	list_of_source_id?: string;
-	how_value_was_derived?: string;
-	unit_of_measure?: string;
-	equivalent_100g?: string;
-	data_point_count?: string;
-	standard_error?: string;
-	measures?: string;
-}
-
-export interface USDAMeasures {
-	name?: string;
-	e_unit_equivalent?: string;
-	equivalent_unit?: string;
-	gram_equivalent?: string;
-	reference_source?: string;
-}
-
-export interface USDALangual {
-	food_LANGUAL_codes?: string;
-	langual_code?: string;
-	description_of_code?: string;
-}
-
-export interface USDAFootnote {
-	footnote_id?: string;
-	food_note_text?: string;
-}
-
-export interface USDASource {
-	name_of_reference?: string;
-	authors_of_the_report?: string;
-	volume?: string;
-	issue?: string;
-	publication_year?: string;
-	start_page?: string;
-	end_page?: string;
+// Good
+export interface ReportResponse {
+	type: 'b' | 'f' | 's';
+	group: string;
+	subset: string;
+	sr: string;
+	end: string;
+	start: string;
+	total: string;
+	foods: string;
+	ndbno: string;
+	name: string;
+	measure: string;
+	nutrients: string;
+	nutrient_id: string;
+	nutrient: string;
+	unit: string;
+	gm: string;
+	value: string;
 }
 
 export interface USDAReport {
@@ -268,36 +203,19 @@ export const USDA_SEARCH_KEYS = {
 	results_format: 'format1',
 };
 
-export interface USDASearchRequestParams {
-	apiKey: string;
-	search_terms: string;
-	data_source: string;
-	food_group_ID: string;
+export interface NutrientList {
+	type: string;
+	start: number;
+	end: number;
+	total: number;
 	sort: string;
-	maximum_rows: string;
-	beginning_row: string;
-	results_format: string;
+	sr: string;
 }
 
-export interface USDARequestParams extends
-	USDAReportParams,
-	USDASearchRequestParams,
-	USDAListParams {
-	api_key: string;
-	nDBNo?: string;
-	name?: string;
-	group?: string;
-}
-
-export interface USDAReportResponse {
-	request_params?: USDAReportParams;
-	food?: USDAFood;
-	foods?: USDAFoods;
-	desc?: USDADescMeta;
-	ingredients?: USDAIngredients;
-	nutrient?: USDANutrient;
-	measures?: USDAMeasures;
-	source?: USDASource;
-	footnote?: USDAFootnote;
-	langual?: USDALangual;
+export interface ListOptions {
+	lt: string;
+	max: string;
+	offset: string;
+	sort: string;
+	format: string;
 }

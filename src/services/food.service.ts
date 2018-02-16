@@ -44,6 +44,6 @@ const FIXTURE_FOOD_DETAILS: FoodItem = {
 };
 
 export async function getFoodDetails(foodId: string): Promise<Set<any>> {
-	// return await queryFood(['cheeze','wiz'], {});
+	// return await searchUSDA(['cheeze','wiz'], {});
 	return new Set([FIXTURE_FOOD_DETAILS]);
 }

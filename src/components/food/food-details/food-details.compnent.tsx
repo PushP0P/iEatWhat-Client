@@ -1,30 +1,47 @@
 import * as React from 'react';
 import {
 	FOOD_DETAILS_STATE_INIT, FoodDetailsComponentProps,
-	FoodDetailsComponentState, FoodItem
+	FoodDetailsComponentState
 
 } from '../../../models/food.model';
 import { ReactElement } from 'react';
 import { CommentsComponent } from '../../comments/comments.component';
 import { VotingComponent } from '../../reusable/voting/voting.component';
-import { getFoodDetails } from '../../../services/food.service';
 import { CategoryComponent } from '../../reusable/categories/category.controlled';
 import { IngredientsComponent } from './igredients.controlled';
 import { DescriptionComponent } from './description.controlled';
+import { foodDetailsReducer } from './food-details.reducer';
+import { actionUpdateFoodDetails } from './food-details.actions';
+import { searchUSDA } from '../../../services/search.service';
+import { ReportOptions } from '../../../models/usda.model';
+import { USDAReport } from '../../../models/usda.model';
+import { Subscription } from '@reactivex/rxjs';
 
 export class FoodDetailsComponent extends React.Component<FoodDetailsComponentProps, FoodDetailsComponentState> {
-
-	constructor(public props: FoodDetailsComponentProps) {
-		super(props);
-		this.state = FOOD_DETAILS_STATE_INIT;
-	}
+	public state = FOOD_DETAILS_STATE_INIT;
+	private subscriptions: Subscription;
 
 	public async componentDidMount(): Promise<void> {
-		const details: Set<FoodItem> = await getFoodDetails(this.props.foodId);
-		this.setState({
-			foodDetails: details.values()[0],
-			dataReady: true
-		});
+		this.subscriptions = this.props.store.registerStore$(foodDetailsReducer, this.state)
+			.subscribe((state: FoodDetailsComponentState) => {
+				this.setState(state);
+			});
+		const details: USDAReport = await searchUSDA(
+			{
+				queries: [],
+				params: {
+					ndbno: [this.props.foodId]
+				} as ReportOptions,
+				requestType: 'food'
+			}
+		) as USDAReport;
+		if (details) {
+			this.props.store.dispatch(actionUpdateFoodDetails(details));
+		}
+	}
+
+	public componentWillUnmount(): void {
+		this.subscriptions.unsubscribe();
 	}
 
 	public render(): ReactElement<HTMLDivElement> {

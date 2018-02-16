@@ -1,5 +1,5 @@
 import { StoreService } from '../services/store.service';
-import { FoodItem } from './food.model';
+import { USDAItem } from './usda-food.model';
 
 export interface LandingComponentProps {
 	store: StoreService;
@@ -10,15 +10,15 @@ export interface LandingComponentState {
 	searchResultsVisible: boolean;
 	searchValue: string;
 	navbarExpanded: boolean;
-	selectedItem: FoodItem;
-	searchResults: Set<FoodItem>;
+	selectedItem: USDAItem;
+	searchResults: USDAItem[];
 }
 
-export const LANDING_STATE_INIT = {
-	searchResults: new Set<FoodItem>(),
+export const LANDING_STATE_INIT: LandingComponentState = {
+	searchResults: [],
 	searchValue: '',
 	searchResultsVisible: false,
 	navbarExpanded: false,
-	selectedItem: <FoodItem> {},
+	selectedItem: <USDAItem> {},
 	dataReady: false
 };
