@@ -1,4 +1,25 @@
-export interface FoodItem {
+import { StoreService } from '../services/store.service';
+
+export interface Category {
+	icon: string;
+	label: string;
+	foodGroups: string[];
+	blackListedNutrients: FoodIngredient[];
+}
+
+export interface FoodItemMeta {
+	rating: number;
+	reviewed: boolean;
+	reviews: number;
+	restaurantItem: boolean;
+	storeItem: boolean;
+	homeMadeItem: boolean;
+	soldAt: string[];
+	verifiedCategories: Category[];
+	lastUpdated: number;
+}
+
+export interface FoodItem extends FoodItemMeta {
 	id: string;
 	isbn: string;
 	slug: string;
@@ -24,6 +45,7 @@ export interface FoodIngredient {
 }
 
 export interface FoodDetailsComponentProps {
+	store: StoreService;
 	foodId: string;
 	topic: string;
 }

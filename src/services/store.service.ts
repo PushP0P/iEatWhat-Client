@@ -1,70 +1,39 @@
-import { STORE_CONFIG, STORE_NAMES } from '../configs/store.config';
-import { openIDBUtilities } from 'indexed-db-utilities/dist/utilities/index-db.utility';
-import { IDBUtility } from 'indexed-db-utilities/dist/models/idb-utility.model';
-import { CommentsList } from '../models/comments.model';
+import { BehaviorSubject, Observable } from '@reactivex/rxjs';
+import { Action } from '../models/action.model';
+import { Reducer } from '../models/reducer.model';
 
-interface UserStore {
-	id: string;
-	firstName: string;
-	lastName: string;
-	name: string;
-	email: string;
-	photoURL: string;
-	searchConstraints: string[];
-	commentsHistory: CommentsList;
-	signedIn: boolean;
+export interface MasterState {
+	[stateProps: string]: any;
 }
 
-interface TokenStore {
-	googleAccess: string;
-	googleRefresh: string;
-	twitterAccess: string;
-	twitterRefresh: string;
-	session: string;
-}
+export class StoreService extends BehaviorSubject<MasterState> {
+	public reducers: Set<Reducer> = new Set<Reducer>();
 
-export class StoreService {
-	public stores: IDBUtility;
-	public user: UserStore = <UserStore> {};
-	public tokens: TokenStore = <TokenStore> {};
-
-	public constructor() {
-		openIDBUtilities(STORE_CONFIG)
-			.then(stores => {
-				this.stores = stores;
-				this.user = <UserStore> {
-					...this.user,
-					...this.initializeCachedValues(STORE_NAMES.user)
-				};
-				this.tokens = <TokenStore> {
-					...this.tokens,
-					...this.initializeCachedValues(STORE_NAMES.tokens)
-				};
-			}
-		);
+	constructor() {
+		super({});
+		console.log('calling store');
 	}
 
-	public async setStore(storeName: 'user' | 'tokens', props: {}): Promise<void> {
-		Object.keys(props)
-			.forEach(async (key: string) => {
-				await this.stores.put(
-					storeName,
-					{[key]: props[key]}
-				);
-			}
-		);
-		this[storeName] = {...this[storeName], ...props};
+	public registerStore$(
+		reducer: Reducer,
+		initialState: {
+			[prop: string]: any
+		}): Observable<MasterState> {
+		console.log('hit register store');
+		this.reducers.add(reducer);
+		this.next({
+			...this.value,
+			...initialState
+		});
+		return this.asObservable();
 	}
 
-	private async initializeCachedValues(store: string): Promise<{}> {
-		const values = await this.stores.getAll(store);
-		return Object.keys(values)
-			.reduce(
-				(agg: {}, key: string): {} => {
-					agg = {...agg, [key]: values[key]};
-					return agg;
-				},
-				{}
-			);
+	public dispatch(action: Action): void {
+		this.reducers
+			.forEach((
+				reducer: Reducer) => {
+				const nextState = reducer(action, this.value);
+				this.next(nextState);
+			});
 	}
 }
