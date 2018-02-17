@@ -6614,19 +6614,11 @@ input {
     font-size: 2em;
     text-align: center;
     transition: all 0.6s linear; }
-<<<<<<< HEAD
     .search-bar-component .icon-box .search-icon {
       align-content: center;
       height: 100%;
       cursor: pointer; }
       .search-bar-component .icon-box .search-icon svg {
-=======
-    .search-bar-component .cancel-box .search-icon {
-      align-content: center;
-      height: 100%;
-      cursor: pointer; }
-      .search-bar-component .cancel-box .search-icon svg {
->>>>>>> f43aadde671f71f64b2219346c26558d03d1637a
         position: absolute;
         top: 50%;
         left: 50%;
@@ -6844,7 +6836,6 @@ input {
   .password-reset-component input {
     margin-bottom: 10px; }
 
-<<<<<<< HEAD
 .loading-component {
   display: flex;
   flex-direction: row;
@@ -6868,6 +6859,4 @@ input {
       .loading-component .animation-wrapper .dots-box span:nth-child(2n + 2) {
         color: #A1CFFF; }
 
-=======
->>>>>>> f43aadde671f71f64b2219346c26558d03d1637a
 /*# sourceMappingURL=main.style.css.map */

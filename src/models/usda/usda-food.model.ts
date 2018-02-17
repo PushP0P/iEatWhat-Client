@@ -1,3 +1,4 @@
+// tslint:disable
 import { USDAReport } from './usda.model';
 
 export interface USDAFoods {
@@ -77,10 +78,12 @@ export interface USDASource {
 
 export interface USDAList {
 	q: string;
-	start: string;
-	end: string;
-	offset: string;
-	total: string;
+	item: USDAItem[];
+	ds: string;
+	start: number;
+	end: number;
+	offset: number;
+	total: number;
 	sort: string;
 	fg: string;
 	sr: string;
@@ -108,4 +111,12 @@ export interface USDASearchResponse {
 	};
 }
 
-export type USDASearchResult = void & USDAReport & USDAItem[] & USDAList & USDASearchResponse;
+// Not sure why this works and the <t> | <k> doesnt
+export type USDASearchResult = (
+	USDAReport
+	& USDAItem[]
+	& {
+		list: USDAList
+	}
+	& USDASearchResponse
+);

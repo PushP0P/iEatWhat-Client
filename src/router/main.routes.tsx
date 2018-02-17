@@ -7,6 +7,7 @@ import { ResetPasswordComponent } from '../components/sign-in/password-reset/res
 import { MapBoxComponent } from '../components/map-box/map-box.component';
 import { StoreService } from '../services/store.service';
 import { EmailValidationComponent } from '../components/sign-in/email-validation.component';
+import { RouteComponentProps } from 'react-router';
 
 // TODO Refactor for packed Routes.
 
@@ -36,10 +37,10 @@ export const MAIN_ROUTES_SWITCH = (store: StoreService) => {
 			<Route
 				path="/"
 				exact={true}
-				render={(routes) => {
+				render={(routes: RouteComponentProps<HTMLDivElement>) => {
 					return (
 						<LandingComponent
-							{...routes}
+							routeProps={routes}
 							store={store}
 						/>
 					);

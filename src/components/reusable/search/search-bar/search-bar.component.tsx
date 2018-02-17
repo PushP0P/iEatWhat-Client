@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { SVGS } from '../../../assets/react-svgs.asset';
-import { SearchBarProps } from '../../../models/search-bar.model';
+import { SVGS } from '../../../../assets/react-svgs.asset';
+import { SearchBarProps } from '../../../../models/search.model';
 import { SyntheticEvent } from 'react';
 
 export const SearchBarComponent = (props: SearchBarProps) => {

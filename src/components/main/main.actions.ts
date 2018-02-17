@@ -1,4 +1,4 @@
-import { Action } from '../../models/action.model';
+import { Action } from '../../models/store/action.model';
 
 export function actionDataReady(): Action {
 	return {

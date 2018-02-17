@@ -10,8 +10,10 @@ if ('serviceWorker' in navigator) {
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { Router } from 'react-router';
+import history from './router/router.history';
 import { StoreService } from './services/store.service';
 import { MainComponent } from './components/main/main.component';
+import './main.style.css';
 
 // Launch ReactJS
 ReactDOM.render(
