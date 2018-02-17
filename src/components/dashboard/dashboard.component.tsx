@@ -3,6 +3,7 @@ import {
 	DASHBOARD_COMPONENT_STATE_INIT, DashboardComponentProps,
 	DashboardComponentState
 } from '../../models/dashboard.model';
+import { ReactElement } from 'react';
 
 export class DashboardComponent extends React.Component<DashboardComponentProps, DashboardComponentState> {
 	constructor(public props: DashboardComponentProps) {
@@ -10,7 +11,7 @@ export class DashboardComponent extends React.Component<DashboardComponentProps,
 		this.state = DASHBOARD_COMPONENT_STATE_INIT;
 	}
 
-	public render() {
+	public render(): ReactElement<HTMLDivElement> {
 		return (
 			<div>
 				<div

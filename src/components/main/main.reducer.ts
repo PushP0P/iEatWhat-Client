@@ -1,7 +1,7 @@
 import { MainComponentState } from '../../models/main.model';
-import { Action } from '../../models/action.model';
+import { Action } from '../../models/store/action.model';
 import { FoodItem } from '../../models/food.model';
-import { Reducer } from '../../models/reducer.model';
+import { Reducer } from '../../models/store/reducer.model';
 
 export const mainReducer: Reducer = function(action: Action, currentState: MainComponentState): MainComponentState {
 	const {type, payload} = action;

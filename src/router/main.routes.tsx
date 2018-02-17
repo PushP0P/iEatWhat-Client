@@ -1,34 +1,35 @@
 import * as React from 'react';
 import { Route, Switch } from 'react-router';
 import { SignInComponent } from '../components/sign-in/sign-in.component';
-import { LandingComponent } from '../components/landing/landing.component';
 import { FoodDetailsComponent } from '../components/food/food-details/food-details.compnent';
 import { ResetPasswordComponent } from '../components/sign-in/password-reset/reset-password.component';
 import { MapBoxComponent } from '../components/map-box/map-box.component';
 import { StoreService } from '../services/store.service';
 import { EmailValidationComponent } from '../components/sign-in/email-validation.component';
+import { RouteComponentProps } from 'react-router';
+import { LandingComponent } from '../components/landing/landing.component';
 
 // TODO Refactor for packed Routes.
 
 // export interface RouteDetails {
 // 	todo Set right type
-	// path: string;
-	// ReactComponent: any;
-	// props?: {[props: string]: any};
-	// validation?: (component: Component) => any;
+// path: string;
+// ReactComponent: any;
+// props?: {[props: string]: any};
+// validation?: (component: Component) => any;
 // }
 
 // const routesCollection: Set<RouteDetails> = new Set();
 
 // export const RouteTemplate = (props: RouteDetails) => (
-		// {/*<Route*/}
-			// path={props.path}
-			// render={(routes) => {
-			// 	props.validation ? props.validation(props.ReactComponent) : '';
-			// 	return new props.ReactComponent(props.props || {})
-			// }}
-		// />
-	// );
+// {/*<Route*/}
+// path={props.path}
+// render={(routes) => {
+// 	props.validation ? props.validation(props.ReactComponent) : '';
+// 	return new props.ReactComponent(props.props || {})
+// }}
+// />
+// );
 
 export const MAIN_ROUTES_SWITCH = (store: StoreService) => {
 	return (
@@ -36,10 +37,10 @@ export const MAIN_ROUTES_SWITCH = (store: StoreService) => {
 			<Route
 				path="/"
 				exact={true}
-				render={(routes) => {
+				render={(routes: RouteComponentProps<HTMLDivElement>) => {
 					return (
 						<LandingComponent
-							{...routes}
+							routeProps={routes}
 							store={store}
 						/>
 					);

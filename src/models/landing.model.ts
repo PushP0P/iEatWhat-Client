@@ -1,8 +1,10 @@
 import { StoreService } from '../services/store.service';
-import { USDAItem } from './usda-food.model';
+import { USDAItem } from './usda/usda-food.model';
+import { RouteComponentProps } from 'react-router';
 
 export interface LandingComponentProps {
 	store: StoreService;
+	routeProps: RouteComponentProps<HTMLDivElement>;
 }
 
 export interface LandingComponentState {
@@ -12,10 +14,12 @@ export interface LandingComponentState {
 	navbarExpanded: boolean;
 	selectedItem: USDAItem;
 	searchResults: USDAItem[];
+	searchResultsPageNumber: number;
 }
 
 export const LANDING_STATE_INIT: LandingComponentState = {
 	searchResults: [],
+	searchResultsPageNumber: 0,
 	searchValue: '',
 	searchResultsVisible: false,
 	navbarExpanded: false,

@@ -12,8 +12,8 @@ import { DescriptionComponent } from './description.controlled';
 import { foodDetailsReducer } from './food-details.reducer';
 import { actionUpdateFoodDetails } from './food-details.actions';
 import { searchUSDA } from '../../../services/search.service';
-import { ReportOptions } from '../../../models/usda.model';
-import { USDAReport } from '../../../models/usda.model';
+import { ReportOptions } from '../../../models/usda/usda.model';
+import { USDAReport } from '../../../models/usda/usda.model';
 import { Subscription } from '@reactivex/rxjs';
 
 export class FoodDetailsComponent extends React.Component<FoodDetailsComponentProps, FoodDetailsComponentState> {

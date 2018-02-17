@@ -1,4 +1,4 @@
-import { Action } from '../../../models/action.model';
+import { Action } from '../../../models/store/action.model';
 import { CommentsListState } from '../../../models/comments.model';
 
 export function commentsListReducer(action: Action, currentState: CommentsListState): CommentsListState {

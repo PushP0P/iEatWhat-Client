@@ -1,9 +1,9 @@
-import { ListOptions } from '../models/usda.model';
-import { ReportOptions } from '../models/usda.model';
-import { FoodSearchOptions } from '../models/usda.model';
-import { USDASearchResult } from '../models/usda-food.model';
-import { USDA_SEARCH_KEYS } from '../models/usda.model';
+import { ListOptions } from '../models/usda/usda.model';
+import { ReportOptions } from '../models/usda/usda.model';
+import { FoodSearchOptions } from '../models/usda/usda.model';
+import { USDA_SEARCH_KEYS } from '../models/usda/usda.model';
 import { USDA_CONFIG } from '../configs/usda.private.config';
+import { USDASearchResult } from '../models/usda/usda-food.model';
 const rootPath: string = 'https://api.nal.usda.gov/ndb';
 
 interface USDADBOptions {
@@ -23,7 +23,7 @@ function makeUSDAEndpoint(
 	Object.keys(options.params)
 		.forEach((key) => {
 			builtURL.searchParams.append(USDA_SEARCH_KEYS[key], options.params[key]);
-	});
+		});
 	builtURL.searchParams.append(USDA_SEARCH_KEYS.apiKey, USDA_CONFIG.apiKey);
 	console.log(builtURL.toString());
 	return builtURL;

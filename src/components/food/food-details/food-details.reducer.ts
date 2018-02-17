@@ -1,5 +1,5 @@
-import { Reducer } from '../../../models/reducer.model';
-import { Action } from '../../../models/action.model';
+import { Reducer } from '../../../models/store/reducer.model';
+import { Action } from '../../../models/store/action.model';
 import { FoodDetailsComponentState } from '../../../models/food.model';
 
 export const foodDetailsReducer: Reducer = (

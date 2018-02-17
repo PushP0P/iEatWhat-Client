@@ -1,6 +1,6 @@
 import { BehaviorSubject, Observable } from '@reactivex/rxjs';
-import { Action } from '../models/action.model';
-import { Reducer } from '../models/reducer.model';
+import { Action } from '../models/store/action.model';
+import { Reducer } from '../models/store/reducer.model';
 
 export interface MasterState {
 	[stateProps: string]: any;
@@ -10,8 +10,7 @@ export class StoreService extends BehaviorSubject<MasterState> {
 	public reducers: Set<Reducer> = new Set<Reducer>();
 
 	constructor() {
-		super({});
-		console.log('calling store');
+		super(<MasterState> {});
 	}
 
 	public registerStore$(
