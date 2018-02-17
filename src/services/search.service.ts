@@ -23,7 +23,7 @@ function makeUSDAEndpoint(
 	Object.keys(options.params)
 		.forEach((key) => {
 			builtURL.searchParams.append(USDA_SEARCH_KEYS[key], options.params[key]);
-	});
+		});
 	builtURL.searchParams.append(USDA_SEARCH_KEYS.apiKey, USDA_CONFIG.apiKey);
 	console.log(builtURL.toString());
 	return builtURL;
