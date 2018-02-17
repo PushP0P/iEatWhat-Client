@@ -2,10 +2,11 @@ import { StoreService } from '../services/store.service';
 import { USDAItem } from './usda/usda-food.model';
 import { RouteComponentProps } from 'react-router';
 import { Action } from './store/action.model';
+import { Subject } from '@reactivex/rxjs';
 
 export type SearchBarProps = {
-	onInputChange: (inputVal: string) => void;
-	onQuery: (inputVal: string) => void;
+	handleInputChange: Subject<string>;
+	handleEnterPress: Subject<string>;
 };
 
 export type SearchComponentState = {

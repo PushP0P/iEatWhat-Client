@@ -9,17 +9,20 @@ import { SearchBarComponent } from './search-bar/search-bar.component';
 import { searchUSDA } from '../../../services/search.service';
 import { searchReducer } from './search.reducer';
 import { USDAItem } from '../../../models/usda/usda-food.model';
+import { Observable } from '@reactivex/rxjs';
+import { Subject } from '@reactivex/rxjs';
+import { actionShowResults } from './search.actions';
 
 export class SearchComponent extends React.Component<SearchComponentProps, SearchComponentState> {
 	public state: SearchComponentState = SEARCH_STATE_INIT;
+	private searchInputSource: Subject<string> = new Subject<string>();
+	private enterInputSource: Subject<string> = new Subject<string>();
+	private inputChanged$: Observable<string> = this
+		.enterInputSource
+		.merge(this.searchInputSource.debounce(() => Observable.interval(3000)))
+		.distinctUntilChanged();
 	private results: USDAItem[] = [];
-	private searchInput: string = '';
 	private subscriptions: Subscription;
-
-	constructor(public props: SearchComponentProps) {
-		super(props);
-		this.handleInputChange = this.handleInputChange.bind(this);
-	}
 
 	public render(): ReactElement<HTMLDivElement> {
 		return (
@@ -27,8 +30,8 @@ export class SearchComponent extends React.Component<SearchComponentProps, Searc
 				className="search-component"
 			>
 				<SearchBarComponent
-					onQuery={this.queryHandler}
-					onInputChange={this.handleInputChange}
+					handleInputChange={this.searchInputSource}
+					handleEnterPress={this.enterInputSource}
 				/>
 				<SearchResultsComponent
 					items={this.results}
@@ -47,29 +50,32 @@ export class SearchComponent extends React.Component<SearchComponentProps, Searc
 			.subscribe((state: SearchComponentState) => {
 				this.setState(state);
 			});
+		this.subscriptions
+			.add(this.inputChanged$.subscribe((searchTerm: string) => {
+				this.makeQuery(searchTerm);
+			}));
 	}
 
 	public componentWillUnmount(): void {
 		this.subscriptions.unsubscribe();
 	}
 
-	private handleInputChange(inputVal: string): void {
-		this.searchInput = inputVal;
-	}
-
-	private async queryHandler(): Promise<void> {
+	private async makeQuery(searchTerm: string): Promise<void> {
 		const result = await searchUSDA({
 			params: {
-				search_terms: this.searchInput
+				search_terms: searchTerm
 			},
 			requestType: 'search'
 		});
 		if (!result) {
 			// handle nothing found
 		}
-		console.log('results?', result);
 		// pagination
-		this.results = result.list.item.slice(this.state.resultsPage, this.state.resultsPage + this.state.searchItemsPerPage);
+		if ('errors' in result) {
+			return;
+		}
+		this.results = await result.list.item;
+		this.props.store.dispatch(actionShowResults());
 	}
 
 	private foodItemSelectHandler(ndbno: string): any {

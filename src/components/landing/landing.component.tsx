@@ -7,6 +7,7 @@ import { SearchComponent } from '../reusable/search/search.component';
 import { LandingComponentState } from '../../models/landing.model';
 import { landingReducer } from './landing.reducer';
 import { actionDataReady } from '../main/main.actions';
+import { SVGS } from '../../assets/react-svgs.asset';
 
 /**
  *  FIXTURES - Placeholders
@@ -22,7 +23,7 @@ export class LandingComponent extends React.Component<LandingComponentProps, Lan
 
 	constructor(public props: LandingComponentProps) {
 		super (props);
-		this.handleStateChange = this.handleStateChange.bind (this);
+		this.handleStateChange = this.handleStateChange.bind(this);
 	}
 
 	public render(): ReactElement<HTMLDivElement> {
@@ -38,6 +39,7 @@ export class LandingComponent extends React.Component<LandingComponentProps, Lan
 						routes={this.props.routeProps}
 					/>
 					<FooterComponent/>
+					{SVGS.iEatFork}
 				</div>
 			) : (
 				<LoadingComponent
