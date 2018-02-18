@@ -24,6 +24,10 @@ export class SearchComponent extends React.Component<SearchComponentProps, Searc
 	private results: USDAItem[] = [];
 	private subscriptions: Subscription;
 
+	get getResultPage(): USDAItem[] {
+		return this.results.slice(0, 19);
+	}
+
 	public render(): ReactElement<HTMLDivElement> {
 		return (
 			<div
@@ -34,7 +38,7 @@ export class SearchComponent extends React.Component<SearchComponentProps, Searc
 					handleEnterPress={this.enterInputSource}
 				/>
 				<SearchResultsComponent
-					items={this.results}
+					items={this.getResultPage}
 					dispatch={this.props.store.dispatch}
 					selectHandler={this.foodItemSelectHandler}
 					visible={this.state.resultsVisible}

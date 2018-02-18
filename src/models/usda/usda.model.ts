@@ -1,3 +1,5 @@
+import { USDANutrient } from '../usda-food.model';
+
 export interface Nutrient {
 	nutrient_id: string;
 }
@@ -74,9 +76,9 @@ export interface USDAReport {
 		refuse_description: string;
 		database_source: string;
 		reporting_unit: string;
-		list_of_ingredients: string;
 	};
 	ingredients: {
+		list_of_ingredients: USDANutrient[] | string;
 		last_updated_by_company: string;
 		metadata_nutrient: string;
 	};
@@ -150,9 +152,9 @@ export const USDA_REPORT_KEYS: USDAReport = {
 		refuse_description: 'rd',
 		database_source: 'ds',
 		reporting_unit: 'ru',
-		list_of_ingredients: 'desc'
 	},
 	ingredients: {
+		list_of_ingredients: 'desc',
 		last_updated_by_company: 'upd',
 		metadata_nutrient: 'nutrient',
 	},

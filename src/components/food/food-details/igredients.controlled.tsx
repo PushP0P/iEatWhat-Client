@@ -16,7 +16,7 @@ export const IngredientsComponent = (props: IngredientsComponentProps): ReactEle
 				{props.ingredients.map((ingredient: FoodIngredient) => {
 					return(
 						<li
-							key={ingredient.id}
+							key={ingredient.name}
 						>
 							{ingredient.name}
 						</li>

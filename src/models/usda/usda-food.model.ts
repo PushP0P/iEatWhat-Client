@@ -90,11 +90,11 @@ export interface USDAList {
 }
 
 export interface USDAItem {
-	ndbno: string;
-	name: string;
-	group: string;
-	ds: string;
-	offset: number;
+	ndbno?: string;
+	name?: string;
+	group?: string;
+	ds?: string;
+	offset?: number;
 }
 
 export interface USDASearchResponse {

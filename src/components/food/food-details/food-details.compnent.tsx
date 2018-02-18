@@ -59,10 +59,10 @@ export class FoodDetailsComponent extends React.Component<FoodDetailsComponentPr
 							>
 								<img
 									src={this.state.foodDetails.imageURL}
-									alt={`${this.state.foodDetails.foodName} picture`}
+									alt={`${this.state.foodDetails.name} picture`}
 								/>
 							</div>
-							<h1>{this.state.foodDetails.foodName}</h1>
+							<h1>{this.state.foodDetails.name}</h1>
 						</div>
 						<div
 							className="categories_box"
@@ -80,15 +80,15 @@ export class FoodDetailsComponent extends React.Component<FoodDetailsComponentPr
 						</div>
 						<hr />
 						<DescriptionComponent
-							name={this.state.foodDetails.foodName}
-							isbn={this.state.foodDetails.isbn}
-							type={this.state.foodDetails.description.foodGroup}
+							name={this.state.foodDetails.name}
+							isbn={this.state.foodDetails.ndbno}
+							type={this.state.foodDetails.group}
 							updatedOn={this.state.foodDetails.lastUpdated}
-							blurb={this.state.foodDetails.description.blurb}
 						/>
 						<hr />
 						<IngredientsComponent
-							ingredients={this.state.foodDetails.ingredients}
+							// TODO
+							ingredients={[]}
 						/>
 						<hr />
 						<CommentsComponent viewId={this.props.foodId}/>

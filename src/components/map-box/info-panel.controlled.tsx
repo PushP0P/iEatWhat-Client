@@ -31,7 +31,7 @@ export const InfoPanelComponent = (props: InfoPanelControlledProps) => {
 						<span
 							className="food-details_title"
 						>
-							{props.product.foodName}
+							{props.product.name}
 						</span>
 						<li>
 							{props.product.categoryTags.map(
@@ -49,7 +49,8 @@ export const InfoPanelComponent = (props: InfoPanelControlledProps) => {
 							Reviews: {props.product.reviews}
 						</li>
 						<li>
-							ISBN / ID: {props.product.isbn}
+							// TODO
+							UPC / ID: {props.product.ndbno}
 						</li>
 					</ul>
 				</Hoverable>

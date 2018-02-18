@@ -118,6 +118,7 @@ export interface USDAReport {
 	};
 }
 
+
 export const USDA_REPORT_KEYS: USDAReport = {
 	request_params: {
 		api_key: 'api_key',
@@ -193,7 +194,6 @@ export const USDA_REPORT_KEYS: USDAReport = {
 		description_of_code: 'desc'
 	}
 };
-
 export const USDA_SEARCH_KEYS = {
 	apiKey: 'api_key',
 	search_terms: 'q',

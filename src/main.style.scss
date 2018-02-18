@@ -9,7 +9,7 @@ $pasta-salad: url("https://static.pexels.com/photos/326278/pexels-photo-326278.j
 
 /**
  * Custom Globals
- */
+*/
 
 $color-primary: #DA5015;
 $color-background: #FEF8F6;
@@ -131,3 +131,4 @@ input {
 @import './components/reusable/modal/modal.style';
 @import './components/sign-in/password-reset/password-reset.style';
 @import './components/loading/loading.style';
+@import './components/reusable/search/search.style';

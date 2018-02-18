@@ -6,7 +6,7 @@ export function actionShowResults(): Action {
 	return {
 		type:'SEARCH_RESULTS_SHOWN',
 		payload: {
-			searchResultsVisible: true,
+			resultsVisible: true,
 		}
 	}
 }
@@ -15,7 +15,7 @@ export function actionHideResults(): Action {
 	return {
 		type:'SEARCH_RESULTS_HIDDEN',
 		payload: {
-			searchResultsVisible: true,
+			resultsVisible: true,
 		}
 	}
  }
