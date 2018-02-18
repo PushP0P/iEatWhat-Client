@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { SignInOption, SignInOptionsProps } from '../../models/sign-in.model';
+import { SignInOption, SignInOptionsProps } from '../../models/components/sign-in.model';
 import { SVGS } from '../../assets/react-svgs.asset';
 
 export const SignInOptions = (props: SignInOptionsProps) => {

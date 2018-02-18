@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { LOADING_INIT, LoadingComponentProps, LoadingComponentState } from '../../models/loading.model';
+import { LOADING_INIT, LoadingComponentProps, LoadingComponentState } from '../../../models/components/loading.model';
 
 export const DotElement = () => <span>.</span>;
 

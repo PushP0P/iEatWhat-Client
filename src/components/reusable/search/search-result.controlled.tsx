@@ -1,22 +1,28 @@
 import * as React from 'react';
 import { ReactElement } from 'react';
-import { SearchResultsProps } from '../../../models/search.model';
-import { SearchResultProps } from '../../../models/search.model';
+import { SearchResultsProps } from '../../../models/components/search.model';
+import { SearchResultProps } from '../../../models/components/search.model';
 import { CategoryComponent } from '../categories/category.controlled';
 import * as moment from 'moment';
 import { FoodItem } from '../../../models/food.model';
+import { Link } from 'react-router-dom';
 
 export const SearchResult = (props: SearchResultProps): ReactElement<HTMLElement> => {
 	const FIXTURE_IMG = 'https://static.pexels.com/photos/8758/food-dinner-lemon-rice.jpg';
-
+	console.log('ndbno', props);
 	return (
-		<div
+		<Link
 			className="search-result row"
+			to={`/food-details/${props.item.ndbno}`}
 		>
 			<div
-				className="result_image col-sm-4"
+				className="result_image-box col-sm-4"
 			>
-				<img src={props.item.imageURL || FIXTURE_IMG} alt={`A picture of ${props.item.name}`}/>
+				<div
+					className="result_image"
+				>
+					<img src={props.item.imageURL || FIXTURE_IMG} alt={`A picture of ${props.item.name}`}/>
+				</div>
 			</div>
 			<div
 				className="result_info col-sm-8"
@@ -36,7 +42,6 @@ export const SearchResult = (props: SearchResultProps): ReactElement<HTMLElement
 					<div>
 						{props.item.reviewed ? `Reviewed ${props.item.reviews}` : `No Reviews`}
 					</div>
-
 				</div>
 				<div
 					className="result_categories"
@@ -51,7 +56,7 @@ export const SearchResult = (props: SearchResultProps): ReactElement<HTMLElement
 					})}
 				</div>
 			</div>
-		</div>
+		</Link>
 	);
 };
 

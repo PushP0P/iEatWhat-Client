@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { CommentsListProps } from '../../../models/comments.model';
+import { CommentsListProps } from '../../../models/components/comments.model';
 import { CommentComponent } from '../comment/comment.controlled';
 import { ReactElement } from 'react';
 

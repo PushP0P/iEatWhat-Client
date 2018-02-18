@@ -1,5 +1,5 @@
 import { FoodItem } from '../models/food.model';
-import { USDAReport } from '../models/usda/usda.model';
+import { USDAReport } from '../models/usda/usda-report.model';
 
 const FIXTURE_FOOD_DETAILS: FoodItem | USDAReport | any  = {
 	id: 'TestFood',
@@ -45,6 +45,6 @@ const FIXTURE_FOOD_DETAILS: FoodItem | USDAReport | any  = {
 };
 
 export async function getFoodDetails(foodId: string): Promise<Set<any>> {
-	// return await searchUSDA(['cheeze','wiz'], {});
+	// return await queryUSDA(['cheeze','wiz'], {});
 	return new Set([FIXTURE_FOOD_DETAILS]);
 }

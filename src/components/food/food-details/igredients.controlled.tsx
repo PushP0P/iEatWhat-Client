@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { ReactElement } from 'react';
-import { FoodIngredient } from '../../../models/food.model';
+import { USDANutrient } from '../../../models/usda/usda-report.model';
 
 interface IngredientsComponentProps {
-	ingredients: FoodIngredient[];
+	ingredients: USDANutrient[];
 }
 
 export const IngredientsComponent = (props: IngredientsComponentProps): ReactElement<HTMLDivElement> => {
@@ -13,12 +13,12 @@ export const IngredientsComponent = (props: IngredientsComponentProps): ReactEle
 		>
 			<h2>Ingredients</h2>
 			<ul>
-				{props.ingredients.map((ingredient: FoodIngredient) => {
+				{props.ingredients.map((ingredient: USDANutrient) => {
 					return(
 						<li
-							key={ingredient.name}
+							key={ingredient.nutrient_number}
 						>
-							{ingredient.name}
+							{ingredient.nutrient_name}
 						</li>
 					);
 				})}

@@ -1,19 +1,24 @@
 import { Action } from '../../../models/store/action.model';
-import { SearchComponentState } from '../../../models/search.model';
+import { SearchComponentState } from '../../../models/components/search.model';
 
 export const searchReducer = function(action: Action, currentState: SearchComponentState): SearchComponentState {
 	const { type, payload} = action;
+
 	switch (type) {
 		case'DATA_LOADED':
-			return {...currentState, ...action.payload};
+			return {...currentState, ...payload};
 		case'DATA_LOADING':
-			return {...currentState, ...action.payload};
+			return {...currentState, ...payload};
 		case'NO_DATA':
-			return {...currentState, ...action.payload};
+			return {...currentState, ...payload};
 		case'SEARCH_RESULTS_SHOWN':
 			return {...currentState, ...payload};
 		case'SEARCH_RESULTS_HIDDEN':
-			return {...currentState, resultsVisible: false};
+			return {...currentState, ...payload};
+		case'SEARCHING':
+			return {...currentState, ...payload};
+		case'SEARCH_DONE':
+			return {...currentState, ...payload};
 		default:
 			return currentState;
 	}

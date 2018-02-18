@@ -1,4 +1,4 @@
-import { StoreService } from '../services/store.service';
+import { StoreService } from '../../services/store.service';
 
 export interface MapBoxComponentProps {
 	locations: Map<string, MapBoxLocation>;

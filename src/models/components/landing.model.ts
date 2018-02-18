@@ -1,5 +1,5 @@
-import { StoreService } from '../services/store.service';
-import { USDAItem } from './usda/usda-food.model';
+import { StoreService } from '../../services/store.service';
+import { USDAItem } from '../usda/usda-food.model';
 import { RouteComponentProps } from 'react-router';
 
 export interface LandingComponentProps {

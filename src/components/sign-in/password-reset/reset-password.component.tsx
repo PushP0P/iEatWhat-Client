@@ -4,7 +4,7 @@ import { ModalComponent } from '../../reusable/modal/modal.component';
 import {
 	PASSWORD_RESET_STATE_INIT, ResetPasswordComponentProps,
 	ResetPasswordComponentState
-} from '../../../models/password-reset.model';
+} from '../../../models/components/password-reset.model';
 import { passwordResetReducer } from './password-reset.reducer';
 import { toggleModalVisibilityOff, toggleModalVisibilityOn } from './password-reset.actions';
 import { resetPasswordHandler } from '../../../services/sign-in.service';

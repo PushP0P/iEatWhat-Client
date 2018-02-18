@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { ReactElement } from 'react';
-import { MAP_BOX_STATE_INIT , MapBoxComponentProps, MapBoxComponentState } from '../../models/map-box.model';
+import { MAP_BOX_STATE_INIT , MapBoxComponentProps, MapBoxComponentState } from '../../models/components/map-box.model';
 import { InfoPanelComponent } from './info-panel.controlled';
 import  * as mapboxgl from 'mapbox-gl';
 import { Map } from 'mapbox-gl';

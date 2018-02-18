@@ -1,9 +1,9 @@
-import { StoreService } from '../services/store.service';
-import { USDAItem } from './usda/usda-food.model';
+import { StoreService } from '../../services/store.service';
+import { USDAItem } from '../usda/usda-food.model';
 import { RouteComponentProps } from 'react-router';
-import { Action } from './store/action.model';
+import { Action } from '../store/action.model';
 import { Subject } from '@reactivex/rxjs';
-import { FoodItem } from './food.model';
+import { FoodItem } from '../food.model';
 
 export type SearchBarProps = {
 	handleInputChange: Subject<string>;
@@ -12,6 +12,7 @@ export type SearchBarProps = {
 
 export type SearchComponentState = {
 	searchItemsPerPage: number;
+	nowSearching: boolean;
 	resultsPage: number;
 	resultsVisible: boolean;
 };
@@ -37,5 +38,6 @@ export type SearchResultsProps = {
 export const SEARCH_STATE_INIT: SearchComponentState = {
 	searchItemsPerPage: 0,
 	resultsPage: 20,
+	nowSearching: false,
 	resultsVisible: false
 };

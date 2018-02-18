@@ -1,12 +1,15 @@
 import { StoreService } from '../services/store.service';
 import { USDAItem } from './usda/usda-food.model';
-import { USDAReport } from './usda.model';
+import { RouteComponentProps } from 'react-router';
+import { USDANutrient } from './usda/usda-report.model';
+import { USDAFood } from './usda/usda-report.model';
 
 export interface Category {
-	icon: string;
+	id: string;
 	label: string;
-	foodGroups: string[];
-	blackListedNutrients: FoodIngredient[];
+	icon: string;
+	nutrients: USDANutrient[];
+	foodWith: Map<string, USDAFood>;
 }
 
 export interface FoodMeta {
@@ -21,33 +24,22 @@ export interface FoodMeta {
 	lastUpdated?: number;
 }
 
-export interface FoodDescription {
-	name?: string;
-	foodGroup?: string;
-	blurb?: string;
-}
-export interface FoodIngredient {
-	name?: string;
-	nutrientGroup: string;
-}
-
 export interface FoodDetailsComponentProps {
 	store: StoreService;
-	foodId: string;
-	topic: string;
+	routeComponentProps: RouteComponentProps<HTMLDivElement>;
 }
 
 export interface FoodDetailsComponentState {
 	dataReady: boolean;
-	foodDetails: USDAReport & FoodItem;
+	modalVisible: boolean;
 }
 
 export const FOOD_DETAILS_STATE_INIT: FoodDetailsComponentState = {
 	dataReady: false,
-	foodDetails: <USDAReport & FoodItem> {},
+	modalVisible: false
 };
 
-export interface FoodItem extends FoodMeta, USDAItem, FoodDescription, FoodIngredient {
+export interface FoodItem extends FoodMeta, USDAItem {
 	id?: string;
 	upc?: string;
 	slug?: string;

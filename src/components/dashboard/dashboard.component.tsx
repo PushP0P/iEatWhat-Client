@@ -2,7 +2,7 @@ import * as React from 'react';
 import {
 	DASHBOARD_COMPONENT_STATE_INIT, DashboardComponentProps,
 	DashboardComponentState
-} from '../../models/dashboard.model';
+} from '../../models/components/dashboard.model';
 import { ReactElement } from 'react';
 
 export class DashboardComponent extends React.Component<DashboardComponentProps, DashboardComponentState> {

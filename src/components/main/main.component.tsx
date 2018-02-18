@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { MAIN_ROUTES_SWITCH } from '../../router/main.routes';
-import { MAIN_COMPONENT_STATE_INIT, MainComponentProps, MainComponentState } from '../../models/main.model';
+import { MAIN_COMPONENT_STATE_INIT, MainComponentProps, MainComponentState } from '../../models/components/main.model';
 import { mainReducer } from './main.reducer';
 import { Subscription } from '@reactivex/rxjs';
 

@@ -4,7 +4,7 @@ import {
 	CommentProps,
 	CommentsList, CommentsListProps, CommentsListState,
 	generateDemoComment
-} from '../../../models/comments.model';
+} from '../../../models/components/comments.model';
 import * as renderer from 'react-test-renderer';
 import { CommentsListComponent } from './comments-list.controlled';
 declare var window: any;

@@ -59,14 +59,12 @@ export const MAIN_ROUTES_SWITCH = (store: StoreService) => {
 				}
 			/>
 			<Route
-				path="/food-details"
+				path="/food-details/:id"
 				render={
 					(routes) => {
 						return (
 							<FoodDetailsComponent
-								foodId={'TestFood1234'}
-								topic={'Food Details'}
-								{...routes}
+								routeComponentProps={routes}
 								store={store}
 							/>
 						);
