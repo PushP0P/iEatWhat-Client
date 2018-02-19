@@ -22,7 +22,8 @@ UI | [ReactJs](http://reactjs.org/)
 Languages | [TypeScript(TSX)](https://www.typescriptlang.org/docs/handbook/jsx.html) | [Sass](sass-lang.org) 
 Stage Site | Soon
 Live Site | [ieatwhat.herokuapp.com](//ieatwhat.herokuapp.com)
-Repo | [git@github.com:PushP0P/iEatWhat-Client.git](git@github.com:PushP0P/iEatWhat-Client.git)
+GitHub | [https://github.com/PushP0P/iEatWhat-Client](https://github.com/PushP0P/iEatWhat-Client)
+Admin | [ieatwhat.liftoff@gmail.com](iEatWhat Team @ Gmail)
 * Project Anatomy
 
 Soon
