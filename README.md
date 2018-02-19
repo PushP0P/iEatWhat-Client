@@ -23,7 +23,7 @@ Languages | [TypeScript(TSX)](https://www.typescriptlang.org/docs/handbook/jsx.h
 Stage Site | Soon
 Live Site | [ieatwhat.herokuapp.com](//ieatwhat.herokuapp.com)
 GitHub | [https://github.com/PushP0P/iEatWhat-Client](https://github.com/PushP0P/iEatWhat-Client)
-Admin | [ieatwhat.liftoff@gmail.com](iEatWhat Team @ Gmail)
+Admin | [iEatWhat Team @ Gmail](ieatwhat.liftoff@gmail.com)
 * Project Anatomy
 
 Soon
