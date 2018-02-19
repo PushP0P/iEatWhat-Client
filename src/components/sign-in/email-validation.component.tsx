@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { ReactElement } from 'react';
 import { Link } from 'react-router-dom';
-import { EmailValidationProps, EmailValidationState } from '../../models/email-validation.model';
-import { EMAIL_VALIDATION_STATE_INIT } from '../../models/email-validation.model';
+import { EmailValidationProps, EmailValidationState } from '../../models/components/email-validation.model';
+import { EMAIL_VALIDATION_STATE_INIT } from '../../models/components/email-validation.model';
 import { handleEmailVerification } from '../../services/sign-in.service';
 
 export class EmailValidationComponent extends React.Component<EmailValidationProps, EmailValidationState> {

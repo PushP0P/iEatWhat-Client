@@ -1,96 +1,50 @@
 import { StoreService } from '../services/store.service';
+import { USDAItem } from './usda/usda-food.model';
+import { RouteComponentProps } from 'react-router';
+import { USDANutrient } from './usda/usda-report.model';
+import { USDAFood } from './usda/usda-report.model';
 
 export interface Category {
-	icon: string;
+	id: string;
 	label: string;
-	foodGroups: string[];
-	blackListedNutrients: FoodIngredient[];
+	icon: string;
+	nutrients: USDANutrient[];
+	foodWith: Map<string, USDAFood>;
 }
 
-export interface FoodItemMeta {
-	rating: number;
-	reviewed: boolean;
-	reviews: number;
-	restaurantItem: boolean;
-	storeItem: boolean;
-	homeMadeItem: boolean;
-	soldAt: string[];
-	verifiedCategories: Category[];
-	lastUpdated: number;
-}
-
-export interface FoodItem extends FoodItemMeta {
-	id: string;
-	isbn: string;
-	slug: string;
-	topic: string;
-	lastUpdated: number;
-	imageURL: string;
-	foodName: string;
-	categoryTags: string[];
-	description: FoodDescription;
-	ingredients: FoodIngredient[];
-}
-
-export interface FoodDescription {
-	name: string;
-	foodGroup: string;
-	blurb?: string;
-}
-
-export interface FoodIngredient {
-	id: string;
-	name: string;
-	nutrientGroup: string;
+export interface FoodMeta {
+	rating?: number;
+	reviewed?: boolean;
+	reviews?: number;
+	restaurantItem?: boolean;
+	storeItem?: boolean;
+	homeMadeItem?: boolean;
+	soldAt?: string[];
+	verifiedCategories?: Category[];
+	lastUpdated?: number;
 }
 
 export interface FoodDetailsComponentProps {
 	store: StoreService;
-	foodId: string;
-	topic: string;
+	routeComponentProps: RouteComponentProps<HTMLDivElement>;
 }
 
 export interface FoodDetailsComponentState {
 	dataReady: boolean;
-	foodDetails: FoodItem;
+	modalVisible: boolean;
 }
 
 export const FOOD_DETAILS_STATE_INIT: FoodDetailsComponentState = {
 	dataReady: false,
-	foodDetails: <FoodItem> {},
+	modalVisible: false
 };
 
-// Data From The USDA
-// "desc": {
-// 	"ndbno": "01009",
-// 		"name": "Cheese, cheddar",
-// 		"sd": "CHEESE,CHEDDAR",
-// 		"fg": "Dairy and Egg Products",
-// 		"sn": "",
-// 		"cn": "",
-// 		"manu": "",
-// 		"nf": 0,
-// 		"cf": 0,
-// 		"ff": 0,
-// 		"pf": 0,
-// 		"r": "0%",
-// 		"rd": "",
-// 		"ds": "Standard Reference",
-// 		"ru": "g"
-// },
-//
-// {
-// 	"nutrient_id": 255,
-// 	"name": "Water",
-// 	"group": "Proximates",
-// 	"unit": "g",
-// 	"value": 37.02,
-// 	"derivation": "NONE",
-// 	"sourcecode": [
-// 	1,
-// 	2
-// ],
-// 	"dp": 39,
-// 	"se": "0.190",
-//
-// },
+export interface FoodItem extends FoodMeta, USDAItem {
+	id?: string;
+	upc?: string;
+	slug?: string;
+	topic?: string;
+	lastUpdated?: number;
+	imageURL?: string;
+	categoryTags?: string[];
+}

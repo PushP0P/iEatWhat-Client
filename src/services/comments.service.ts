@@ -1,4 +1,4 @@
-import { CommentsList, CommentsListMeta, generateDemoComment } from '../models/comments.model';
+import { CommentsList, CommentsListMeta, generateDemoComment } from '../models/components/comments.model';
 import * as fb from 'firebase';
 
 export class CommentsService {

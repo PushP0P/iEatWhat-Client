@@ -1,5 +1,5 @@
 import { Action } from '../../models/store/action.model';
-import { LandingComponentState } from '../../models/landing.model';
+import { LandingComponentState } from '../../models/components/landing.model';
 
 export const landingReducer = function(action: Action, currentState: LandingComponentState): LandingComponentState {
 	const { type, payload} = action;

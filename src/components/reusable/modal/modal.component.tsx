@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { SyntheticEvent } from 'react';
-import { ModalComponentProps, ModalControl } from '../../../models/modal.model';
+import { ModalComponentProps, ModalControl } from '../../../models/components/modal.model';
 
 export const ModalComponent = (props: ModalComponentProps) => {
 	const hiddenStyle = () => {

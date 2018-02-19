@@ -6496,7 +6496,7 @@ a.text-dark:hover, a.text-dark:focus {
     border: 1px solid #ddd !important; } }
 /**
  * Custom Globals
- */
+*/
 .overlay {
   position: absolute;
   top: 0;
@@ -6737,7 +6737,7 @@ input {
   .food-details-component .content_wrapper {
     position: relative;
     background: #FEF8F6; }
-  .food-details-component .header_image_box {
+  .food-details-component .header_image-box {
     margin: auto;
     margin-bottom: -50px;
     height: 300px;
@@ -6745,7 +6745,7 @@ input {
     overflow-x: hidden;
     border-radius: 5px;
     box-shadow: 2px 5px 5px 2px rgba(0, 0, 0, 0.8); }
-    .food-details-component .header_image_box img {
+    .food-details-component .header_image-box img {
       height: 100%; }
   .food-details-component .food-details_header {
     margin-bottom: -125px;
@@ -6859,4 +6859,46 @@ input {
       .loading-component .animation-wrapper .dots-box span:nth-child(2n + 2) {
         color: #A1CFFF; }
 
+<<<<<<< HEAD
+.search-bar-component {
+  margin-bottom: 30px; }
+
+.search-result {
+  transition: all 0.6s linear; }
+  .search-result:hover {
+    transition: all 0.6s linear;
+    background: #ffd7bb; }
+
+.search-results-component {
+  cursor: pointer;
+  padding: 0 10px 50px 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around; }
+  .search-results-component .result_image .result_image-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: auto; }
+  .search-results-component .result_image img {
+    width: 100%; }
+  .search-results-component .result_highlights {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around; }
+  .search-results-component .result_info {
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    justify-content: space-between; }
+  @media (max-width: 767.98px) {
+    .search-results-component .result_info--min-scree {
+      position: absolute;
+      top: 0;
+      left: 0; } }
+
+=======
+>>>>>>> d3a0ba6845dd46e58b9a2a03c4d7312fd9f3e43a
 /*# sourceMappingURL=main.style.css.map */

@@ -3,7 +3,7 @@ import { ReactElement, SyntheticEvent } from 'react';
 import {
 	COMMENTS_COMPONENT_STATE_INIT, CommentsComponentProps,
 	CommentsComponentState
-} from '../../models/comments.model';
+} from '../../models/components/comments.model';
 import { CommentsListComponent } from './comments-list/comments-list.controlled';
 import { CommentsService } from '../../services/comments.service';
 

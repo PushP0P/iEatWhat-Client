@@ -1,11 +1,11 @@
 // export interface USDASearchRequestParams {
-// 	search_terms?: string;
-// 	data_source?: string;
-// 	food_group_ID?: string;
+// 	searchTerms?: string;
+// 	dataSource?: string;
+// 	foodGroupID?: string;
 // 	sort?: string;
-// 	maximum_rows?: string;
-// 	beginning_row?: string;
-// 	results_format?: string;
+// 	maximumRows?: string;
+// 	beginningRow?: string;
+// 	resultsFormat?: string;
 // }
 //
 // export interface USDAReportParams {
@@ -18,7 +18,7 @@
 // 	sort: string;
 // 	subset: number;
 // 	n_db: string;
-// 	report_type?: string;
+// 	reportType?: string;
 // 	response_format?: string;
 // }
 //

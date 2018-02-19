@@ -1,5 +1,5 @@
 import { Action } from '../../../models/store/action.model';
-import { ResetPasswordComponentState } from '../../../models/password-reset.model';
+import { ResetPasswordComponentState } from '../../../models/components/password-reset.model';
 
 export function passwordResetReducer(
 	action: Action,

@@ -1,13 +1,12 @@
 import * as React from 'react';
-import { LANDING_STATE_INIT, LandingComponentProps } from '../../models/landing.model';
+import { LANDING_STATE_INIT, LandingComponentProps } from '../../models/components/landing.model';
 import { ReactElement } from 'react';
 import { Subscription } from '@reactivex/rxjs';
-import { LoadingComponent } from '../loading/loading.component';
+import { LoadingComponent } from '../reusable/loading/loading.component';
 import { SearchComponent } from '../reusable/search/search.component';
-import { LandingComponentState } from '../../models/landing.model';
+import { LandingComponentState } from '../../models/components/landing.model';
 import { landingReducer } from './landing.reducer';
 import { actionDataReady } from '../main/main.actions';
-import { SVGS } from '../../assets/react-svgs.asset';
 
 /**
  *  FIXTURES - Placeholders
@@ -39,7 +38,6 @@ export class LandingComponent extends React.Component<LandingComponentProps, Lan
 						routes={this.props.routeProps}
 					/>
 					<FooterComponent/>
-					{SVGS.iEatFork}
 				</div>
 			) : (
 				<LoadingComponent
