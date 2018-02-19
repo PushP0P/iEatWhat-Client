@@ -72,13 +72,13 @@ export class FoodDetailsComponent extends React.Component<FoodDetailsComponentPr
 							className="categories_box"
 						>
 							{this.content.categories((tag: string) => {
-										return (
-											<CategoryComponent
-												key={tag}
-												tag={tag}
-											/>
-										);
-								})}
+								return (
+									<CategoryComponent
+										key={tag}
+										tag={tag}
+									/>
+								);
+							})}
 						</div>
 						<hr />
 						<DescriptionComponent

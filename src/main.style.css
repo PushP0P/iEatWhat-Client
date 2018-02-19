@@ -6859,6 +6859,7 @@ input {
       .loading-component .animation-wrapper .dots-box span:nth-child(2n + 2) {
         color: #A1CFFF; }
 
+<<<<<<< HEAD
 .search-bar-component {
   margin-bottom: 30px; }
 
@@ -6898,4 +6899,6 @@ input {
       top: 0;
       left: 0; } }
 
+=======
+>>>>>>> d3a0ba6845dd46e58b9a2a03c4d7312fd9f3e43a
 /*# sourceMappingURL=main.style.css.map */
