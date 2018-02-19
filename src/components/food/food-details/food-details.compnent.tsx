@@ -15,6 +15,7 @@ import { queryUSDA } from '../../../services/search.service';
 import { actionDataReady } from '../../main/main.actions';
 import { ReportFetchResponse } from '../../../models/usda/usda.model';
 import { USDA_SEARCH_KEYS } from '../../../models/usda/usda.model';
+import * as moment from 'moment';
 
 export class FoodDetailsComponent extends React.Component<FoodDetailsComponentProps, FoodDetailsComponentState> {
 	public state = FOOD_DETAILS_STATE_INIT;
@@ -38,7 +39,7 @@ export class FoodDetailsComponent extends React.Component<FoodDetailsComponentPr
 		});
 
 		this.content = content.foods[0];
-		console.log('report', this.content.desc.);
+		console.log('report', this.content);
 		this.props.store.dispatch(actionDataReady());
 	}
 
@@ -62,12 +63,24 @@ export class FoodDetailsComponent extends React.Component<FoodDetailsComponentPr
 								className="header_image-box"
 							>
 								<img
-									src={this.content.desc.}
+									src={'#'}
 									alt={`${this.content.name} picture`}
 								/>
+
 							</div>
-							<h1>{this.content}</h1>
+							<h1>{this.content.name}</h1>
+							<div
+								className="header--updated-last"
+							>
+								{moment(Date.now()).format('LL')}
+							</div>
+							<div
+								className="header--reviewed"
+							>
+								{this.content.reviews || 'No Reviews'}
+							</div>
 						</div>
+
 						<div
 							className="categories_box"
 						>

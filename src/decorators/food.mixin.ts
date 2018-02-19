@@ -1,3 +1,3 @@
-export const iEatWhatMeta = (target: {}, key: any, descriptor: any) => {
-
-};
+// export const iEatWhatMeta = (target: {}, key: any, descriptor: any) => {
+//
+// };
