@@ -29,7 +29,13 @@ export class SearchComponent extends React.Component<SearchComponentProps, Searc
 	private subscriptions: Subscription;
 
 	get getResultPage(): USDAItem[] {
-		return this.results.slice(0, 19);
+		return this.results.length > 20 ?  this.results.slice(0, 19) : this.results;
+	}
+
+	constructor(public props: SearchComponentProps) {
+		super(props);
+
+		this.foodItemSelectHandler = this.foodItemSelectHandler.bind(this);
 	}
 
 	public render(): ReactElement<HTMLDivElement> {
@@ -61,6 +67,7 @@ export class SearchComponent extends React.Component<SearchComponentProps, Searc
 		this.subscriptions = this.props.store
 			.registerStore$(searchReducer, SEARCH_STATE_INIT)
 			.subscribe((state: SearchComponentState) => {
+				console.log('state', state);
 				this.setState(state);
 			});
 		this.subscriptions
@@ -87,7 +94,7 @@ export class SearchComponent extends React.Component<SearchComponentProps, Searc
 		}
 		this.results = await result.list.item;
 		this.props.store.dispatch(actionSearchDone());
-		console.log('state', this.state);
+		console.log('state', this.results);
 	}
 
 	private foodItemSelectHandler(ndbno: string): any {

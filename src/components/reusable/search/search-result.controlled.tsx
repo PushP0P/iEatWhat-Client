@@ -3,9 +3,9 @@ import { ReactElement } from 'react';
 import { SearchResultsProps } from '../../../models/components/search.model';
 import { SearchResultProps } from '../../../models/components/search.model';
 import { CategoryComponent } from '../categories/category.controlled';
-import * as moment from 'moment';
-import { FoodItem } from '../../../models/food.model';
 import { Link } from 'react-router-dom';
+import { USDAItem } from '../../../models/usda/usda-report.model';
+import * as moment from 'moment';
 
 export const SearchResult = (props: SearchResultProps): ReactElement<HTMLElement> => {
 	const FIXTURE_IMG = 'https://static.pexels.com/photos/8758/food-dinner-lemon-rice.jpg';
@@ -21,7 +21,7 @@ export const SearchResult = (props: SearchResultProps): ReactElement<HTMLElement
 				<div
 					className="result_image"
 				>
-					<img src={props.item.imageURL || FIXTURE_IMG} alt={`A picture of ${props.item.name}`}/>
+					<img src={FIXTURE_IMG} alt={`A picture of ${props.item.name}`}/>
 				</div>
 			</div>
 			<div
@@ -32,15 +32,15 @@ export const SearchResult = (props: SearchResultProps): ReactElement<HTMLElement
 				>
 					{/*// prod name*/}
 					<div>
-						{props.item.name || 'No Name Found'}
+						{props.item.ndbno || 'No Name Found'}
 					</div>
 					{/*updated last*/}
 					<div>
-						{props.item.lastUpdated || moment (Date.now ()).fromNow ()}
+						{moment(Date.now ()).fromNow ()}
 					</div>
 					{/*reviewed*/}
 					<div>
-						{props.item.reviewed ? `Reviewed ${props.item.reviews}` : `No Reviews`}
+						{`No Reviews`}
 					</div>
 				</div>
 				<div
@@ -62,6 +62,7 @@ export const SearchResult = (props: SearchResultProps): ReactElement<HTMLElement
 
 export const SearchResultsComponent = (props: SearchResultsProps) => {
 	const display = props.visible ? 'flex' : 'none';
+	console.log('props', props);
 	return (
 		<div
 			style={{
@@ -69,10 +70,11 @@ export const SearchResultsComponent = (props: SearchResultsProps) => {
 			}}
 			className="search-results-component"
 		>
-			{props.items.map ((item: FoodItem) => {
+			{props.items.map((item: USDAItem) => {
+				console.log('props item', item);
 				return (
 					<SearchResult
-						key={item.ndbno.toString ()}
+						key={item.ndbno.toString()}
 						item={item}
 						clickHandler={() => {
 							props.selectHandler (item.ndbno);

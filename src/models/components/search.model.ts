@@ -3,7 +3,6 @@ import { USDAItem } from '../usda/usda-food.model';
 import { RouteComponentProps } from 'react-router';
 import { Action } from '../store/action.model';
 import { Subject } from '@reactivex/rxjs';
-import { FoodItem } from '../food.model';
 
 export type SearchBarProps = {
 	handleInputChange: Subject<string>;
@@ -23,7 +22,7 @@ export type SearchComponentProps = {
 };
 
 export type SearchResultProps = {
-	item: FoodItem;
+	item: USDAItem;
 	clickHandler: (slug: string) => void;
 };
 

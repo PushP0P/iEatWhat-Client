@@ -1,5 +1,5 @@
 import { USDADBOptions } from '../models/usda/usda.model';
-import { USDA_CONFIG } from '../configs/usda.private.config';
+import { USDA_CONFIG } from '../configs/usda.config';
 import { USDAFetchResponse } from '../models/usda/usda.model';
 import { USDA_SEARCH_KEYS } from '../models/usda/usda.model';
 

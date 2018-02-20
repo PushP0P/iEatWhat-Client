@@ -4,22 +4,23 @@ import {
 	FoodDetailsComponentState
 } from '../../../models/food.model';
 import { ReactElement } from 'react';
+import { Subscription } from '@reactivex/rxjs';
+import { LoadingComponent } from '../../reusable/loading/loading.component';
 import { VotingComponent } from '../../reusable/voting/voting.component';
 import { CategoryComponent } from '../../reusable/categories/category.controlled';
 import { IngredientsComponent } from './igredients.controlled';
 import { DescriptionComponent } from './description.controlled';
 import { foodDetailsReducer } from './food-details.reducer';
 import { queryUSDA } from '../../../services/search.service';
-import { Subscription } from '@reactivex/rxjs';
 import { actionDataReady } from '../../main/main.actions';
-import { LoadingComponent } from '../../reusable/loading/loading.component';
 import { ReportFetchResponse } from '../../../models/usda/usda.model';
 import { USDA_SEARCH_KEYS } from '../../../models/usda/usda.model';
+import * as moment from 'moment';
 
 export class FoodDetailsComponent extends React.Component<FoodDetailsComponentProps, FoodDetailsComponentState> {
 	public state = FOOD_DETAILS_STATE_INIT;
 	private subscriptions: Subscription;
-	private content: any = {} as any ;
+	private content: any = {} as any;
 
 	public async componentDidMount(): Promise<void> {
 		this.subscriptions = this.props.store
@@ -38,7 +39,7 @@ export class FoodDetailsComponent extends React.Component<FoodDetailsComponentPr
 		});
 
 		this.content = content.foods[0];
-
+		console.log('report', this.content);
 		this.props.store.dispatch(actionDataReady());
 	}
 
@@ -62,23 +63,35 @@ export class FoodDetailsComponent extends React.Component<FoodDetailsComponentPr
 								className="header_image-box"
 							>
 								<img
-									src={this.content.imgURL}
+									src={'#'}
 									alt={`${this.content.name} picture`}
 								/>
+
 							</div>
-							<h1>{this.content}</h1>
+							<h1>{this.content.name}</h1>
+							<div
+								className="header--updated-last"
+							>
+								{moment(Date.now()).format('LL')}
+							</div>
+							<div
+								className="header--reviewed"
+							>
+								{this.content.reviews || 'No Reviews'}
+							</div>
 						</div>
+
 						<div
 							className="categories_box"
 						>
 							{this.content.categories((tag: string) => {
-								return (
-									<CategoryComponent
-										key={tag}
-										tag={tag}
-									/>
-								);
-							})}
+										return (
+											<CategoryComponent
+												key={tag}
+												tag={tag}
+											/>
+										);
+								})}
 						</div>
 						<hr />
 						<DescriptionComponent

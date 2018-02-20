@@ -1,5 +1,4 @@
 import { StoreService } from '../services/store.service';
-import { USDAItem } from './usda/usda-food.model';
 import { RouteComponentProps } from 'react-router';
 import { USDANutrient } from './usda/usda-report.model';
 import { USDAFood } from './usda/usda-report.model';
@@ -39,7 +38,7 @@ export const FOOD_DETAILS_STATE_INIT: FoodDetailsComponentState = {
 	modalVisible: false
 };
 
-export interface FoodItem extends FoodMeta, USDAItem {
+export interface FoodItem extends FoodMeta {
 	id?: string;
 	upc?: string;
 	slug?: string;
