@@ -8,6 +8,7 @@ import { StoreService } from '../services/store.service';
 import { EmailValidationComponent } from '../components/sign-in/email-validation.component';
 import { RouteComponentProps } from 'react-router';
 import { LandingComponent } from '../components/landing/landing.component';
+import { BackendTests } from '../components/reusable/backend-tests/backend-tests';
 
 // TODO Refactor for packed Routes.
 
@@ -44,6 +45,12 @@ export const MAIN_ROUTES_SWITCH = (store: StoreService) => {
 							store={store}
 						/>
 					);
+				}}
+			/>
+			<Route
+				path="/test-back"
+				render={() => {
+					return <BackendTests/>;
 				}}
 			/>
 			<Route

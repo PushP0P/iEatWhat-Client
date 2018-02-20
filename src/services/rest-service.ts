@@ -27,6 +27,7 @@ export async function eventRequest(eventTrans: EventTransport): Promise<any> {
 		};
 
 		xhr.open('POST', EVENT_PATH);
+		console.log('event sending', eventTrans);
 		xhr.send(data);
 	});
 }
