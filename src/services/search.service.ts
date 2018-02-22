@@ -1,44 +1,37 @@
-import { ListOptions } from '../models/usda/usda.model';
-import { ReportOptions } from '../models/usda/usda.model';
-import { FoodSearchOptions } from '../models/usda/usda.model';
+import { USDADBOptions } from '../models/usda/usda.model';
+import { USDA_CONFIG } from '../configs/usda.config';
+import { USDAFetchResponse } from '../models/usda/usda.model';
 import { USDA_SEARCH_KEYS } from '../models/usda/usda.model';
-import { USDA_CONFIG } from '../configs/usda.private.config';
-import { USDASearchResult } from '../models/usda/usda-food.model';
+
 const rootPath: string = 'https://api.nal.usda.gov/ndb';
 
-interface USDADBOptions {
-	params?: ReportOptions | ListOptions | FoodSearchOptions;
-	requestType: 'nutrients' | 'search' | 'lists' | 'food';
-}
-// TODO Consider cleaning
-
-function makeUSDAEndpoint(
-	options: USDADBOptions = {
-		requestType: 'search'
-	}
-): URL | void {
+function makeUSDAEndpoint(options: USDADBOptions): string {
 	const baseURL: string = rootPath + '/' + options.requestType;
-	const builtURL = new URL(baseURL);
-	builtURL.searchParams.append(USDA_SEARCH_KEYS.results_format, 'JSON');
+	const url = new URL(baseURL);
+
 	Object.keys(options.params)
 		.forEach((key) => {
-			builtURL.searchParams.append(USDA_SEARCH_KEYS[key], options.params[key]);
+		url.searchParams
+			.append(key, options.params[key]);
+	});
+	url.searchParams
+		.append(USDA_SEARCH_KEYS.resultsFormat, 'json');
+	url.searchParams
+		.append(USDA_SEARCH_KEYS.apiKey, USDA_CONFIG.apiKey);
+	return url.toString();
+}
+
+export async function queryUSDA(options: USDADBOptions): Promise<USDAFetchResponse> {
+	const uSDAAPIString: string = <string> makeUSDAEndpoint(options);
+	const request: Request = await new Request(
+	uSDAAPIString.toString(),
+	{
+		headers: {
+			Origin: window.location.href
+			}
 		});
-	builtURL.searchParams.append(USDA_SEARCH_KEYS.apiKey, USDA_CONFIG.apiKey);
-	console.log(builtURL.toString());
-	return builtURL;
-}
-
-export async function searchUSDA(options: USDADBOptions): Promise<USDASearchResult> {
-	const uSDAAPIString: URL = <URL> makeUSDAEndpoint(options);
-	const request = await new Request(uSDAAPIString.toString());
 	const response: Response = await fetch(request);
-	if (!response) {
-		return Promise.reject('Error with USDA search.');
-	}
-	return response.json();
+	return await !response
+		? Promise.reject('Error with USDA search.')
+		: response.json();
 }
-
-export const transformInputValToQuery = (val: string): string[] => {
-	return val.split(' ');
-};

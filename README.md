@@ -16,13 +16,14 @@ iDoWhat?
 
 Type | Value |
 ---- | --- |  
-Web Application | Progressive Web Application  
+Web Application | In Development  
 target | [Mobile Browser (caniuse.com)](https://caniuse.com/#compare=ios_saf+11.0-11.2,android+62,bb+10,op_mob+37,ie_mob+11,and_uc+11.8,samsung+6.2) 
 UI | [ReactJs](http://reactjs.org/) 
 Languages | [TypeScript(TSX)](https://www.typescriptlang.org/docs/handbook/jsx.html) | [Sass](sass-lang.org) 
 Stage Site | Soon
-Live Site | [ieatwhat.herokuapp.com](ieatwhat.herokuapp.com)
-
+Live Site | [ieatwhat.herokuapp.com](//ieatwhat.herokuapp.com)
+GitHub | [https://github.com/PushP0P/iEatWhat-Client](https://github.com/PushP0P/iEatWhat-Client)
+Admin | [iEatWhat Team @ Gmail](ieatwhat.liftoff@gmail.com)
 * Project Anatomy
 
 Soon
@@ -44,8 +45,9 @@ SOON - use `TSLinter!`
 
 * PR's
 
+## The PushP0P Team
 
-
-## Reviewer
-
-## Business
+* [Daniel Hodgson](https://github.com/hodgsond)
+* [Patrick Lippert](https://github.com/mayhawstudios)
+* [Stephanie Spears](https://github.com/Stephanie-Spears)
+* [Rob "REX" Beatie](https://github.com/rdev0rigin)

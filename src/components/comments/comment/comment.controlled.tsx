@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { CommentProps } from '../../../models/comments.model';
+import { CommentProps } from '../../../models/components/comments.model';
 import * as moment from 'moment';
 import { SVGS } from '../../../assets/react-svgs.asset';
 

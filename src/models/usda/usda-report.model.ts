@@ -1,45 +1,115 @@
-export interface Nutrient {
-	nutrient_id: string;
+/**
+ * The list of Food reported for a request
+ */
+export interface USDAFoods {
+	number_of_foods?: string;
+	not_found?: string;
+	api_version?: string;
 }
 
-export interface FoodSearchOptions {
-	fg?: string;
-	search_terms: string;
-	format?: string;
-	max?: number;
+/**
+ * The Food Report
+ */
+export interface USDAFood {
+	report_type?: string;
+	report_version?: string;
+}
+
+/**
+ * metadata elements for the food being reported
+ */
+export interface USDADescMeta {
+	ndb_food_number?: string;
+	food_name?: string;
+	short_description?: string;
+	food_group?: string;
+	scientific_name?: string;
+	commercial_name?: string;
+	manufacture_?: string;
+	nitrogen_to_protein_conversion_factor?: string;
+	carbohydrate_factor?: string;
+	fat_factor?: string;
+	protein_factor?: string;
+	refuse?: string;
+	refuse_description?: string;
+	database_source?: string;
+	reporting_unit?: string;
+	list_of_ingredients?: string;
+}
+
+/**
+ * ingredients (Branded Food Products report only)
+ */
+export interface USDAIngredients {
+	last_updated_by_company?: string;
+	metadata_nutrient?: string;
+}
+
+/**
+ * metadata elements for each nutrient included in the food report
+ */
+export interface USDANutrient {
+	nutrient_number?: string;
+	nutrient_name?: string;
+	list_of_source_id?: string;
+	how_value_was_derived?: string;
+	unit_of_measure?: string;
+	equivalent_100g?: string;
+	data_point_count?: string;
+	standard_error?: string;
+	measures?: string;
+}
+
+/**
+ * List of measures reported for a nutrient
+ */
+export interface USDAMeasures {
+	e_unit_equivalent?: string;
+	equivalent_unit?: string;
+	gram_equivalent?: string;
+	reference_source?: string;
+}
+
+export interface USDALangual {
+	food_LANGUAL_codes?: string;
+	langual_code?: string;
+	description_of_code?: string;
+}
+
+export interface USDAFootnote {
+	footnote_id?: string;
+	food_note_text?: string;
+}
+
+/**
+ * Reference source, usually a bibliographic citation, for the food
+ */
+export interface USDASource {
+	name_of_reference?: string;
+	authors_of_the_report?: string;
+	volume?: string;
+	issue?: string;
+	publication_year?: string;
+	start_page?: string;
+	end_page?: string;
+}
+
+export interface USDAList {
+	q?: string;
+	start?: number;
+	end?: number;
 	offset?: number;
-	ndbno?: string[];
-	nutrients?: string[];
-	sort?: string;
-	subset?: string;
-	n_db?: string;
+	total?: number;
+	sort?: any; 	// sort order: n=name or id
+	sr?: string;
 }
 
-export interface ReportOptions {
-	ndbno: string[];
-	type: 'b' | 'f' | 's';
-	format: 'JSON';
-}
-
-// Good
-export interface ReportResponse {
-	type: 'b' | 'f' | 's';
-	group: string;
-	subset: string;
-	sr: string;
-	end: string;
-	start: string;
-	total: string;
-	foods: string;
-	ndbno: string;
-	name: string;
-	measure: string;
-	nutrients: string;
-	nutrient_id: string;
-	nutrient: string;
-	unit: string;
-	gm: string;
-	value: string;
+export interface USDAItem {
+	ndbno?: string;
+	name?: string;
+	group?: string;
+	ds?: string;
+	offset?: number;
 }
 
 export interface USDAReport {
@@ -74,9 +144,9 @@ export interface USDAReport {
 		refuse_description: string;
 		database_source: string;
 		reporting_unit: string;
-		list_of_ingredients: string;
 	};
 	ingredients: {
+		list_of_ingredients: USDANutrient[] | string;
 		last_updated_by_company: string;
 		metadata_nutrient: string;
 	};
@@ -150,9 +220,9 @@ export const USDA_REPORT_KEYS: USDAReport = {
 		refuse_description: 'rd',
 		database_source: 'ds',
 		reporting_unit: 'ru',
-		list_of_ingredients: 'desc'
 	},
 	ingredients: {
+		list_of_ingredients: 'desc',
 		last_updated_by_company: 'upd',
 		metadata_nutrient: 'nutrient',
 	},
@@ -194,17 +264,6 @@ export const USDA_REPORT_KEYS: USDAReport = {
 	}
 };
 
-export const USDA_SEARCH_KEYS = {
-	apiKey: 'api_key',
-	search_terms: 'q',
-	data_source: 'ds',
-	food_group_ID : 'fg',
-	sort : 'sort',
-	maximum_rows : 'max',
-	beginning_row : 'offset',
-	results_format: 'format',
-};
-
 export interface NutrientList {
 	type: string;
 	start: number;
@@ -221,3 +280,9 @@ export interface ListOptions {
 	sort: string;
 	format: string;
 }
+
+export interface USDAFoodReport
+	extends USDAFood, USDAFoods,
+		USDADescMeta, USDAIngredients,
+		USDAItem, USDANutrient, USDAMeasures,
+		USDALangual, USDASource, USDAFootnote {}

@@ -1,17 +1,21 @@
 import * as React from 'react';
-import { Subscription } from '@reactivex/rxjs';
-import { SearchComponentProps } from '../../../models/search.model';
-import { SearchComponentState } from '../../../models/search.model';
-import { SEARCH_STATE_INIT } from '../../../models/search.model';
 import { ReactElement } from 'react';
+import { Observable } from '@reactivex/rxjs';
+import { Subscription } from '@reactivex/rxjs';
+import { Subject } from '@reactivex/rxjs';
+import { SearchComponentProps } from '../../../models/components/search.model';
+import { SearchComponentState } from '../../../models/components/search.model';
 import { SearchResultsComponent } from './search-result.controlled';
 import { SearchBarComponent } from './search-bar/search-bar.component';
-import { searchUSDA } from '../../../services/search.service';
+import { queryUSDA } from '../../../services/search.service';
 import { searchReducer } from './search.reducer';
 import { USDAItem } from '../../../models/usda/usda-food.model';
-import { Observable } from '@reactivex/rxjs';
-import { Subject } from '@reactivex/rxjs';
-import { actionShowResults } from './search.actions';
+import { SearchFetchResponse } from '../../../models/usda/usda.model';
+import { SEARCH_STATE_INIT } from '../../../models/components/search.model';
+import { USDA_SEARCH_KEYS } from '../../../models/usda/usda.model';
+import { LoadingComponent } from '../loading/loading.component';
+import { actionSearching } from './search.actions';
+import { actionSearchDone } from './search.actions';
 
 export class SearchComponent extends React.Component<SearchComponentProps, SearchComponentState> {
 	public state: SearchComponentState = SEARCH_STATE_INIT;
@@ -24,6 +28,16 @@ export class SearchComponent extends React.Component<SearchComponentProps, Searc
 	private results: USDAItem[] = [];
 	private subscriptions: Subscription;
 
+	get getResultPage(): USDAItem[] {
+		return this.results.length > 20 ?  this.results.slice(0, 19) : this.results;
+	}
+
+	constructor(public props: SearchComponentProps) {
+		super(props);
+
+		this.foodItemSelectHandler = this.foodItemSelectHandler.bind(this);
+	}
+
 	public render(): ReactElement<HTMLDivElement> {
 		return (
 			<div
@@ -33,13 +47,18 @@ export class SearchComponent extends React.Component<SearchComponentProps, Searc
 					handleInputChange={this.searchInputSource}
 					handleEnterPress={this.enterInputSource}
 				/>
-				<SearchResultsComponent
-					items={this.results}
-					dispatch={this.props.store.dispatch}
-					selectHandler={this.foodItemSelectHandler}
-					visible={this.state.resultsVisible}
-					pageNumber={this.state.resultsPage}
-				/>
+				{this.state.nowSearching
+					? (<LoadingComponent
+						visible={this.state.nowSearching}
+					/>)
+					: (<SearchResultsComponent
+						items={this.getResultPage}
+						dispatch={this.props.store.dispatch}
+						selectHandler={this.foodItemSelectHandler}
+						visible={this.state.resultsVisible}
+						pageNumber={this.state.resultsPage}
+					/>)
+				}
 			</div>
 		);
 	}
@@ -48,10 +67,12 @@ export class SearchComponent extends React.Component<SearchComponentProps, Searc
 		this.subscriptions = this.props.store
 			.registerStore$(searchReducer, SEARCH_STATE_INIT)
 			.subscribe((state: SearchComponentState) => {
+				console.log('state', state);
 				this.setState(state);
 			});
 		this.subscriptions
-			.add(this.inputChanged$.subscribe((searchTerm: string) => {
+			.add(this.inputChanged$
+				.subscribe((searchTerm: string) => {
 				this.makeQuery(searchTerm);
 			}));
 	}
@@ -61,21 +82,19 @@ export class SearchComponent extends React.Component<SearchComponentProps, Searc
 	}
 
 	private async makeQuery(searchTerm: string): Promise<void> {
-		const result = await searchUSDA({
+		this.props.store.dispatch(actionSearching());
+		const result: SearchFetchResponse | void = await queryUSDA({
 			params: {
-				search_terms: searchTerm
+				[USDA_SEARCH_KEYS.searchTerms]: searchTerm
 			},
 			requestType: 'search'
-		});
-		if (!result) {
-			// handle nothing found
-		}
-		// pagination
-		if ('errors' in result) {
+		}) as SearchFetchResponse;
+		if (result && 'errors' in result) {
 			return;
 		}
 		this.results = await result.list.item;
-		this.props.store.dispatch(actionShowResults());
+		this.props.store.dispatch(actionSearchDone());
+		console.log('state', this.results);
 	}
 
 	private foodItemSelectHandler(ndbno: string): any {

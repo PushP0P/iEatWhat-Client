@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {
 	SignInComponentProps, SignInComponentState
-} from '../../models/sign-in.model';
+} from '../../models/components/sign-in.model';
 import {
 	onEmailSignIn, onPhoneSignIn
 } from '../../services/sign-in.service';

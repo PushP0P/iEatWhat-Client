@@ -4,38 +4,43 @@ import {
 	FoodDetailsComponentState
 } from '../../../models/food.model';
 import { ReactElement } from 'react';
-import { CommentsComponent } from '../../comments/comments.component';
+import { Subscription } from '@reactivex/rxjs';
+import { LoadingComponent } from '../../reusable/loading/loading.component';
 import { VotingComponent } from '../../reusable/voting/voting.component';
 import { CategoryComponent } from '../../reusable/categories/category.controlled';
 import { IngredientsComponent } from './igredients.controlled';
 import { DescriptionComponent } from './description.controlled';
 import { foodDetailsReducer } from './food-details.reducer';
-import { actionUpdateFoodDetails } from './food-details.actions';
-import { searchUSDA } from '../../../services/search.service';
-import { ReportOptions } from '../../../models/usda/usda.model';
-import { USDAReport } from '../../../models/usda/usda.model';
-import { Subscription } from '@reactivex/rxjs';
+import { queryUSDA } from '../../../services/search.service';
+import { actionDataReady } from '../../main/main.actions';
+import { ReportFetchResponse } from '../../../models/usda/usda.model';
+import { USDA_SEARCH_KEYS } from '../../../models/usda/usda.model';
+import * as moment from 'moment';
 
 export class FoodDetailsComponent extends React.Component<FoodDetailsComponentProps, FoodDetailsComponentState> {
 	public state = FOOD_DETAILS_STATE_INIT;
 	private subscriptions: Subscription;
+	private content: any = {} as any;
 
 	public async componentDidMount(): Promise<void> {
-		this.subscriptions = this.props.store.registerStore$(foodDetailsReducer, this.state)
+		this.subscriptions = this.props.store
+			.registerStore$(foodDetailsReducer, this.state)
 			.subscribe((state: FoodDetailsComponentState) => {
 				this.setState(state);
 			});
-		const details: USDAReport = await searchUSDA (
-			{
-				params: {
-					ndbno: [this.props.foodId]
-				} as ReportOptions,
-				requestType: 'food'
-			}
-		) as USDAReport;
-		if (details) {
-			this.props.store.dispatch(actionUpdateFoodDetails(details));
-		}
+		const slug: string = this.props.routeComponentProps.match.params.id;
+
+		const content: ReportFetchResponse = await queryUSDA({
+			params: {
+				[USDA_SEARCH_KEYS.ndbno]: slug,
+				[USDA_SEARCH_KEYS.reportType]: 'f',
+			},
+			requestType: 'V2/reports'
+		});
+
+		this.content = content.foods[0];
+		console.log('report', this.content);
+		this.props.store.dispatch(actionDataReady());
 	}
 
 	public componentWillUnmount(): void {
@@ -55,43 +60,53 @@ export class FoodDetailsComponent extends React.Component<FoodDetailsComponentPr
 							className="food-details_header"
 						>
 							<div
-								className="header_image_box"
+								className="header_image-box"
 							>
 								<img
-									src={this.state.foodDetails.imageURL}
-									alt={`${this.state.foodDetails.foodName} picture`}
+									src={'#'}
+									alt={`${this.content.name} picture`}
 								/>
+
 							</div>
-							<h1>{this.state.foodDetails.foodName}</h1>
+							<h1>{this.content.name}</h1>
+							<div
+								className="header--updated-last"
+							>
+								{moment(Date.now()).format('LL')}
+							</div>
+							<div
+								className="header--reviewed"
+							>
+								{this.content.reviews || 'No Reviews'}
+							</div>
 						</div>
+
 						<div
 							className="categories_box"
 						>
-							{this.state.foodDetails.categoryTags
-								.map((tag: string) => {
+							{this.content.categories((tag: string) => {
 										return (
 											<CategoryComponent
 												key={tag}
 												tag={tag}
 											/>
 										);
-									}
-								)}
+								})}
 						</div>
 						<hr />
 						<DescriptionComponent
-							name={this.state.foodDetails.foodName}
-							isbn={this.state.foodDetails.isbn}
-							type={this.state.foodDetails.description.foodGroup}
-							updatedOn={this.state.foodDetails.lastUpdated}
-							blurb={this.state.foodDetails.description.blurb}
+							name={this.content.desc.ndb_food_number}
+							upc={this.content.req}
+							type={this.content.group}
+							updatedOn={this.content.lastUpdated}
 						/>
 						<hr />
 						<IngredientsComponent
-							ingredients={this.state.foodDetails.ingredients}
+							// TODO
+							ingredients={[]}
 						/>
 						<hr />
-						<CommentsComponent viewId={this.props.foodId}/>
+						{/*<CommentsComponent viewId={this.content.desc.food_name}/>*/}
 						<hr />
 						<VotingComponent/>
 					</div>
@@ -99,9 +114,7 @@ export class FoodDetailsComponent extends React.Component<FoodDetailsComponentPr
 			);
 		} else {
 			return (
-				<div>
-					Loading Data .......
-				</div>
+				<LoadingComponent visible={this.state.dataReady}/>
 			);
 		}
 	}

@@ -11,8 +11,8 @@ export const foodDetailsReducer: Reducer = (
 	switch (type) {
 		case'DATA_READY':
 			return {...currentState, ...payload};
-		case'FOOD_DETAILS_UPDATED':
-			return {...currentState, foodDetails: payload};
+		case`SHOW_VOTE_MODAL`:
+			return {...currentState, };
 		default:
 			return currentState;
 	}

@@ -1,6 +1,7 @@
 import { FoodItem } from '../models/food.model';
+import { USDAReport } from '../models/usda/usda-report.model';
 
-const FIXTURE_FOOD_DETAILS: FoodItem = {
+const FIXTURE_FOOD_DETAILS: FoodItem | USDAReport | any  = {
 	id: 'TestFood',
 	restaurantItem: false,
 	storeItem: false,
@@ -11,13 +12,13 @@ const FIXTURE_FOOD_DETAILS: FoodItem = {
 	reviews: 123,
 	reviewed: false,
 	rating: 1234,
-	isbn: '12432foobar',
+	upc: '12432foobar',
 	slug: 'test-food-12432foobar',
 	topic: 'Test Food',
 	imageURL: 'https://static.pexels.com/photos/461198/pexels-photo-461198.jpeg',
-	foodName: 'Demo Food for Thought',
+	name: 'Demo Food for Thought',
 	categoryTags: ['No Gluten', 'No Dairy', 'Protein'],
-	description: {
+	desc: {
 		name: 'Test Food Yum',
 		foodGroup: 'Test Food',
 		blurb: `Lorem Ipsum a product sold at no retail store but here for 
@@ -44,6 +45,6 @@ const FIXTURE_FOOD_DETAILS: FoodItem = {
 };
 
 export async function getFoodDetails(foodId: string): Promise<Set<any>> {
-	// return await searchUSDA(['cheeze','wiz'], {});
+	// return await queryUSDA(['cheeze','wiz'], {});
 	return new Set([FIXTURE_FOOD_DETAILS]);
 }

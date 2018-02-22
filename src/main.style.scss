@@ -1,7 +1,6 @@
 /**
  * External Assets/Resources
  **/
-
 @import "./../node_modules/bootstrap/scss/bootstrap";
 @import url('https://fonts.googleapis.com/css?family=Raleway|Source+Sans+Pro');
 $pizza-pic: url('https://static.pexels.com/photos/710916/pexels-photo-710916.jpeg');
@@ -9,7 +8,7 @@ $pasta-salad: url("https://static.pexels.com/photos/326278/pexels-photo-326278.j
 
 /**
  * Custom Globals
- */
+*/
 
 $color-primary: #DA5015;
 $color-background: #FEF8F6;
@@ -120,7 +119,7 @@ input {
  * Modular/Component Styles
  */
 
-@import 'components/reusable/search/search-bar/search-bar.style';
+@import './components/reusable/search/search-bar/search-bar.style';
 @import './components/landing/landing.style';
 @import './components/sign-in/sign-in.style';
 @import './components/comments/comments.style';
@@ -130,5 +129,6 @@ input {
 @import './components/dashboard/dashboard.style';
 @import './components/reusable/modal/modal.style';
 @import './components/sign-in/password-reset/password-reset.style';
-@import './components/loading/loading.style';
 @import './components/article/article.style';
+@import './components/reusable/loading/loading.style';
+@import './components/reusable/search/search.style';
