@@ -9,6 +9,7 @@ import { EmailValidationComponent } from '../components/sign-in/email-validation
 import { RouteComponentProps } from 'react-router';
 import { LandingComponent } from '../components/landing/landing.component';
 import { BackendTests } from '../components/reusable/backend-tests/backend-tests';
+import { ArticleComponent } from '../components/article/article.component';
 
 // TODO Refactor for packed Routes.
 
@@ -51,6 +52,16 @@ export const MAIN_ROUTES_SWITCH = (store: StoreService) => {
 				path="/test-back"
 				render={() => {
 					return <BackendTests/>;
+				}}
+			/>
+			<Route
+				path="/article"
+				render={(routerProps: RouteComponentProps<HTMLDivElement>) => {
+					return (
+						<ArticleComponent
+							RouterProps={routerProps}
+						/>
+					);
 				}}
 			/>
 			<Route
