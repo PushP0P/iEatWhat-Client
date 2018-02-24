@@ -1,7 +1,7 @@
 import { EventTransport } from '../models/event-transport.model';
 
 // const EVENT_PATH: string = `${window.location.hostname}/event`;
-const EVENT_PATH: string = `http://localhost:5000/post/event`;
+const EVENT_PATH: string = `http://localhost:5050/post/event`;
 
 /**
  * Event Request - Sends a POST to the backend API and returns promise holding an EventResponse.
