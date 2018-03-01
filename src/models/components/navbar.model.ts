@@ -21,3 +21,22 @@ export const NAVBAR_STATE_INIT: NavbarState = {
 	isExtended: false,
 	isExtendable: false
 };
+
+export const NAVBAR_LINKS: NavLink[] = [
+	{
+		link: '/dashboard',
+		display: 'Dashboard'
+	},
+	{
+		link: '/account',
+		display: 'Account'
+	},
+	{
+		link: '/categories',
+		display: 'Categories'
+	},
+	{
+		link: '/about',
+		display: 'About'
+	}
+];

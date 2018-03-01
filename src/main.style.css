@@ -6898,4 +6898,40 @@ input {
       top: 0;
       left: 0; } }
 
+.navbar-component {
+  background: #DA5015;
+  height: 36px;
+  padding: 2px; }
+  .navbar-component .navbar_header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between; }
+  .navbar-component .left {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    width: 350px; }
+    .navbar-component .left .iEatWhat-logo {
+      width: 100px;
+      padding-bottom: 2px;
+      position: relative; }
+      .navbar-component .left .iEatWhat-logo svg {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        fill: #FEF8F6; }
+    .navbar-component .left .menu-icon svg {
+      fill: #FEF8F6; }
+  .navbar-component .right {
+    padding-right: 2px; }
+    .navbar-component .right a {
+      text-decoration: none;
+      color: #FEF8F6; }
+  .navbar-component .navbar_drop-down {
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    justify-content: space-around; }
+
 /*# sourceMappingURL=main.style.css.map */

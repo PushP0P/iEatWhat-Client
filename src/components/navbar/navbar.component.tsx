@@ -8,6 +8,8 @@ import { Link } from 'react-router-dom';
 import { NavLink } from '../../models/components/navbar.model';
 import { Subscription } from '@reactivex/rxjs';
 import { navbarReducer } from './navbar.reducer';
+import { disabledDropDown } from './navbar.actions';
+import { enabledDropDown } from './navbar.actions';
 
 export class NavbarComponent extends React.Component<NavbarProps, NavbarState> {
 	public state: NavbarState = NAVBAR_STATE_INIT;
@@ -37,6 +39,7 @@ export class NavbarComponent extends React.Component<NavbarProps, NavbarState> {
 					>
 						<div
 							className="menu-icon"
+							onClick={() => this.onMenuToggle()}
 						>
 							{SVGS.menu}
 						</div>
@@ -50,16 +53,19 @@ export class NavbarComponent extends React.Component<NavbarProps, NavbarState> {
 						className="right"
 					>
 						{this.state.isLoggedIn
-							? (<h2
-								onClick={() => this.onLogOut()}
-							>
-								Logout
-							</h2>)
-							: (<Link
-								to="/sign-in"
-							>
-								<h2>Login</h2>
-							</Link>)
+							? (
+								<h2
+									onClick={() => this.onLogOut()}
+								>
+									Logout
+								</h2>
+							) : (
+								<Link
+									to="/sign-in"
+								>
+									<h2>Login</h2>
+								</Link>
+							)
 						}
 					</div>
 				</div>
@@ -68,7 +74,10 @@ export class NavbarComponent extends React.Component<NavbarProps, NavbarState> {
 				>
 					{this.props.links.map((link: NavLink) => {
 						return(
-							<Link to={link.link}>
+							<Link
+								to={link.link}
+								key={link.link}
+							>
 								{link.display}
 							</Link>
 						);
@@ -78,7 +87,13 @@ export class NavbarComponent extends React.Component<NavbarProps, NavbarState> {
 		);
 	}
 
-	private onLogOut() {
+	private onLogOut(): void {
+		console.log('log out clicked');
+	}
 
+	private onMenuToggle(): void {
+		this.state.isExtended
+			? this.props.store.dispatch(disabledDropDown())
+			: this.props.store.dispatch(enabledDropDown());
 	}
 }

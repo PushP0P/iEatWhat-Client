@@ -119,7 +119,7 @@ input {
  * Modular/Component Styles
  */
 
-@import 'components/reusable/search/search-bar/search-bar.style';
+@import './components/reusable/search/search-bar/search-bar.style';
 @import './components/landing/landing.style';
 @import './components/sign-in/sign-in.style';
 @import './components/comments/comments.style';
@@ -129,5 +129,6 @@ input {
 @import './components/dashboard/dashboard.style';
 @import './components/reusable/modal/modal.style';
 @import './components/sign-in/password-reset/password-reset.style';
-@import 'components/reusable/loading/loading.style';
+@import './components/reusable/loading/loading.style';
 @import './components/reusable/search/search.style';
+@import './components/navbar/navbar.style';
