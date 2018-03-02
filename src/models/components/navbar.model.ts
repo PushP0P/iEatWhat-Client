@@ -1,5 +1,3 @@
-import { StoreService } from '../../services/store.service';
-
 export interface NavLink {
 	display: string;
 	link: string;
@@ -7,20 +5,13 @@ export interface NavLink {
 
 export interface NavbarProps {
 	links: NavLink[];
-	store: StoreService;
-}
-
-export interface NavbarState {
+	onMenuToggle: () => void;
+	onLogoTap: () => void;
+	onLogOut: () => void;
 	isLoggedIn: boolean;
 	isExtended: boolean;
 	isExtendable: boolean;
 }
-
-export const NAVBAR_STATE_INIT: NavbarState = {
-	isLoggedIn: false,
-	isExtended: false,
-	isExtendable: false
-};
 
 export const NAVBAR_LINKS: NavLink[] = [
 	{

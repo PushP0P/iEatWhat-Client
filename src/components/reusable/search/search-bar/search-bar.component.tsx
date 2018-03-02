@@ -9,27 +9,43 @@ export const SearchBarComponent = (props: SearchBarProps) => {
 		<div
 			className="search-bar-component"
 		>
-			<input
-				type="text"
-				className="search-input"
-				onChange={
-					(evt: ChangeEvent<HTMLInputElement>) => {
-						props.handleInputChange.next(evt.target.value);
-					}
-				}
-				onKeyDown={(evt: SyntheticEvent<HTMLInputElement>) => {
-					if ((evt as any).keyCode === 13) {
-						props.handleEnterPress.next((evt.target as any).value);
-					}
-				}}
+			<div
+				className="mask"
 			/>
 			<div
-				className="icon-box"
+				className="search_content"
 			>
-				<div
-					className="search-icon"
+				<b
+					className="search_title header h2"
 				>
-					{SVGS.search}
+					Find Allergy Friendly Food
+				</b>
+				<div
+					className="search_input-box"
+				>
+					<input
+						type="text"
+						className="search-input"
+						onChange={
+							(evt: ChangeEvent<HTMLInputElement>) => {
+								props.handleInputChange.next(evt.target.value);
+							}
+						}
+						onKeyDown={(evt: SyntheticEvent<HTMLInputElement>) => {
+							if ((evt as any).keyCode === 13) {
+								props.handleEnterPress.next((evt.target as any).value);
+							}
+						}}
+					/>
+					<div
+						className="icon-box"
+					>
+						<div
+							className="search-icon"
+						>
+							{SVGS.search}
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>

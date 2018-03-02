@@ -7,8 +7,6 @@ import { SearchComponent } from '../reusable/search/search.component';
 import { LandingComponentState } from '../../models/components/landing.model';
 import { landingReducer } from './landing.reducer';
 import { actionDataReady } from '../main/main.actions';
-import { NavbarComponent } from '../navbar/navbar.component';
-import { NAVBAR_LINKS } from '../../models/components/navbar.model';
 
 /**
  *  FIXTURES - Placeholders
@@ -32,19 +30,11 @@ export class LandingComponent extends React.Component<LandingComponentProps, Lan
 				<div
 					className="landing-component"
 				>
-					<NavbarComponent
+					<SearchComponent
 						store={this.props.store}
-						links={NAVBAR_LINKS}
+						routes={this.props.routeProps}
 					/>
-					<div
-						className="content container"
-					>
-						<SearchComponent
-							store={this.props.store}
-							routes={this.props.routeProps}
-						/>
-						<FooterComponent/>
-					</div>
+					<FooterComponent/>
 				</div>
 			) : (
 				<LoadingComponent
