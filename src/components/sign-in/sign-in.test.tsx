@@ -8,18 +8,16 @@ import { SignInOptions } from './sign-in-options.controlled';
 
 let component: any;
 let doc: any = document;
-const FIXTURE_SIGN_IN_OPTIONS = [
+const SIGN_IN_OPTIONS = [
 	{
 		id: '1234',
-		title: 'Google Sign-In',
-		link: '#',
+		title: 'Google',
 		icon: 'google',
 		handler: () => {}
 	},
 	{
 		id: '5678',
-		title: 'Twitter Sign-In',
-		link: '#',
+		title: 'Twitter',
 		icon: 'twitter',
 		handler: () => {}
 	}
@@ -35,13 +33,13 @@ it('renders without crashing', () => {
 		doc);
 });
 
-it(`SignInOptions has ${FIXTURE_SIGN_IN_OPTIONS.length} buttons`, () => {
+it(`SignInOptions has ${SIGN_IN_OPTIONS.length} buttons`, () => {
 	component = renderer.create(
 		<SignInOptions
-			signInOptions={FIXTURE_SIGN_IN_OPTIONS}
+			signInOptions={SIGN_IN_OPTIONS}
 		/>
 	);
 	let tree = component.toJSON();
 	expect(tree).toMatchSnapshot();
-	expect(FIXTURE_SIGN_IN_OPTIONS.length).toBe(tree.children.length);
+	expect(SIGN_IN_OPTIONS.length).toBe(tree.children.length);
 });

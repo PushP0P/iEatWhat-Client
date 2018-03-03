@@ -29,13 +29,16 @@ export const EmailSignInForm = (props: EmailFormProps) => {
 				/>
 			</div>
 			<div
-				className="btn btn-outline-success"
+				className="btn btn-primary sign-in_button"
 				onClick={() => props.onSubmit(email, password)}
 			>
-				SignIn
+				Login
 			</div>
 			<Link to={'/password-reset'}>
-				Forgot Password?
+				I forgot my password
+			</Link>
+			<Link to={'/create-account'}>
+				Create account
 			</Link>
 		</form>
 	);

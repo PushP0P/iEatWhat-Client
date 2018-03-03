@@ -5,7 +5,6 @@
 export interface SignInOption {
 	id: string;
 	title: string;
-	link: string;
 	icon: string;
 	handler: () => any;
 }

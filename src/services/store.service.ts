@@ -18,7 +18,6 @@ export class StoreService extends BehaviorSubject<MasterState> {
 		initialState: {
 			[prop: string]: any
 		}): Observable<MasterState> {
-		console.log('hit register store');
 		this.reducers.add(reducer);
 		this.next({
 			...this.value,

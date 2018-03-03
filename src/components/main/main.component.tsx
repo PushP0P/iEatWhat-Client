@@ -1,18 +1,22 @@
 import * as React from 'react';
 import { MAIN_ROUTES_SWITCH } from '../../router/main.routes';
 import { MAIN_COMPONENT_STATE_INIT, MainComponentProps, MainComponentState } from '../../models/components/main.model';
-import { mainReducer } from './main.reducer';
-import { Subscription } from '@reactivex/rxjs';
-import { NavbarComponent } from './navbar/navbar.component';
 import { NAVBAR_LINKS } from '../../models/components/navbar.model';
+import { mainReducer } from './main.reducer';
+import { NavbarComponent } from './navbar/navbar.component';
 import { disabledDropDown } from './main.actions';
 import { enabledDropDown } from './main.actions';
-import history from './../../router/router.history';
+import { Subscription } from '@reactivex/rxjs';
 import { ReactElement } from 'react';
+import history from './../../router/router.history';
+import { FirebaseUser } from '../../models/auth/firebases-user';
+import { loggedIn } from './main.actions';
+import { loggedOut } from './main.actions';
+import { logOut } from '../../services/auth.service';
 
 export class MainComponent extends React.Component<MainComponentProps, MainComponentState> {
 	public state: MainComponentState = MAIN_COMPONENT_STATE_INIT;
-	private stateSubscribe: Subscription;
+	private subscriptions: Subscription;
 
 	constructor(public props: MainComponentProps) {
 		super(props);
@@ -22,15 +26,23 @@ export class MainComponent extends React.Component<MainComponentProps, MainCompo
 	}
 
 	public componentDidMount(): void {
-		this.stateSubscribe = this.props.store
+		this.subscriptions = this.props.store
 			.registerStore$(mainReducer, MAIN_COMPONENT_STATE_INIT)
 			.subscribe((res: MainComponentState) => {
 				this.setState(res);
 			});
+		this.subscriptions.add(this.props.auth.currentUser.distinctUntilChanged()
+			.subscribe((userAuthState: FirebaseUser) => {
+			if (userAuthState) {
+				this.props.store.dispatch(loggedIn());
+			} else {
+				this.props.store.dispatch(loggedOut());
+			}
+		}));
 	}
 
 	public componentWillUnmount(): void {
-		this.stateSubscribe.unsubscribe();
+		this.subscriptions.unsubscribe();
 	}
 
 	public render(): ReactElement<HTMLDivElement> {
@@ -54,8 +66,9 @@ export class MainComponent extends React.Component<MainComponentProps, MainCompo
 	}
 
 	private logInOutHandler(): void {
-
-		console.log('log out clicked');
+		this.props.auth.currentUserSource.value
+			? logOut()
+			: history.push('/sign-in');
 	}
 
 	private logoTapHandler(): void {

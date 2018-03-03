@@ -2,7 +2,7 @@
  * External Assets/Resources
  **/
 @import "./../node_modules/bootstrap/scss/bootstrap";
-@import url('https://fonts.googleapis.com/css?family=Raleway|Source+Sans+Pro:300, 400');
+@import url('https://fonts.googleapis.com/css?family=Raleway|Source+Sans+Pro:300, 400, 700');
 $pizza-pic: url('https://static.pexels.com/photos/710916/pexels-photo-710916.jpeg');
 $pasta-salad: url("https://static.pexels.com/photos/326278/pexels-photo-326278.jpeg");
 
@@ -45,6 +45,20 @@ $H4: 1.1em;
   &:focus {
     box-shadow:0 0 4px darken($background, 25%) !important;
   }
+}
+
+@mixin flexRow($justify-content: center) {
+  display: flex;
+  justify-content: $justify-content;
+  flex-direction: row;
+  align-items: center;
+}
+
+@mixin flexColumn($justify-content: center) {
+  display: flex;
+  justify-content: $justify-content;
+  flex-direction: column;
+  align-items: center;
 }
 
 body {

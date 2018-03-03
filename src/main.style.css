@@ -7,7 +7,7 @@
  * Copyright 2011-2018 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
-@import url("https://fonts.googleapis.com/css?family=Raleway|Source+Sans+Pro:300, 400");
+@import url("https://fonts.googleapis.com/css?family=Raleway|Source+Sans+Pro:300, 400, 700");
 :root {
   --blue: #007bff;
   --indigo: #6610f2;
@@ -6669,45 +6669,82 @@ input {
 
 .sign-in-component {
   height: 100vh;
+  padding-top: 32px;
   display: flex;
-  flex-direction: row;
-  justify-content: center; }
+  flex-direction: column;
+  justify-content: center;
+  align-items: center; }
   .sign-in-component .content {
     height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: space-between; }
+  .sign-in-component .one-click_title {
+    color: #DA5015;
+    margin-bottom: 30px; }
+  .sign-in-component .line-break_wrapper {
+    width: 90%;
+    stroke-width: 4px; }
+  .sign-in-component .sign-in_text--or {
+    margin-bottom: -12px; }
+  .sign-in-component .sign-in_text--log-in {
+    margin-bottom: 10px; }
 
-.sign-in-options {
+.sign-in_options {
+  cursor: pointer;
   display: flex;
+  justify-content: space-around;
   flex-direction: row;
-  justify-content: center; }
+  align-items: center;
+  width: 100%;
+  padding: 0 10% 0 10%; }
+  .sign-in_options .sign-in_option {
+    background: #DA5015;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    align-items: center;
+    margin: 0 5px 0 5px;
+    width: 100%;
+    padding: 5px;
+    border-radius: 10px; }
+    .sign-in_options .sign-in_option .option_icon {
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      align-items: center;
+      display: flex;
+      flex-basis: 20%; }
+      .sign-in_options .sign-in_option .option_icon svg {
+        fill: #FEF8F6; }
+    .sign-in_options .sign-in_option .option_text {
+      flex-basis: 80%;
+      color: #FEF8F6; }
+    .sign-in_options .sign-in_option .option_title.header {
+      font-weight: 700; }
 
-.phone-form, .email-pass-form {
+.email-pass-form {
   text-align: center;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   width: 100%; }
-  .phone-form .inputs, .email-pass-form .inputs {
+  .email-pass-form .inputs {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center; }
-  .phone-form input, .email-pass-form input {
+  .email-pass-form input {
+    width: 80vw;
+    padding: 5px;
     margin-bottom: 10px; }
-  .phone-form .btn, .email-pass-form .btn {
-    width: 50%; }
-
-.sign_in_option {
-  cursor: pointer; }
-
-.sign_in_footer {
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around; }
+  .email-pass-form .btn.sign-in_button {
+    color: #FEF8F6;
+    width: 50%;
+    padding: 1px; }
+  .email-pass-form a {
+    color: #DA5015; }
 
 .comments-component #CommentForm {
   padding-bottom: 20px; }

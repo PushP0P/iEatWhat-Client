@@ -3,38 +3,45 @@ import {
 	SignInComponentProps, SignInComponentState
 } from '../../models/components/sign-in.model';
 import {
-	onEmailSignIn, onPhoneSignIn
+	onLocalSignIn
 } from '../../services/auth.service';
-import { PhoneSignInForm } from './forms/phone.form';
 import { EmailSignInForm } from './forms/email.form';
 import { SignInOptions } from './sign-in-options.controlled';
-import { SignInFooter } from './sign-in.footer';
 import { SIGN_IN_OPTIONS } from '../../configs/sign-in.config';
+import { SVGS } from '../../assets/react-svgs.asset';
 
 export class SignInComponent extends React.Component<SignInComponentProps, SignInComponentState> {
 	public render() {
 		return(
 			<div
-				className="sign-in-component container text-center"
+				className="sign-in-component text-center"
 			>
 				<div
-					className="content"
+					className="one-click_title header h1"
 				>
-					<p>Please, sign up or In with the following options.</p>
-					<EmailSignInForm
-						onSubmit={onEmailSignIn}
-					/>
-					<PhoneSignInForm
-						onSubmit={onPhoneSignIn}
-					/>
-					<SignInOptions
-						signInOptions={SIGN_IN_OPTIONS}
-					/>
-					<SignInFooter />
-					<div
-						id="ReCAPTCHA"
-					/>
+					Log In
 				</div>
+				<SignInOptions
+					signInOptions={SIGN_IN_OPTIONS}
+				/>
+				<div
+					className="line-break_wrapper"
+				>
+					{SVGS.lineBreak}
+				</div>
+				<div
+					className="sign-in_text--or header h3"
+				>
+					Or
+				</div>
+				<div
+					className="sign-in_text--log-in header h1"
+				>
+					Log In
+				</div>
+				<EmailSignInForm
+					onSubmit={onLocalSignIn}
+				/>
 			</div>
 		);
 	}
