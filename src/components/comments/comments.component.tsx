@@ -8,7 +8,7 @@ import { CommentsListComponent } from './comments-list/comments-list.controlled'
 import { CommentsService } from '../../services/comments.service';
 
 export class CommentsComponent extends React.Component<CommentsComponentProps, CommentsComponentState> {
-	private formText = '';
+	private formText: string = '';
 	private commentService: CommentsService = new CommentsService();
 	constructor(public props: CommentsComponentProps) {
 		super(props);

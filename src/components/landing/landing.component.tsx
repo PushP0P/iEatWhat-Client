@@ -11,7 +11,6 @@ import { actionDataReady } from '../main/main.actions';
 /**
  *  FIXTURES - Placeholders
  */
-export const NavbarComponent = () => <div>NAVBAR PLACEHOLDER</div>;
 export const FooterComponent = () => <div>FOOTER PLACEHOLDER</div>;
 
 export class LandingComponent extends React.Component<LandingComponentProps, LandingComponentState> {
@@ -29,10 +28,8 @@ export class LandingComponent extends React.Component<LandingComponentProps, Lan
 		return this.state.dataReady
 			? (
 				<div
-					className="landing-component container"
+					className="landing-component"
 				>
-					<h1 className="header-test">Im a landing</h1>
-					<NavbarComponent/>
 					<SearchComponent
 						store={this.props.store}
 						routes={this.props.routeProps}
