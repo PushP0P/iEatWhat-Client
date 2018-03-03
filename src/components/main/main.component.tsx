@@ -17,7 +17,7 @@ export class MainComponent extends React.Component<MainComponentProps, MainCompo
 	constructor(public props: MainComponentProps) {
 		super(props);
 		this.menuToggleHandler = this.menuToggleHandler.bind(this);
-		this.logOutHandler = this.logOutHandler.bind(this);
+		this.logInOutHandler = this.logInOutHandler.bind(this);
 		this.logoTapHandler = this.logoTapHandler.bind(this);
 	}
 
@@ -41,7 +41,7 @@ export class MainComponent extends React.Component<MainComponentProps, MainCompo
 				<NavbarComponent
 					links={NAVBAR_LINKS}
 					onLogoTap={this.logoTapHandler}
-					onLogOut={this.logOutHandler}
+					onLogOut={this.logInOutHandler}
 					onMenuToggle={this.menuToggleHandler}
 					isExtended={this.state.navbarIsExtended}
 					isExtendable={this.state.isWideScreen}
@@ -53,7 +53,8 @@ export class MainComponent extends React.Component<MainComponentProps, MainCompo
 		);
 	}
 
-	private logOutHandler(): void {
+	private logInOutHandler(): void {
+
 		console.log('log out clicked');
 	}
 

@@ -4,7 +4,7 @@ import {
 } from '../../models/components/sign-in.model';
 import {
 	onEmailSignIn, onPhoneSignIn
-} from '../../services/sign-in.service';
+} from '../../services/auth.service';
 import { PhoneSignInForm } from './forms/phone.form';
 import { EmailSignInForm } from './forms/email.form';
 import { SignInOptions } from './sign-in-options.controlled';

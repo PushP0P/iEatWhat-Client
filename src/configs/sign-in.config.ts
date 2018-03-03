@@ -1,4 +1,4 @@
-import { onGoogleSignIn, onTwitterSignIn } from '../services/sign-in.service';
+import { onGoogleSignIn, onTwitterSignIn } from '../services/auth.service';
 import { SignInOption } from '../models/components/sign-in.model';
 
 export const SIGN_IN_OPTIONS: SignInOption[] = [

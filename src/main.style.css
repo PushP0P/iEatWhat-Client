@@ -6964,8 +6964,9 @@ input {
   .navbar-component .right {
     padding-right: 6px; }
     .navbar-component .right .nav_login {
+      cursor: pointer;
       font-weight: 300;
-      font-family: "Source Sans Pro", sans-serif;
+      font-family: "Raleway", sans-serif;
       color: #FEF8F6; }
       .navbar-component .right .nav_login a {
         text-decoration: none;

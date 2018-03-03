@@ -21,6 +21,7 @@ ReactDOM.render(
 		history={history}
 	>
 		<MainComponent
+			// This should be the only time StoreServices is constructed.
 			store={new StoreService()}
 		/>
 	</Router>,

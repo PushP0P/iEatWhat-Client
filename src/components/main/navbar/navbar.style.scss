@@ -42,8 +42,9 @@
 	padding-right: 6px;
 
 	.nav_login {
+	  cursor: pointer;
 	  font-weight: 300;
-	  font-family: $font-family-header;
+	  font-family: $font-family-text;
 	  color: $color-background;
 
 	  a {
