@@ -48,17 +48,19 @@ export class SearchComponent extends React.Component<SearchComponentProps, Searc
 					handleEnterPress={this.enterInputSource}
 				/>
 				{this.state.nowSearching
-					? (<LoadingComponent
-						visible={this.state.nowSearching}
-					/>)
-					: (<SearchResultsComponent
-						items={this.getResultPage}
-						dispatch={this.props.store.dispatch}
-						selectHandler={this.foodItemSelectHandler}
-						visible={this.state.resultsVisible}
-						pageNumber={this.state.resultsPage}
-					/>)
-				}
+					? (
+						<LoadingComponent
+							visible={this.state.nowSearching}
+						/>
+					) : (
+						<SearchResultsComponent
+							items={this.getResultPage}
+							dispatch={this.props.store.dispatch}
+							selectHandler={this.foodItemSelectHandler}
+							visible={this.state.resultsVisible}
+							pageNumber={this.state.resultsPage}
+						/>
+					)}
 			</div>
 		);
 	}

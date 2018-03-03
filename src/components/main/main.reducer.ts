@@ -10,6 +10,14 @@ export const mainReducer: Reducer = function(action: Action, currentState: MainC
 			return {...currentState, appReady: true};
 		case'FOOD_ITEM_SELECTED':
 			return {...currentState, selectedFoodItem: payload};
+		case'ENABLE_DROP_DOWN':
+			return {...currentState, ...payload};
+		case'DISABLE_DROP_DOWN':
+			return {...currentState, ...payload};
+		case'IS_LOGGED_IN':
+			return {...currentState, ...payload};
+		case'IS_LOGGED_OUT':
+			return {...currentState, ...payload};
 		default:
 			return currentState;
 	}

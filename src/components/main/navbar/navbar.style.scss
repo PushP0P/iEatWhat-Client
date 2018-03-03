@@ -1,0 +1,79 @@
+.navbar-component {
+  z-index: 2;
+  position: fixed;
+  display: flex;
+  left: 0;
+  right: 0;
+  flex-direction: column;
+  height: auto;
+  padding: 0;
+
+  .navbar_header {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	background: $color-primary;
+	height: 36px;
+	padding: 2px;
+	z-index: 3;
+  }
+
+  .left {
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-start;
+	width: 350px;
+
+	.iEatWhat-logo {
+	  cursor: pointer;
+	  width: 100px;
+	  svg {
+		fill: $color-background;
+	  }
+	}
+
+	.menu-icon svg {
+	  cursor: pointer;
+	  fill: $color-background;
+	}
+  }
+
+  .right {
+	padding-right: 6px;
+
+	.nav_login {
+	  font-weight: 300;
+	  font-family: $font-family-header;
+	  color: $color-background;
+
+	  a {
+		text-decoration: none;
+		color: $color-background;
+	  }
+	}
+  }
+
+  .navbar_drop-down {
+	z-index: 2;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+	align-items: left;
+	background: $color-dark-background;
+	height: 100%;
+	overflow: hidden;
+
+	// Changed on drop-down toggle
+	max-height: 0;
+	opacity: 0;
+	transform: translateY(-150%);
+	@include transition();
+
+	&.extended {
+	  max-height: 500px;
+	  opacity: 1;
+	  transform: translateY(0%);
+		@include transition();
+	}
+  }
+}

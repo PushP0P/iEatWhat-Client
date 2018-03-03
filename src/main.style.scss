@@ -2,7 +2,7 @@
  * External Assets/Resources
  **/
 @import "./../node_modules/bootstrap/scss/bootstrap";
-@import url('https://fonts.googleapis.com/css?family=Raleway|Source+Sans+Pro');
+@import url('https://fonts.googleapis.com/css?family=Raleway|Source+Sans+Pro:300, 400');
 $pizza-pic: url('https://static.pexels.com/photos/710916/pexels-photo-710916.jpeg');
 $pasta-salad: url("https://static.pexels.com/photos/326278/pexels-photo-326278.jpeg");
 
@@ -15,6 +15,7 @@ $color-background: #FEF8F6;
 $color-background-secondary: #ffd7bb;
 $color-text: #280E04;
 $color-input-border: #A1CFFF;
+$color-dark-background: #0F1D25;
 $Success: #7B9F43;
 $Warning: #F88F0B;
 $Danger: #F44F36;
@@ -46,6 +47,10 @@ $H4: 1.1em;
   }
 }
 
+body {
+  background: $color-dark-background;
+}
+
 .overlay {
   position: absolute;
   top: 0;
@@ -53,6 +58,12 @@ $H4: 1.1em;
   width: 100vw;
   height: 100vh;
   background: rgba(0, 0, 0, 0.6);
+}
+
+.primary-layout {
+  position: relative;
+  z-index: 1;
+  padding: 0;
 }
 
 /**
@@ -119,7 +130,7 @@ input {
  * Modular/Component Styles
  */
 
-@import 'components/reusable/search/search-bar/search-bar.style';
+@import './components/reusable/search/search-bar/search-bar.style';
 @import './components/landing/landing.style';
 @import './components/sign-in/sign-in.style';
 @import './components/comments/comments.style';
@@ -129,5 +140,6 @@ input {
 @import './components/dashboard/dashboard.style';
 @import './components/reusable/modal/modal.style';
 @import './components/sign-in/password-reset/password-reset.style';
-@import 'components/reusable/loading/loading.style';
+@import './components/reusable/loading/loading.style';
 @import './components/reusable/search/search.style';
+@import 'components/main/navbar/navbar.style';

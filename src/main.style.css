@@ -7,7 +7,7 @@
  * Copyright 2011-2018 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
-@import url("https://fonts.googleapis.com/css?family=Raleway|Source+Sans+Pro");
+@import url("https://fonts.googleapis.com/css?family=Raleway|Source+Sans+Pro:300, 400");
 :root {
   --blue: #007bff;
   --indigo: #6610f2;
@@ -6497,6 +6497,9 @@ a.text-dark:hover, a.text-dark:focus {
 /**
  * Custom Globals
 */
+body {
+  background: #0F1D25; }
+
 .overlay {
   position: absolute;
   top: 0;
@@ -6504,6 +6507,11 @@ a.text-dark:hover, a.text-dark:focus {
   width: 100vw;
   height: 100vh;
   background: rgba(0, 0, 0, 0.6); }
+
+.primary-layout {
+  position: relative;
+  z-index: 1;
+  padding: 0; }
 
 /**
  * Overwrites and Settings
@@ -6588,28 +6596,54 @@ input {
  * Modular/Component Styles
  */
 .search-bar-component {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
+  position: relative;
   padding: 30% 0 30% 0;
+  margin-bottom: 30px;
   height: 40vh;
   width: 100%;
-  background: no-repeat center;
-  background-size: contain;
-  background-image: url("https://static.pexels.com/photos/710916/pexels-photo-710916.jpeg"); }
-  .search-bar-component .search-input {
-    opacity: 0.8;
-    min-width: 60vw;
-    height: 50px; }
-    .search-bar-component .search-input input {
-      margin: 0;
-      padding-left: 10px; }
+  background: url("https://static.pexels.com/photos/710916/pexels-photo-710916.jpeg") no-repeat center;
+  background-size: cover; }
+  .search-bar-component .mask {
+    z-index: 1;
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #DA5015;
+    opacity: 0.6; }
+  .search-bar-component .search_content {
+    z-index: 2;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    top: 42%;
+    left: 50%;
+    transform: translate(-50%, -50%); }
+  .search-bar-component .search_title {
+    color: #FEF8F6; }
+  .search-bar-component .search_input-box {
+    display: flex;
+    flex-direction: row;
+    justify-content: center; }
+  .search-bar-component input.search-input {
+    min-width: 75vw;
+    max-width: 100%;
+    height: 36px;
+    border-bottom-right-radius: 0;
+    border-top-right-radius: 0;
+    margin: 0;
+    padding-left: 3px; }
   .search-bar-component .icon-box {
+    z-index: 2;
     position: relative;
     background: #DA5015;
-    border-radius: 5px;
-    width: 50px;
-    height: 50px;
+    border-radius: 0 5px 5px 0;
+    width: 36px;
+    height: 36px;
     color: #FEF8F6;
     font-size: 2em;
     text-align: center;
@@ -6629,6 +6663,9 @@ input {
       transition: all 0.3s linear; }
       .search-bar-component .icon-box:hover svg {
         fill: #DA5015; }
+
+.landing-component {
+  padding-top: 32px; }
 
 .sign-in-component {
   height: 100vh;
@@ -6859,43 +6896,97 @@ input {
       .loading-component .animation-wrapper .dots-box span:nth-child(2n + 2) {
         color: #A1CFFF; }
 
-.search-bar-component {
-  margin-bottom: 30px; }
-
-.search-result {
+.search-component .search-result {
   transition: all 0.6s linear; }
-  .search-result:hover {
+  .search-component .search-result:hover {
     transition: all 0.6s linear;
     background: #ffd7bb; }
-
-.search-results-component {
+.search-component .search-results-component {
   cursor: pointer;
   padding: 0 10px 50px 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-around; }
-  .search-results-component .result_image .result_image-box {
+  .search-component .search-results-component .result_image .result_image-box {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     width: auto; }
-  .search-results-component .result_image img {
+  .search-component .search-results-component .result_image img {
     width: 100%; }
-  .search-results-component .result_highlights {
+  .search-component .search-results-component .result_highlights {
     display: flex;
     flex-direction: row;
     justify-content: space-around; }
-  .search-results-component .result_info {
+  .search-component .search-results-component .result_info {
     display: flex;
     position: relative;
     flex-direction: column;
     justify-content: space-between; }
   @media (max-width: 767.98px) {
-    .search-results-component .result_info--min-scree {
+    .search-component .search-results-component .result_info--min-scree {
       position: absolute;
       top: 0;
       left: 0; } }
+
+.navbar-component {
+  z-index: 2;
+  position: fixed;
+  display: flex;
+  left: 0;
+  right: 0;
+  flex-direction: column;
+  height: auto;
+  padding: 0; }
+  .navbar-component .navbar_header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    background: #DA5015;
+    height: 36px;
+    padding: 2px;
+    z-index: 3; }
+  .navbar-component .left {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    width: 350px; }
+    .navbar-component .left .iEatWhat-logo {
+      cursor: pointer;
+      width: 100px; }
+      .navbar-component .left .iEatWhat-logo svg {
+        fill: #FEF8F6; }
+    .navbar-component .left .menu-icon svg {
+      cursor: pointer;
+      fill: #FEF8F6; }
+  .navbar-component .right {
+    padding-right: 6px; }
+    .navbar-component .right .nav_login {
+      font-weight: 300;
+      font-family: "Source Sans Pro", sans-serif;
+      color: #FEF8F6; }
+      .navbar-component .right .nav_login a {
+        text-decoration: none;
+        color: #FEF8F6; }
+  .navbar-component .navbar_drop-down {
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: left;
+    background: #0F1D25;
+    height: 100%;
+    overflow: hidden;
+    max-height: 0;
+    opacity: 0;
+    transform: translateY(-150%);
+    transition: all 0.6s linear; }
+    .navbar-component .navbar_drop-down.extended {
+      max-height: 500px;
+      opacity: 1;
+      transform: translateY(0%);
+      transition: all 0.6s linear; }
 
 /*# sourceMappingURL=main.style.css.map */
