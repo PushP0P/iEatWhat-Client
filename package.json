@@ -22,7 +22,7 @@
     "react-scripts-ts": "2.13.0"
   },
   "scripts": {
-    "start": "yarn sass & react-scripts-ts start",
+    "start": "react-scripts-ts start",
     "prodBuild": "yarn build && ",
     "sass": "sass ./src/main.style.scss --watch",
     "build": "react-scripts-ts build",

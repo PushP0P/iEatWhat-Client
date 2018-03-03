@@ -7,12 +7,12 @@ import { SearchComponent } from '../reusable/search/search.component';
 import { LandingComponentState } from '../../models/components/landing.model';
 import { landingReducer } from './landing.reducer';
 import { actionDataReady } from '../main/main.actions';
+import { FooterComponent  } from '../footer/footer.component';
 
 /**
  *  FIXTURES - Placeholders
  */
 export const NavbarComponent = () => <div>NAVBAR PLACEHOLDER</div>;
-export const FooterComponent = () => <div>FOOTER PLACEHOLDER</div>;
 
 export class LandingComponent extends React.Component<LandingComponentProps, LandingComponentState> {
 	public state: LandingComponentState = LANDING_STATE_INIT;
