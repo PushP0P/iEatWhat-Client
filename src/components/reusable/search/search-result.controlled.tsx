@@ -9,7 +9,6 @@ import * as moment from 'moment';
 
 export const SearchResult = (props: SearchResultProps): ReactElement<HTMLElement> => {
 	const FIXTURE_IMG = 'https://static.pexels.com/photos/8758/food-dinner-lemon-rice.jpg';
-	console.log('ndbno', props);
 	return (
 		<Link
 			className="search-result row"
@@ -62,7 +61,6 @@ export const SearchResult = (props: SearchResultProps): ReactElement<HTMLElement
 
 export const SearchResultsComponent = (props: SearchResultsProps) => {
 	const display = props.visible ? 'flex' : 'none';
-	console.log('props', props);
 	return (
 		<div
 			style={{
@@ -71,7 +69,6 @@ export const SearchResultsComponent = (props: SearchResultsProps) => {
 			className="search-results-component"
 		>
 			{props.items.map((item: USDAItem) => {
-				console.log('props item', item);
 				return (
 					<SearchResult
 						key={item.ndbno.toString()}

@@ -1,8 +1,9 @@
 .sign-in-component{
-  height: 100vh;
+  height: calc(100vh - 36px);
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
+  align-items: center;
 
   .content {
     height: 100%;
@@ -10,14 +11,62 @@
     flex-direction: column;
     justify-content: space-between;
   }
+
+  .one-click_title {
+	color: $color-primary;
+	margin-bottom: 30px;
+  }
+
+  .line-break_wrapper {
+	width: 90%;
+	stroke-width: 4px;
+  }
+
+  .sign-in_text--or {
+	margin-bottom: -12px;
+  }
+
+  .sign-in_text--log-in {
+	margin-bottom: 10px;
+  }
 }
 
-.sign-in-options {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
+.sign-in_options {
+  cursor: pointer;
+  @include flexRow(space-around);
+  width: 100%;
+  padding: 0 10% 0 10%;
+
+  .sign-in_option {
+	background: $color-primary;
+	@include flexRow(space-between);
+	margin: 0 5px 0 5px;
+	width: 100%;
+	padding: 5px;
+	border-radius: 10px;
+
+	.option_icon {
+	  @include flexColumn();
+	  display: flex;
+	  flex-basis: 20%;
+
+	  svg {
+	  	fill: $color-background
+	  }
+	}
+
+	.option_text {
+	  	flex-basis: 80%;
+	  	color: $color-background
+
+	}
+	.option_title.header {
+	  font-weight: 700;
+	}
+  }
 }
-.phone-form, .email-pass-form {
+
+.email-pass-form {
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -33,20 +82,18 @@
   }
 
   input {
+	width: 80vw;
+	padding: 5px;
     margin-bottom: 10px;
   }
 
-  .btn {
-    width: 50%;
+  .btn.sign-in_button {
+	color: $color-background;
+	width: 50%;
+	padding: 1px;
   }
-}
-.sign_in_option {
-  cursor: pointer;
-}
 
-.sign_in_footer {
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
+  a {
+	color: $color-primary;
+  }
 }

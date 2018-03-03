@@ -7,7 +7,7 @@ import {
 } from '../../../models/components/password-reset.model';
 import { passwordResetReducer } from './password-reset.reducer';
 import { toggleModalVisibilityOff, toggleModalVisibilityOn } from './password-reset.actions';
-import { resetPasswordHandler } from '../../../services/sign-in.service';
+import { resetPasswordHandler } from '../../../services/auth.service';
 
 export class ResetPasswordComponent extends React.Component<ResetPasswordComponentProps, ResetPasswordComponentState> {
 	public state = PASSWORD_RESET_STATE_INIT;

@@ -5,24 +5,37 @@ import { SVGS } from '../../assets/react-svgs.asset';
 export const SignInOptions = (props: SignInOptionsProps) => {
 	return (
 		<div
-			className="sign-in-options"
+			className="sign-in_options"
 		>
 			{props.signInOptions
 				.map((signInOption: SignInOption) => {
 					return (
 						<div
 							key={signInOption.id.toString()}
-							className={`sign_in_option btn-lg btn-outline-primary`}
+							className="sign-in_option btn btn-primary"
 							onClick={() => {
 								signInOption.handler();
 							}}
 						>
 							<div
-								className="sign_in_title"
+								className="option_icon"
 							>
-								{signInOption.title}
+								{SVGS[signInOption.icon]}
 							</div>
-							{SVGS[signInOption.icon]}
+							<div
+								className="option_text"
+							>
+								<div
+									className="option_blurb"
+								>
+									Log in with
+								</div>
+								<div
+									className="option_title header"
+								>
+									{signInOption.title}
+								</div>
+							</div>
 						</div>
 					);
 				})

@@ -1,6 +1,5 @@
 .navbar-component {
   z-index: 2;
-  position: fixed;
   display: flex;
   left: 0;
   right: 0;
@@ -13,7 +12,7 @@
 	flex-direction: row;
 	justify-content: space-between;
 	background: $color-primary;
-	height: 36px;
+	height: $navbar-height;
 	padding: 2px;
 	z-index: 3;
   }
@@ -42,8 +41,7 @@
 	padding-right: 6px;
 
 	.nav_login {
-	  font-weight: 300;
-	  font-family: $font-family-header;
+	  cursor: pointer;
 	  color: $color-background;
 
 	  a {

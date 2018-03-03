@@ -1,0 +1,7 @@
+.sign-up-component {
+  @include flexColumn();
+
+  .input-group {
+	@include flexColumn();
+  }
+}

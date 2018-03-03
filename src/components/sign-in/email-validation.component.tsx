@@ -3,7 +3,7 @@ import { ReactElement } from 'react';
 import { Link } from 'react-router-dom';
 import { EmailValidationProps, EmailValidationState } from '../../models/components/email-validation.model';
 import { EMAIL_VALIDATION_STATE_INIT } from '../../models/components/email-validation.model';
-import { handleEmailVerification } from '../../services/sign-in.service';
+import { handleEmailVerification } from '../../services/auth.service';
 
 export class EmailValidationComponent extends React.Component<EmailValidationProps, EmailValidationState> {
 	public state: EmailValidationState = EMAIL_VALIDATION_STATE_INIT;
