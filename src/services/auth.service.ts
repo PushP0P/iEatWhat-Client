@@ -84,6 +84,10 @@ export async function onLocalSignUp(email: string, password: string): Promise<vo
 		.catch ((error: any) => alert ('Error Signing Up, please try again. \n' + error));
 
 }
+// tslint:disable
+export function testIfEmail(testString: string): boolean {
+	return /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(testString);
+}
 
 export function handleEmailVerification(code: string): boolean {
 

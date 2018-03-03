@@ -19,6 +19,7 @@ export interface SignInComponentProps {
 
 export interface SignInComponentState {
 	signInOptions: SignInOption[];
+
 }
 
 export const SIGN_IN_OPTIONS_INITIALE_STATE: SignInComponentState = {

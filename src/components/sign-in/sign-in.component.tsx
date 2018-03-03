@@ -9,6 +9,7 @@ import { EmailSignInForm } from './forms/email.form';
 import { SignInOptions } from './sign-in-options.controlled';
 import { SIGN_IN_OPTIONS } from '../../configs/sign-in.config';
 import { SVGS } from '../../assets/react-svgs.asset';
+import { Link } from 'react-router-dom';
 
 export class SignInComponent extends React.Component<SignInComponentProps, SignInComponentState> {
 	public render() {
@@ -42,6 +43,12 @@ export class SignInComponent extends React.Component<SignInComponentProps, SignI
 				<EmailSignInForm
 					onSubmit={onLocalSignIn}
 				/>
+				<Link to={'/password-reset'}>
+					I forgot my password
+				</Link>
+				<Link to={'/sign-up'}>
+					Create account
+				</Link>
 			</div>
 		);
 	}

@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { Link } from 'react-router-dom';
 
 interface EmailFormProps {
 	onSubmit: (email: string, password: string) => any;
@@ -34,12 +33,6 @@ export const EmailSignInForm = (props: EmailFormProps) => {
 			>
 				Login
 			</div>
-			<Link to={'/password-reset'}>
-				I forgot my password
-			</Link>
-			<Link to={'/create-account'}>
-				Create account
-			</Link>
 		</form>
 	);
 };

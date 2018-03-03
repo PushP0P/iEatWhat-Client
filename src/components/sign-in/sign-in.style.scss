@@ -1,6 +1,5 @@
 .sign-in-component{
-  height: 100vh;
-  padding-top: 32px;
+  height: calc(100vh - 36px);
   display: flex;
   flex-direction: column;
   justify-content: center;
