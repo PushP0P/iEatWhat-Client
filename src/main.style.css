@@ -6815,10 +6815,6 @@ input {
     .voting-component .control_box button {
       height: 50px; }
 
-.btn-block {
-  padding: 30%;
-  margin: 10px 0 10px 0; }
-
 .modal-component {
   display: flex;
   flex-direction: row;
