@@ -9,14 +9,14 @@
 
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
+import * as firebase from 'firebase/app';
+import { FIREBASE_CONFIG } from './configs/firebase.config';
 import { Router } from 'react-router';
-import history from './router/router.history';
 import { StoreService } from './services/store.service';
 import { MainComponent } from './components/main/main.component';
 import { AuthServices } from './services/auth.service';
+import history from './router/router.history';
 import './main.style.css';
-import { FIREBASE_CONFIG } from './configs/firebase.config';
-import * as firebase from 'firebase/app';
 
 firebase.initializeApp(FIREBASE_CONFIG);
 

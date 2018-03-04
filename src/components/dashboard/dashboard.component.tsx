@@ -6,10 +6,7 @@ import {
 import { ReactElement } from 'react';
 
 export class DashboardComponent extends React.Component<DashboardComponentProps, DashboardComponentState> {
-	constructor(public props: DashboardComponentProps) {
-		super(props);
-		this.state = DASHBOARD_COMPONENT_STATE_INIT;
-	}
+	public state: DashboardComponentState = DASHBOARD_COMPONENT_STATE_INIT;
 
 	public render(): ReactElement<HTMLDivElement> {
 		return (
