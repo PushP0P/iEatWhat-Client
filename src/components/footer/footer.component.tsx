@@ -4,6 +4,7 @@ import {
 	FooterComponentState
 } from '../../models/components/footer.model';
 import { ReactElement } from 'react';
+import { Link } from 'react-router-dom';
 
 export class FooterComponent extends React.Component<FooterComponentProps, FooterComponentState> {
 	constructor(public props: FooterComponentProps) {
@@ -14,10 +15,12 @@ export class FooterComponent extends React.Component<FooterComponentProps, Foote
 	public render(): ReactElement<HTMLDivElement> {
 		return (
 			<footer>
-				<a href="#">Link 1</a><br/>
-				<a href="#">Link 2</a>
-				<a href="#">Link 3</a>
-				<a href="#">Link 4</a>
+				<ul>
+					<li><Link to={'#'}>Link 1</Link></li>
+					<li><Link to={'#'}>Link 2</Link></li>
+					<li><Link to={'#'}>Link 3</Link></li>
+					<li><Link to={'#'}>Link 4</Link></li>
+				</ul>
 			</footer>);
 	}
 }
