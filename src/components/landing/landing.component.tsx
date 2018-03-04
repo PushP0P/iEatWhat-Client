@@ -7,6 +7,7 @@ import { SearchComponent } from '../reusable/search/search.component';
 import { LandingComponentState } from '../../models/components/landing.model';
 import { landingReducer } from './landing.reducer';
 import { actionDataReady } from '../main/main.actions';
+import { ReviewsComponent } from '../reviews/reviews.component';
 
 /**
  *  FIXTURES - Placeholders
@@ -35,6 +36,7 @@ export class LandingComponent extends React.Component<LandingComponentProps, Lan
 						routes={this.props.routeProps}
 					/>
 					<FooterComponent/>
+					<ReviewsComponent/>
 				</div>
 			) : (
 				<LoadingComponent

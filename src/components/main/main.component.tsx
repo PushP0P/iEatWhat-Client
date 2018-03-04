@@ -7,13 +7,12 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { disabledDropDown } from './main.actions';
 import { enabledDropDown } from './main.actions';
 import { Subscription } from '@reactivex/rxjs';
-<<<<<<< HEAD
 import { ReactElement } from 'react';
-import history from './../../router/router.history';
 import { FirebaseUser } from '../../models/auth/firebases-user';
 import { loggedIn } from './main.actions';
 import { loggedOut } from './main.actions';
 import { logOut } from '../../services/auth.service';
+import history from './../../router/router.history';
 
 export class MainComponent extends React.Component<MainComponentProps, MainComponentState> {
 	public state: MainComponentState = MAIN_COMPONENT_STATE_INIT;
@@ -23,25 +22,6 @@ export class MainComponent extends React.Component<MainComponentProps, MainCompo
 		super(props);
 		this.menuToggleHandler = this.menuToggleHandler.bind(this);
 		this.logInOutHandler = this.logInOutHandler.bind(this);
-		this.logoTapHandler = this.logoTapHandler.bind(this);
-	}
-=======
-import { NavbarComponent } from './navbar/navbar.component';
-import { NAVBAR_LINKS } from '../../models/components/navbar.model';
-import { disabledDropDown } from './main.actions';
-import { enabledDropDown } from './main.actions';
-import history from './../../router/router.history';
-import { ReactElement } from 'react';
-
-export class MainComponent extends React.Component<MainComponentProps, MainComponentState> {
-	public state: MainComponentState = MAIN_COMPONENT_STATE_INIT;
-	private stateSubscribe: Subscription;
->>>>>>> f935779303a41d76d233d974184c8a0275c1ed09
-
-	constructor(public props: MainComponentProps) {
-		super(props);
-		this.menuToggleHandler = this.menuToggleHandler.bind(this);
-		this.logOutHandler = this.logOutHandler.bind(this);
 		this.logoTapHandler = this.logoTapHandler.bind(this);
 	}
 
@@ -95,37 +75,6 @@ export class MainComponent extends React.Component<MainComponentProps, MainCompo
 		history.push('/');
 	}
 
-<<<<<<< HEAD
-=======
-	public render(): ReactElement<HTMLDivElement> {
-		return (
-			<div
-				className="primary-layout container"
-			>
-				<NavbarComponent
-					links={NAVBAR_LINKS}
-					onLogoTap={this.logoTapHandler}
-					onLogOut={this.logOutHandler}
-					onMenuToggle={this.menuToggleHandler}
-					isExtended={this.state.navbarIsExtended}
-					isExtendable={this.state.isWideScreen}
-					isLoggedIn={this.state.isLoggedIn}
-
-				/>
-				{MAIN_ROUTES_SWITCH(this.props.store)}
-			</div>
-		);
-	}
-
-	private logOutHandler(): void {
-		console.log('log out clicked');
-	}
-
-	private logoTapHandler(): void {
-		history.push('/');
-	}
-
->>>>>>> f935779303a41d76d233d974184c8a0275c1ed09
 	private menuToggleHandler(): void {
 		this.state.navbarIsExtended
 			? this.props.store.dispatch(disabledDropDown())

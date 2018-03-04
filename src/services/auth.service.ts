@@ -18,10 +18,6 @@ export class AuthServices {
 				this.currentUserSource.next (user)
 			});
 	}
-
-	public updateUserState(userState: FirebaseUser): void {
-		this.currentUserSource.next(userState);
-	}
 }
 
 export async function onGoogleSignIn(): Promise<void> {
@@ -35,7 +31,8 @@ export async function onTwitterSignIn(): Promise<void> {
 }
 
 export async function signInWithPopup(provider: AuthProvider): Promise<void> {
-	const result = await fb.auth ().signInWithPopup (provider);
+	const result = await fb.auth()
+		.signInWithPopup (provider);
 	if (!result) {
 		return Promise.reject ('Error with SignIn');
 	}

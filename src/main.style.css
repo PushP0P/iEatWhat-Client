@@ -6742,64 +6742,6 @@ input {
   .email-pass-form a {
     color: #DA5015; }
 
-.comments-component #CommentForm {
-  padding-bottom: 20px; }
-  .comments-component #CommentForm .controls {
-    width: 100%;
-    padding-top: 20px;
-    padding-right: 50px;
-    display: flex;
-    justify-content: flex-end; }
-  .comments-component #CommentForm .comment-input {
-    margin: auto;
-    width: 80%;
-    padding: 10px;
-    min-height: 100px;
-    border: #A1CFFF 2px solid;
-    border-radius: 1em; }
-.comments-component .comment-component {
-  margin-bottom: 6px;
-  box-shadow: 2px 4px 4px 1px rgba(0, 0, 0, 0.4);
-  background: #ffd7bb; }
-  .comments-component .comment-component .comment_meta {
-    padding: 10px 5px 0 5px;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    color: #9daaa5; }
-    .comments-component .comment-component .comment_meta .comment_share {
-      cursor: pointer;
-      color: #2630B3; }
-  .comments-component .comment-component .comment_avatar {
-    position: relative;
-    padding: 5px;
-    margin-right: 5px;
-    margin-bottom: 5px;
-    border: gainsboro 1px solid;
-    height: 50px;
-    width: 50px;
-    border-radius: 10%; }
-    .comments-component .comment-component .comment_avatar svg {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%); }
-  .comments-component .comment-component .comment_text {
-    padding: 5px;
-    min-height: 55px;
-    color: #280E04; }
-  .comments-component .comment-component .options_box {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start; }
-    .comments-component .comment-component .options_box svg {
-      height: 16px;
-      width: 16px; }
-    .comments-component .comment-component .options_box div {
-      cursor: pointer;
-      margin-right: 10px;
-      font-size: 0.8em; }
-
 .food-details-component {
   background: url("https://static.pexels.com/photos/326278/pexels-photo-326278.jpeg") no-repeat 50% 0 fixed;
   background-size: cover;
@@ -6872,10 +6814,6 @@ input {
     justify-content: space-around; }
     .voting-component .control_box button {
       height: 50px; }
-
-.btn-block {
-  padding: 30%;
-  margin: 10px 0 10px 0; }
 
 .modal-component {
   display: flex;
