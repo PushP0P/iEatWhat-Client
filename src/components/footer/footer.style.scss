@@ -1,9 +1,12 @@
 footer {
   background-color:$color-text;
+  padding:0;
 
   ul{
     list-style:none;
     font-size:1.25em;
+    margin:0;
+    padding:.5em 1em .5em 1em;
   }
 }
 
@@ -12,6 +15,7 @@ a {
 
   &:hover, &:active, &:focus {
     color:darken($color-background-secondary, 50%);
+    text-decoration:none;
   }
 
 }

@@ -6990,14 +6990,18 @@ input {
       transition: all 0.6s linear; }
 
 footer {
-  background-color: #280E04; }
+  background-color: #280E04;
+  padding: 0; }
   footer ul {
     list-style: none;
-    font-size: 1.25em; }
+    font-size: 1.25em;
+    margin: 0;
+    padding: .5em 1em .5em 1em; }
 
 a {
   color: #ffd7bb; }
   a:hover, a:active, a:focus {
-    color: #bb4d00; }
+    color: #bb4d00;
+    text-decoration: none; }
 
 /*# sourceMappingURL=main.style.css.map */

@@ -16,10 +16,11 @@ export class FooterComponent extends React.Component<FooterComponentProps, Foote
 		return (
 			<footer>
 				<ul>
-					<li><Link to={'#'}>Link 1</Link></li>
-					<li><Link to={'#'}>Link 2</Link></li>
-					<li><Link to={'#'}>Link 3</Link></li>
-					<li><Link to={'#'}>Link 4</Link></li>
+					<li><Link to={'#'}>About</Link></li>
+					<li><Link to={'#'}>FAQ</Link></li>
+					<li><Link to={'#'}>Data Use</Link></li>
+					<li><Link to={'#'}>Privacy and Security</Link></li>
+					<li><Link to={'#'}>Contact Us</Link></li>
 				</ul>
 			</footer>);
 	}
