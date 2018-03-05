@@ -11,7 +11,7 @@ const FIXTURE_FOOD_DETAILS: FoodItem | USDAReport | any  = {
 	lastUpdated: Date.now(),
 	reviews: 123,
 	reviewed: false,
-	rating: 1234,
+	stars: 1234,
 	upc: '12432foobar',
 	slug: 'test-food-12432foobar',
 	topic: 'Test Food',
@@ -45,6 +45,6 @@ const FIXTURE_FOOD_DETAILS: FoodItem | USDAReport | any  = {
 };
 
 export async function getFoodDetails(foodId: string): Promise<Set<any>> {
-	// return await queryUSDA(['cheeze','wiz'], {});
+	// return await searchByTerms(['cheeze','wiz'], {});
 	return new Set([FIXTURE_FOOD_DETAILS]);
 }

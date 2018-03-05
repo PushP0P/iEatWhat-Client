@@ -11,7 +11,7 @@ import { CategoryComponent } from '../../reusable/categories/category.controlled
 import { IngredientsComponent } from './igredients.controlled';
 import { DescriptionComponent } from './description.controlled';
 import { foodDetailsReducer } from './food-details.reducer';
-import { queryUSDA } from '../../../services/search.service';
+import { searchByTerms } from '../../../services/search.service';
 import { actionDataReady } from '../../main/main.actions';
 import { ReportFetchResponse } from '../../../models/usda/usda.model';
 import { USDA_SEARCH_KEYS } from '../../../models/usda/usda.model';
@@ -30,7 +30,7 @@ export class FoodDetailsComponent extends React.Component<FoodDetailsComponentPr
 			});
 		const slug: string = this.props.routeComponentProps.match.params.id;
 
-		const content: ReportFetchResponse = await queryUSDA({
+		const content: ReportFetchResponse = await searchByTerms({
 			params: {
 				[USDA_SEARCH_KEYS.ndbno]: slug,
 				[USDA_SEARCH_KEYS.reportType]: 'f',

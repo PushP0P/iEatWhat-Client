@@ -7,7 +7,7 @@ import { SearchComponentProps } from '../../../models/components/search.model';
 import { SearchComponentState } from '../../../models/components/search.model';
 import { SearchResultsComponent } from './search-result.controlled';
 import { SearchBarComponent } from './search-bar/search-bar.component';
-import { queryUSDA } from '../../../services/search.service';
+import { searchByTerms } from '../../../services/search.service';
 import { searchReducer } from './search.reducer';
 import { USDAItem } from '../../../models/usda/usda-food.model';
 import { SearchFetchResponse } from '../../../models/usda/usda.model';
@@ -85,7 +85,7 @@ export class SearchComponent extends React.Component<SearchComponentProps, Searc
 
 	private async makeQuery(searchTerm: string): Promise<void> {
 		this.props.store.dispatch(actionSearching());
-		const result: SearchFetchResponse | void = await queryUSDA({
+		const result: SearchFetchResponse | void = await searchByTerms({
 			params: {
 				[USDA_SEARCH_KEYS.searchTerms]: searchTerm
 			},

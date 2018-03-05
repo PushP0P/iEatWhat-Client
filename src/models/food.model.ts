@@ -12,15 +12,14 @@ export interface Category {
 }
 
 export interface FoodMeta {
-	rating?: number;
-	reviewed?: boolean;
-	reviews?: number;
-	restaurantItem?: boolean;
-	storeItem?: boolean;
-	homeMadeItem?: boolean;
-	soldAt?: string[];
-	verifiedCategories?: Category[];
-	lastUpdated?: number;
+	stars: number;
+	reviewed: boolean;
+	reviews: number;
+	tags: Set<string>;
+	categories: Set<Category>;
+	foodGroup: string;
+	foundOutlets: Set<string>;
+	updatedOn: number;
 }
 
 export interface FoodDetailsComponentProps {

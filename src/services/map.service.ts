@@ -1,4 +1,4 @@
-import { MapBoxLocation } from '../models/components/map-box.model';
+import { MapBoxLocation } from '../models/components/map-box/map-box.model';
 
 export async function getDeviceLocation(): Promise<MapBoxLocation | PositionError | {} | void> {
 	if (!('geolocation' in navigator)) {

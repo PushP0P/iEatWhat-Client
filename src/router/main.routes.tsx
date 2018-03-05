@@ -105,7 +105,7 @@ export const MAIN_ROUTES_SWITCH = (store: StoreService) => {
 				}
 			/>
 			<Route
-				path="/map-box/:mode"
+				path="/map-box"
 				exact={true}
 				render={(routes) => {
 					return (

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { DestinationDetails } from '../../models/components/map-box.model';
+import { DestinationDetails } from '../../models/components/map-box/map-box.model';
 import { FoodItem } from '../../models/food.model';
 import { CategoryComponent } from '../reusable/categories/category.controlled';
 import * as moment from 'moment';
