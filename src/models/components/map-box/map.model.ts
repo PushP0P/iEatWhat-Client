@@ -1,5 +1,5 @@
 export interface MapProps {
-	mapImage: string;
+	mapImage?: string;
 	id: string;
 	overlay: string;
 	lon: string;

@@ -12,7 +12,6 @@ import { searchReducer } from './search.reducer';
 import { USDAItem } from '../../../models/usda/usda-food.model';
 import { SearchFetchResponse } from '../../../models/usda/usda.model';
 import { SEARCH_STATE_INIT } from '../../../models/components/search.model';
-import { USDA_SEARCH_KEYS } from '../../../models/usda/usda.model';
 import { LoadingComponent } from '../loading/loading.component';
 import { actionSearching } from './search.actions';
 import { actionSearchDone } from './search.actions';
@@ -69,7 +68,6 @@ export class SearchComponent extends React.Component<SearchComponentProps, Searc
 		this.subscriptions = this.props.store
 			.registerStore$(searchReducer, SEARCH_STATE_INIT)
 			.subscribe((state: SearchComponentState) => {
-				console.log('state', state);
 				this.setState(state);
 			});
 		this.subscriptions
@@ -85,18 +83,12 @@ export class SearchComponent extends React.Component<SearchComponentProps, Searc
 
 	private async makeQuery(searchTerm: string): Promise<void> {
 		this.props.store.dispatch(actionSearching());
-		const result: SearchFetchResponse | void = await searchByTerms({
-			params: {
-				[USDA_SEARCH_KEYS.searchTerms]: searchTerm
-			},
-			requestType: 'search'
-		}) as SearchFetchResponse;
+		const result: SearchFetchResponse | void = await searchByTerms(searchTerm);
 		if (result && 'errors' in result) {
 			return;
 		}
 		this.results = await result.list.item;
 		this.props.store.dispatch(actionSearchDone());
-		console.log('state', this.results);
 	}
 
 	private foodItemSelectHandler(ndbno: string): any {

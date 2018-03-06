@@ -21,7 +21,7 @@ export interface MapBoxComponentState {
 	navigationType: 'walking' | 'driving' | 'public';
 	mapData: MapProps;
 	geoData: GeoJsonModel;
- 	deviceLocation: MapBoxLocation;
+	deviceLocation: MapBoxLocation;
 	showModal: boolean;
 	wheelValue: number;
 }
@@ -44,7 +44,7 @@ export interface DestinationDetails {
 }
 
 export const MAP_BOX_STATE_INIT: MapBoxComponentState = {
-	deviceLocation: <MapBoxLocation>{},
+	deviceLocation: <MapBoxLocation> {},
 	mapData: <MapProps> {},
 	geoData: <GeoJsonModel> {},
 	dataReady: false,
@@ -60,4 +60,3 @@ export const MAP_BOX_STATE_INIT: MapBoxComponentState = {
 	showModal: false,
 	wheelValue: 0
 };
-

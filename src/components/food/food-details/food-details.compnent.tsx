@@ -11,11 +11,10 @@ import { CategoryComponent } from '../../reusable/categories/category.controlled
 import { IngredientsComponent } from './igredients.controlled';
 import { DescriptionComponent } from './description.controlled';
 import { foodDetailsReducer } from './food-details.reducer';
-import { searchByTerms } from '../../../services/search.service';
 import { actionDataReady } from '../../main/main.actions';
 import { ReportFetchResponse } from '../../../models/usda/usda.model';
-import { USDA_SEARCH_KEYS } from '../../../models/usda/usda.model';
 import * as moment from 'moment';
+import { eventRequest } from '../../../services/rest-service';
 
 export class FoodDetailsComponent extends React.Component<FoodDetailsComponentProps, FoodDetailsComponentState> {
 	public state = FOOD_DETAILS_STATE_INIT;
@@ -28,14 +27,12 @@ export class FoodDetailsComponent extends React.Component<FoodDetailsComponentPr
 			.subscribe((state: FoodDetailsComponentState) => {
 				this.setState(state);
 			});
-		const slug: string = this.props.routeComponentProps.match.params.id;
 
-		const content: ReportFetchResponse = await searchByTerms({
-			params: {
-				[USDA_SEARCH_KEYS.ndbno]: slug,
-				[USDA_SEARCH_KEYS.reportType]: 'f',
-			},
-			requestType: 'V2/reports'
+		const content: ReportFetchResponse = await eventRequest({
+			type: 'SEARCH:REPORT',
+			payload: this.props.routeComponentProps.match.url
+				.split('?')[1]
+				.split('=')[1]
 		});
 
 		this.content = content.foods[0];

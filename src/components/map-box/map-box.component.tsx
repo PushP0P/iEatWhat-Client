@@ -1,26 +1,36 @@
 import * as React from 'react';
 import { ReactElement } from 'react';
-import { MAP_BOX_STATE_INIT , MapBoxComponentProps, MapBoxComponentState } from '../../models/components/map-box/map-box.model';
-import { InfoPanelComponent } from './info-panel.controlled';
-import  * as mapboxgl from 'mapbox-gl';
-import { Map } from 'mapbox-gl';
-import { MapComponent } from './map.component';
-import { getDeviceLocation } from '../../services/map.service';
-import { getPlaceData } from '../../services/map-box.service';
-import { getStaticMap } from '../../services/map-box.service';
-import { MapBoxLocation } from '../../models/components/map-box/map-box.model';
-import { ModalComponent } from '../reusable/modal/modal.component';
+import {
+	MAP_BOX_STATE_INIT , MapBoxComponentProps,
+	MapBoxComponentState
+} from '../../models/components/map-box/map-box.model';
 import { MapProps } from '../../models/components/map-box/map.model';
 import { Subscription } from '@reactivex/rxjs';
 import { Observable } from '@reactivex/rxjs';
 import { Observer } from '@reactivex/rxjs';
 import { ModalControl } from '../../models/components/modal.model';
 import { SyntheticEvent } from 'react';
+import { MasterState } from '../../services/store.service';
+import { InfoPanelComponent } from './info-panel.controlled';
+import { MapComponent } from './map.component';
+import { getDeviceLocation } from '../../services/map.service';
+import { getPlaceData } from '../../services/map-box.service';
+import { ModalComponent } from '../reusable/modal/modal.component';
+import { getStaticMap } from '../../services/map-box.service';
+import { mapActionUpdate } from './map-box.actions';
+import { mapBoxReducer } from './map-box.reducer';
 
 export class MapBoxComponent extends React.Component<MapBoxComponentProps, MapBoxComponentState> {
-	public state = MAP_BOX_STATE_INIT;
-	private map: MapProps = {} as MapProps;
+	public state: MapBoxComponentState = MAP_BOX_STATE_INIT;
 	private subscriptions: Subscription;
+	private locationModel: string = '';
+	private userInputControl: ModalControl = {
+		id: 'prompt',
+		label: 'Please, provide a city for map to show.',
+		onClick: this.userResponseModalHandler,
+		style: '',
+		classNames: ''
+	};
 
 	constructor(public props: MapBoxComponentProps) {
 		super(props);
@@ -28,37 +38,31 @@ export class MapBoxComponent extends React.Component<MapBoxComponentProps, MapBo
 	}
 
 	public async componentDidMount(): Promise<void> {
+
 		this.subscriptions = Observable.create((observer: Observer<any>) => {
-			onmousewheel = (evt: any) => {
-				observer.next(evt.target.value);
-				console.log('mouse wheel ', evt.target.value);
-			}
-		}).subscribe((res: any) => this.setState({
-			wheelValue: res
+			onmousewheel = (evt: MouseEvent) => {
+				observer.next((evt.target as any).value);
+			};
+			onerror = (evt: string) => {
+				observer.error(evt);
+			};
+		}).subscribe((state: any) => this.setState({
+			wheelValue: state
 		}));
-		console.log('loaded map');
-
-		this.map = new mapboxgl.Map({
-			container: 'MapContainer',
-			style: 'mapbox://styles/mapbox/light-v10'
-		});
-
-		// refactor getDLoc()
-		const deviceLocation: MapBoxLocation | any = getDeviceLocation();
-		if (deviceLocation) {
-			this.setState({
-				deviceLocation: deviceLocation
-			});
+		this.subscriptions.add(this.props.store
+			.registerStore$(mapBoxReducer, MAP_BOX_STATE_INIT)
+			.subscribe((state: MasterState) => this.setState(this.state)));
+		const location = await getDeviceLocation();
+		if (location) {
+			this.props.store.dispatch(mapActionUpdate({
+				deviceLocation: location
+			}));
 		} else {
-			this.setState({
-				showModal: true
-			});
+			await this.showPlaceSearch();
 		}
-
-		this.placeSearchHandler();
 	}
 
-	public componentWillUnmount(){
+	public componentWillUnmount() {
 		this.subscriptions.unsubscribe();
 	}
 
@@ -74,9 +78,6 @@ export class MapBoxComponent extends React.Component<MapBoxComponentProps, MapBo
 					className="map"
 					id="MapContainer"
 				/>
-				<div>
-					^
-				</div>
 				<InfoPanelComponent
 					collapsed={false}
 					sideList={[]}
@@ -93,36 +94,33 @@ export class MapBoxComponent extends React.Component<MapBoxComponentProps, MapBo
 					controls={[this.userInputControl]}
 					visible={this.state.showModal}
 				>
-
+					<input
+						onChange={(evt) => this.locationModel = evt.target.value}
+					/>
 				</ModalComponent>
 			</div>
 		);
 	}
 
-	private userInputControl: ModalControl = {
-			id: 'prompt',
-			label: 'Please, provide a city for map to show.',
-			onClick: this.userResponseModalHandler,
-			style: '',
-			classNames: ''
-	};
-
-	private userResponseModalHandler(evt: SyntheticEvent<HTMLDivElement>): void {
-
+	private async userResponseModalHandler(evt: SyntheticEvent<HTMLDivElement>): Promise<void> {
+		this.props.store.dispatch(
+			mapActionUpdate(
+				{
+					deviceLocation: this.locationModel,
+					showModal: false
+				}
+			)
+		);
 	}
 
-	private updateMap(mapProps: MapProps) {
+	private async showPlaceSearch(): Promise<void> {
+		const placeData: MapProps = await getPlaceData(this.locationModel);
+		const {lon, lat, zoom, bearing, pitch} = placeData;
 
-		const {lon, lat, zoom, bearing, pitch, mapsize, scale} = mapProps;
-		this.setState({
-			mapData: getStaticMap(lon, lat, zoom, bearing, pitch, [window.screenY, window.screenX], scale)
-		})
+		// fix any
 
+		const mapData: any = await getStaticMap(lon, lat, zoom, bearing, pitch);
+		console.log('mao data', mapData);
+		this.props.store.dispatch(mapActionUpdate({mapData: mapData}));
 	}
-
-	private async placeSearchHandler(response: string): Promise<void> {
-		const placeData: MapProps = await getPlaceData(response);
-		await this.updateMap(placeData);
-	}
-
 }

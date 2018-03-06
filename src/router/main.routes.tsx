@@ -80,7 +80,7 @@ export const MAIN_ROUTES_SWITCH = (store: StoreService) => {
 				}
 			/>
 			<Route
-				path="/food-details/:id"
+				path="/food-details"
 				render={
 					(routes) => {
 						return (

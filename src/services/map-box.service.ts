@@ -1,7 +1,7 @@
 import { MAP_BOX_CONFIG } from '../configs/map-box.config';
 import { Observable } from '@reactivex/rxjs';
 import { MapProps } from '../models/components/map-box/map.model';
-
+// tslint:disable
 export async function getTileData(tileIds: string[]): Promise<{[prop: string]: any}> {
 	const base: string = 'https://api.mapbox.com/v4/mapbox.comic.json';
 	const params: Map<string, string> = new Map<string, string>();
@@ -18,32 +18,35 @@ export async function getPlaceData(...placeNames: string[]): Promise<MapProps> {
 	return response.json();
 }
 
-export async function fetchMapRequest(url: string, params: Map<string,string> = new Map<string, string>()):Promise<Response> {
+export async function fetchMapRequest(
+	url: string,
+	params: Map<string,string> = new Map<string, string>()): Promise<Response> {
 	const param$ = Observable.of(params);
+
 	// fix any
 	const paramString: string = await param$
 		.reduce(
-			(acc, curr: any) => {
+			(acc: string, curr: any) => {
 				acc += `${curr.getKey()}=${curr.getValue()}`
 			},
 			'?'
-		)
-		.toPromise();
+		).toPromise();
 	const req: Request = new Request(url + paramString);
 	return await fetch(req);
 }
 
-export async function getStaticMap(
+export async function getStaticMap<T> (
 	lon: string, lat: string,
 	zoom: string, bearing: string,
 	pitch: string, mapSize: string[] = [window.screenY.toString(), window.screenX.toString()],
-	scale: string = '@2x', overlay: string = 'comic')
-: Promise<string> {
+	scale: string = '@2x', overlay: string = 'comic'
+
+): Promise<T> {
+	console.log('');
 	const base: string = `https://api.mapbox.com/styles/v1/mapbox/streets-v10/static/${overlay}/${lon},${lat},${zoom},${bearing},${pitch}/${mapSize[0]}x${mapSize[0]}${scale}?accessToke=${MAP_BOX_CONFIG.accessToken}`;
     const response: Response = await fetchMapRequest(base);
     return await response.json();
 }
-
 
 // const bas"https://api.mapbox.com/styles/v1/mapbox/streets-v10/static/-122.4241,37.78,14.25,0,60/600x600?access_token=your-access-token"
 //

@@ -42,7 +42,8 @@ export const NavbarComponent = (props: NavbarProps): ReactElement<HTMLDivElement
 						className="nav_login h3"
 						onClick={() => props.onLogOut()}
 					>
-						{props.isLoggedIn
+						{
+							props.isLoggedIn
 							? 'Logout'
 							: 'Login'
 						}
