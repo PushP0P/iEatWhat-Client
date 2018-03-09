@@ -9,10 +9,10 @@ export const foodDetailsReducer: Reducer = (
 	const {type, payload} = action;
 
 	switch (type) {
-		case'DATA_READY':
+		case'RETRIEVING_REPORT':
 			return {...currentState, ...payload};
-		case`SHOW_VOTE_MODAL`:
-			return {...currentState, };
+		case'REPORT_RECEIVED':
+			return {...currentState, ...payload};
 		default:
 			return currentState;
 	}

@@ -13,8 +13,8 @@ export async function eventRequest(eventTrans: EventTransport): Promise<any> {
 		const data = new FormData();
 		const xhr = new XMLHttpRequest();
 
-		data.append('type', eventTrans.type);
-		data.append('payload', eventTrans.payload);
+		data.append('type', eventTrans.event);
+		data.append('payload', eventTrans.payload.body);
 
 		xhr.onreadystatechange = function() {
 			if (this.readyState === 4) {

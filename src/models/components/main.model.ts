@@ -1,4 +1,4 @@
-import { FoodItem } from '../food.model';
+import { FoodProduct } from '../food.model';
 import { StoreService } from '../../services/store.service';
 import { AuthServices } from '../../services/auth.service';
 
@@ -12,7 +12,7 @@ export interface MainComponentState {
 	navbarIsExtended: boolean;
 	isWideScreen: boolean;
 	isLoggedIn: boolean;
-	selectedFoodItem: FoodItem;
+	selectedFoodItem: FoodProduct;
 }
 
 export const MAIN_COMPONENT_STATE_INIT: MainComponentState = {
@@ -20,5 +20,5 @@ export const MAIN_COMPONENT_STATE_INIT: MainComponentState = {
 	navbarIsExtended: false,
 	isWideScreen: false,
 	isLoggedIn: false,
-	selectedFoodItem: <FoodItem> {}
+	selectedFoodItem: <FoodProduct> {}
 };

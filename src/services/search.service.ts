@@ -4,7 +4,7 @@ import { eventRequest } from './rest-service';
 export async function searchByTerms(searchTerms: string): Promise<USDAFetchResponse> {
 
 	return await eventRequest({
-		type: 'SEARCH:TERMS',
+		type: 'SEARCH',
 		payload: searchTerms
 	});
 }

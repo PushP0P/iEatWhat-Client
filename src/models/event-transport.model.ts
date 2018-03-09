@@ -1,11 +1,16 @@
 export interface EventTransport {
+	event: string;
+	payload: EventPayload;
+}
+
+export interface EventPayload {
 	type: string;
-	payload: any;
+	body: any;
 }
 
 export interface EventResponse extends Response {
 	ok: boolean;
 	message?: string;
 	body: any;
-	eventType: string;
+	event: string;
 }

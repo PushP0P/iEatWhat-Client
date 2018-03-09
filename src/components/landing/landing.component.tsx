@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { LANDING_STATE_INIT, LandingComponentProps } from '../../models/components/landing.model';
 import { ReactElement } from 'react';
+import { LandingComponentState } from '../../models/components/landing.model';
 import { Subscription } from '@reactivex/rxjs';
 import { LoadingComponent } from '../reusable/loading/loading.component';
 import { SearchComponent } from '../reusable/search/search.component';
-import { LandingComponentState } from '../../models/components/landing.model';
 import { landingReducer } from './landing.reducer';
 import { actionDataReady } from '../main/main.actions';
 import { ReviewsComponent } from '../reviews/reviews.component';
@@ -18,10 +18,8 @@ export class LandingComponent extends React.Component<LandingComponentProps, Lan
 	public state: LandingComponentState = LANDING_STATE_INIT;
 	private stateSubscription: Subscription;
 
-	// private inputChangeSource: BehaviorSubject<string> = new BehaviorSubject<string>('');
-
 	constructor(public props: LandingComponentProps) {
-		super (props);
+		super(props);
 		this.handleStateChange = this.handleStateChange.bind(this);
 	}
 

@@ -1,6 +1,6 @@
 import { MainComponentState } from '../../models/components/main.model';
 import { Action } from '../../models/store/action.model';
-import { FoodItem } from '../../models/food.model';
+import { FoodProduct } from '../../models/food.model';
 import { Reducer } from '../../models/store/reducer.model';
 
 export const mainReducer: Reducer = function(action: Action, currentState: MainComponentState): MainComponentState {
@@ -27,6 +27,6 @@ export function appDoneBooting(): Action {
 	return {type: 'APP_DONE_BOOTING', payload: {}};
 }
 
-export function foofItemSelected(foodItem: FoodItem): Action {
+export function foofItemSelected(foodItem: FoodProduct): Action {
 	return {type: 'FOOD_ITEM_SELECTED', payload: foodItem};
 }

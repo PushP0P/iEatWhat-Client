@@ -1,7 +1,7 @@
-import { FoodItem } from '../models/food.model';
+import { FoodProduct } from '../models/food.model';
 import { USDAReport } from '../models/usda/usda-report.model';
 
-const FIXTURE_FOOD_DETAILS: FoodItem | USDAReport | any  = {
+const FIXTURE_FOOD_DETAILS: FoodProduct | USDAReport | any  = {
 	id: 'TestFood',
 	restaurantItem: false,
 	storeItem: false,

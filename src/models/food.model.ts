@@ -18,8 +18,8 @@ export interface FoodMeta {
 	tags: Set<string>;
 	categories: Set<Category>;
 	foodGroup: string;
-	foundOutlets: Set<string>;
 	updatedOn: number;
+	foundOutlets: Set<string>;
 }
 
 export interface FoodDetailsComponentProps {
@@ -30,19 +30,18 @@ export interface FoodDetailsComponentProps {
 export interface FoodDetailsComponentState {
 	dataReady: boolean;
 	modalVisible: boolean;
+	report: FoodProduct;
 }
 
 export const FOOD_DETAILS_STATE_INIT: FoodDetailsComponentState = {
 	dataReady: false,
-	modalVisible: false
+	modalVisible: false,
+	report: <FoodProduct>{}
 };
 
-export interface FoodItem extends FoodMeta {
-	id?: string;
-	upc?: string;
-	slug?: string;
-	topic?: string;
-	lastUpdated?: number;
-	imageURL?: string;
-	categoryTags?: string[];
+export interface FoodProduct extends FoodMeta {
+	ndbno: string;
+	upc: string;
+	imageURL: string;
+	categories?: Category[];
 }

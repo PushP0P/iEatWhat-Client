@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { eventRequest } from '../../../services/rest-service';
+import { SyntheticEvent } from 'react';
 
 export class BackendTests extends React.Component<any, {[prop: string]: any}> {
 	public type: string = '';
@@ -15,8 +16,11 @@ export class BackendTests extends React.Component<any, {[prop: string]: any}> {
 				<input
 					id="Type"
 					type="text"
-					onChange={(evt) => {
-						this.type = evt.target.value;
+					onChange={(evt: SyntheticEvent<HTMLInputElement>) => {
+						this.type = (evt.target as any).value;
+					}}
+					onBlur={(evt: SyntheticEvent<HTMLInputElement>)  => {
+						this.type = (evt.target as any).value;
 					}}
 				/>
 
@@ -26,6 +30,9 @@ export class BackendTests extends React.Component<any, {[prop: string]: any}> {
 					type="text"
 					onChange={(evt) => {
 						this.payload = evt.target.value;
+					}}
+					onBlur={(evt: SyntheticEvent<HTMLInputElement>)  => {
+						this.payload = (evt.target as any).value;
 					}}
 				/>
 				<div

@@ -15,11 +15,14 @@ import { actionDataReady } from '../../main/main.actions';
 import { ReportFetchResponse } from '../../../models/usda/usda.model';
 import * as moment from 'moment';
 import { eventRequest } from '../../../services/rest-service';
+import { transmitEvent } from '../../../services/socket.service';
+import { EventResponse } from '../../../models/event-transport.model';
+import { actionReportReceived } from './food-details.actions';
+import { actionRetrievingReport } from './food-details.actions';
 
 export class FoodDetailsComponent extends React.Component<FoodDetailsComponentProps, FoodDetailsComponentState> {
 	public state = FOOD_DETAILS_STATE_INIT;
 	private subscriptions: Subscription;
-	private content: any = {} as any;
 
 	public async componentDidMount(): Promise<void> {
 		this.subscriptions = this.props.store
@@ -27,19 +30,29 @@ export class FoodDetailsComponent extends React.Component<FoodDetailsComponentPr
 			.subscribe((state: FoodDetailsComponentState) => {
 				this.setState(state);
 			});
-
-		const content: ReportFetchResponse = await eventRequest({
-			type: 'SEARCH:REPORT',
-			payload: this.props.routeComponentProps.match.url
-				.split('?')[1]
-				.split('=')[1]
-		});
-
-		this.content = content.foods[0];
-		console.log('report', this.content);
+		this.refreshContent();
+		console.log('report', this.state.report);
 		this.props.store.dispatch(actionDataReady());
 	}
 
+	private async refreshContent(): Promise<any> {
+		this.props.store.dispatch(actionRetrievingReport());
+		const result: EventResponse = await transmitEvent({
+			event: 'SEARCH',
+			payload: {
+				type: 'REPORT',
+				body: this.props.routeComponentProps.match.url
+					.split('?')[1]
+					.split('=')[1]
+			}
+
+		});
+		if (!result.ok){
+			alert('Oh No! No content was found');
+			return;
+		}
+		this.props.store.dispatch(actionReportReceived(result.body));
+	}
 	public componentWillUnmount(): void {
 		this.subscriptions.unsubscribe();
 	}
@@ -61,11 +74,11 @@ export class FoodDetailsComponent extends React.Component<FoodDetailsComponentPr
 							>
 								<img
 									src={'#'}
-									alt={`${this.content.name} picture`}
+									alt={`${this.state.report.name} picture`}
 								/>
 
 							</div>
-							<h1>{this.content.name}</h1>
+							<h1>{this.state.report.name}</h1>
 							<div
 								className="header--updated-last"
 							>
@@ -74,14 +87,14 @@ export class FoodDetailsComponent extends React.Component<FoodDetailsComponentPr
 							<div
 								className="header--reviewed"
 							>
-								{this.content.reviews || 'No Reviews'}
+								{this.state.report.reviews || 'No Reviews'}
 							</div>
 						</div>
 
 						<div
 							className="categories_box"
 						>
-							{this.content.categories((tag: string) => {
+							{this.state.report.categories((tag: string) => {
 										return (
 											<CategoryComponent
 												key={tag}
@@ -92,10 +105,10 @@ export class FoodDetailsComponent extends React.Component<FoodDetailsComponentPr
 						</div>
 						<hr />
 						<DescriptionComponent
-							name={this.content.desc.ndb_food_number}
-							upc={this.content.req}
-							type={this.content.group}
-							updatedOn={this.content.lastUpdated}
+							name={this.state.report.desc.ndb_food_number}
+							upc={this.state.report.req}
+							type={this.state.report.group}
+							updatedOn={this.state.report.lastUpdated}
 						/>
 						<hr />
 						<IngredientsComponent
