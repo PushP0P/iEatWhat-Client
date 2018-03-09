@@ -3,7 +3,6 @@ import { ReactElement } from 'react';
 import { SVGS } from '../../../assets/react-svgs.asset';
 import { CategoryProps } from '../../../models/components/category.model';
 
-
 export const CategoryBadgeComponent = (props: CategoryProps): ReactElement<HTMLDivElement> => {
 	return(
 		<div

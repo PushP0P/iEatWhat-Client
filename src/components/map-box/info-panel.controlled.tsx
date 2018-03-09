@@ -4,6 +4,7 @@ import { FoodProduct } from '../../models/food.model';
 import { CategoryBadgeComponent } from '../reusable/categories/category.controlled';
 import * as moment from 'moment';
 import { Hoverable } from '../reusable/hoverable/hoverable.component';
+import { CategoryProps } from '../../models/components/category.model';
 
 interface InfoPanelControlledProps {
 	collapsed: boolean;
@@ -31,15 +32,15 @@ export const InfoPanelComponent = (props: InfoPanelControlledProps) => {
 						<span
 							className="food-details_title"
 						>
-							{props.product.id}
+							{props.product.name}
 						</span>
 						<li>
-							{props.product.categoryTags.map(
-								tag => {
+							{props.product.categories.map(
+								(category: CategoryProps) => {
 									return (
 										<CategoryBadgeComponent
-											key={tag}
-											tag={tag}
+											key={category.id.toString()}
+											{...category}
 										/>
 									);
 								}
@@ -47,10 +48,6 @@ export const InfoPanelComponent = (props: InfoPanelControlledProps) => {
 						</li>
 						<li>
 							Reviews: {props.product.reviews}
-						</li>
-						<li>
-							// TODO
-							UPC / ID: {props.product.id}
 						</li>
 					</ul>
 				</Hoverable>

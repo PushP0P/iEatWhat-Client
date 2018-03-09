@@ -17,10 +17,10 @@ export interface FoodDetailsComponentState {
 export const FOOD_DETAILS_STATE_INIT: FoodDetailsComponentState = {
 	dataReady: false,
 	modalVisible: false,
-	report: <FoodProduct>{}
+	report: <FoodProduct> {}
 };
 
-export interface FoodProduct  {
+export interface FoodProduct {
 	ndbno: string;
 	name: string;
 	upc?: string;

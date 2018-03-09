@@ -34,28 +34,9 @@ export class FoodDetailsComponent extends React.Component<FoodDetailsComponentPr
 		this.props.store.dispatch(actionDataReady());
 	}
 
-	private async refreshContent(): Promise<any> {
-		this.props.store.dispatch(actionRetrievingReport());
-		const result: EventResponse = await transmitEvent({
-			event: 'SEARCH',
-			payload: {
-				type: 'REPORT',
-				body: this.props.routeComponentProps.match.url
-					.split('?')[1]
-					.split('=')[1]
-			}
-
-		});
-		if (!result.ok){
-			alert('Oh No! No content was found');
-			return;
-		}
-		this.props.store.dispatch(actionReportReceived(result.body));
-	}
 	public componentWillUnmount(): void {
 		this.subscriptions.unsubscribe();
 	}
-
 	public render(): ReactElement<HTMLDivElement> {
 		if (this.state.dataReady) {
 			return (
@@ -97,6 +78,7 @@ export class FoodDetailsComponent extends React.Component<FoodDetailsComponentPr
 
 								return (
 									<CategoryBadgeComponent
+										key={category.id.toString()}
 										{...category}
 									/>
 								);
@@ -104,10 +86,10 @@ export class FoodDetailsComponent extends React.Component<FoodDetailsComponentPr
 						</div>
 						<hr />
 						<DescriptionComponent
-							name={this.state.report.desc.ndb_food_number}
-							upc={this.state.report.req}
-							type={this.state.report.group}
-							updatedOn={this.state.report.lastUpdated}
+							name={this.state.report.ndbno}
+							upc={this.state.report.upc}
+							type={this.state.report.foodGroup}
+							updatedOn={this.state.report.updatedOn}
 						/>
 						<hr />
 						<IngredientsComponent
@@ -126,5 +108,24 @@ export class FoodDetailsComponent extends React.Component<FoodDetailsComponentPr
 				<LoadingComponent visible={this.state.dataReady}/>
 			);
 		}
+	}
+
+	private async refreshContent(): Promise<any> {
+		this.props.store.dispatch(actionRetrievingReport());
+		const result: EventResponse = await transmitEvent({
+			event: 'SEARCH',
+			payload: {
+				type: 'REPORT',
+				body: this.props.routeComponentProps.match.url
+					.split('?')[1]
+					.split('=')[1]
+			}
+
+		});
+		if (!result.ok) {
+			alert('Oh No! No content was found');
+			return;
+		}
+		this.props.store.dispatch(actionReportReceived(result.body));
 	}
 }

@@ -1,18 +1,19 @@
 import * as React from 'react';
+import * as moment from 'moment';
 import { ReactElement } from 'react';
+import { FoodProduct } from '../../../models/food.model';
 import { SearchResultsProps } from '../../../models/components/search.model';
 import { SearchResultProps } from '../../../models/components/search.model';
+import { CategoryProps } from '../../../models/components/category.model';
 import { CategoryBadgeComponent } from '../categories/category.controlled';
 import { Link } from 'react-router-dom';
-import { USDAItem } from '../../../models/usda/usda-report.model';
-import * as moment from 'moment';
 
 export const SearchResult = (props: SearchResultProps): ReactElement<HTMLElement> => {
 	const FIXTURE_IMG = 'https://static.pexels.com/photos/8758/food-dinner-lemon-rice.jpg';
 	return (
 		<Link
 			className="search-result row"
-			to={`/food-details/${props.item.ndbno}`}
+			to={`/food-details/${props.foodProduct.ndbno}`}
 		>
 			<div
 				className="result_image-box col-sm-4"
@@ -20,7 +21,7 @@ export const SearchResult = (props: SearchResultProps): ReactElement<HTMLElement
 				<div
 					className="result_image"
 				>
-					<img src={FIXTURE_IMG} alt={`A picture of ${props.item.name}`}/>
+					<img src={props.foodProduct.imageURL || FIXTURE_IMG} alt={`A picture of ${props.foodProduct.name}`}/>
 				</div>
 			</div>
 			<div
@@ -31,11 +32,11 @@ export const SearchResult = (props: SearchResultProps): ReactElement<HTMLElement
 				>
 					{/*// prod name*/}
 					<div>
-						{props.item.ndbno || 'No Name Found'}
+						{props.foodProduct.name || 'No Name Found'}
 					</div>
 					{/*updated last*/}
 					<div>
-						{moment(Date.now ()).fromNow ()}
+						{moment(Date.now()).fromNow()}
 					</div>
 					{/*reviewed*/}
 					<div>
@@ -45,13 +46,15 @@ export const SearchResult = (props: SearchResultProps): ReactElement<HTMLElement
 				<div
 					className="result_categories"
 				>
-					{['demo'].map((tag: string) => {
-						return (
-							<CategoryBadgeComponent
-								key={tag}
-								tag={tag}
-							/>
-						);
+					{props.foodProduct.categories.map(
+						(category: CategoryProps) => {
+							return (
+								<CategoryBadgeComponent
+									key={category.id.toString()}
+									{...category}
+								/>
+							);
+						})
 					})}
 				</div>
 			</div>
@@ -68,14 +71,12 @@ export const SearchResultsComponent = (props: SearchResultsProps) => {
 			}}
 			className="search-results-component"
 		>
-			{props.items.map((item: USDAItem) => {
+			{props.products.map((product: FoodProduct) => {
 				return (
 					<SearchResult
-						key={item.ndbno.toString()}
-						item={item}
-						clickHandler={() => {
-							props.selectHandler (item.ndbno);
-						}}
+						key={product.ndbno.toString()}
+						foodProduct={product}
+						clickHandler={props.selectHandler}
 					/>
 				);
 			})}

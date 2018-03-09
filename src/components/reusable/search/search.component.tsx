@@ -7,14 +7,15 @@ import { SearchComponentProps } from '../../../models/components/search.model';
 import { SearchComponentState } from '../../../models/components/search.model';
 import { SearchResultsComponent } from './search-result.controlled';
 import { SearchBarComponent } from './search-bar/search-bar.component';
-import { searchByTerms } from '../../../services/search.service';
 import { searchReducer } from './search.reducer';
 import { USDAItem } from '../../../models/usda/usda-food.model';
-import { SearchFetchResponse } from '../../../models/usda/usda.model';
 import { SEARCH_STATE_INIT } from '../../../models/components/search.model';
 import { LoadingComponent } from '../loading/loading.component';
 import { actionSearching } from './search.actions';
 import { actionSearchDone } from './search.actions';
+import { transmitEvent } from '../../../services/socket.service';
+import { EventResponse } from '../../../models/event-transport.model';
+import { FoodProduct } from '../../../models/food.model';
 
 export class SearchComponent extends React.Component<SearchComponentProps, SearchComponentState> {
 	public state: SearchComponentState = SEARCH_STATE_INIT;
@@ -24,7 +25,7 @@ export class SearchComponent extends React.Component<SearchComponentProps, Searc
 		.enterInputSource
 		.merge(this.searchInputSource.debounce(() => Observable.interval(3000)))
 		.distinctUntilChanged();
-	private results: USDAItem[] = [];
+	private results: FoodProduct[] = [];
 	private subscriptions: Subscription;
 
 	get getResultPage(): USDAItem[] {
@@ -53,11 +54,11 @@ export class SearchComponent extends React.Component<SearchComponentProps, Searc
 						/>
 					) : (
 						<SearchResultsComponent
-							items={this.getResultPage}
+							products={this.results}
 							dispatch={this.props.store.dispatch}
 							selectHandler={this.foodItemSelectHandler}
-							visible={this.state.resultsVisible}
-							pageNumber={this.state.resultsPage}
+							visible={!this.state.nowSearching}
+							pageNumber={1}
 						/>
 					)}
 			</div>
@@ -83,11 +84,18 @@ export class SearchComponent extends React.Component<SearchComponentProps, Searc
 
 	private async makeQuery(searchTerm: string): Promise<void> {
 		this.props.store.dispatch(actionSearching());
-		const result: SearchFetchResponse | void = await searchByTerms(searchTerm);
-		if (result && 'errors' in result) {
-			return;
+		const result: EventResponse | void = await transmitEvent({
+			event: 'SEARCH',
+			payload: {
+				type: 'SEARCH_TERMS',
+				body: searchTerm
+			}
+		}).catch((err: PromiseRejectionEvent) => console.log(`Error with search: ${err}`));
+		if (!result) {
+			this.props.store.dispatch(actionSearchDone());
+			return ;
 		}
-		this.results = await result.list.item;
+		this.results = result.body;
 		this.props.store.dispatch(actionSearchDone());
 	}
 

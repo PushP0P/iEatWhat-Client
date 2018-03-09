@@ -1,3 +1,4 @@
+import * as React from 'react';
 import { SVGS } from '../../../assets/react-svgs.asset';
 import { ReactElement } from 'react';
 
@@ -5,7 +6,7 @@ export const Stars = (props: {fullStars: number}) => {
 	// todo fix any
 	const stars: ReactElement<HTMLElement> | any = () => {
 		let starSequence: ReactElement<HTMLElement>[] = [];
-		for(let i = 0; i < props.fullStars; i++) {
+		for (let i = 0; i < props.fullStars; i++) {
 			starSequence = [...starSequence, SVGS.star];
 		}
 		for (let i = 0; i < 5 - props.fullStars; i++) {
@@ -29,5 +30,5 @@ export const Stars = (props: {fullStars: number}) => {
 				);
 			})}
 		</div>
-	)
+	);
 };

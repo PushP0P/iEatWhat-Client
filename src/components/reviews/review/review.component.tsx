@@ -33,27 +33,27 @@ export const Review = (props: ReviewProps): ReactElement<HTMLDivElement> => {
 			<div
 				className="content"
 				contentEditable={props.editMode}
-				suppressContentEditableWarning
+				suppressContentEditableWarning={true}
 			/>
-			{props.editable ? (
-
-			<div
-				className="tool-bar"
-			>
-				<div
-					className="review_save-edit-button"
-				>
-					Edit
-				</div>
-				<div
-					className="review_remove-cancel-button"
-				>
-					Remove
-				</div>
-			</div>
-			):(
-				''
-			)}
+			{props.editable
+				? (
+					<div
+						className="tool-bar"
+					>
+						<div
+							className="review_save-edit-button"
+						>
+							Edit
+						</div>
+						<div
+							className="review_remove-cancel-button"
+						>
+							Remove
+						</div>
+					</div>
+				) :
+					''
+			}
 		</div>
 	);
 };

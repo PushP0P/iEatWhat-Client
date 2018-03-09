@@ -1,8 +1,8 @@
 import { StoreService } from '../../services/store.service';
-import { USDAItem } from '../usda/usda-food.model';
 import { RouteComponentProps } from 'react-router';
 import { Action } from '../store/action.model';
 import { Subject } from '@reactivex/rxjs';
+import { FoodProduct } from '../food.model';
 
 export type SearchBarProps = {
 	handleInputChange: Subject<string>;
@@ -22,12 +22,12 @@ export type SearchComponentProps = {
 };
 
 export type SearchResultProps = {
-	item: USDAItem;
+	foodProduct: FoodProduct;
 	clickHandler: (slug: string) => void;
 };
 
 export type SearchResultsProps = {
-	items: USDAItem[];
+	products: FoodProduct[];
 	dispatch: (action: Action) => void;
 	selectHandler: (slug: string) => {};
 	visible: boolean;
