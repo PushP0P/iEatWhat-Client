@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { DestinationDetails } from '../../models/components/map-box/map-box.model';
 import { FoodProduct } from '../../models/food.model';
-import { CategoryComponent } from '../reusable/categories/category.controlled';
+import { CategoryBadgeComponent } from '../reusable/categories/category.controlled';
 import * as moment from 'moment';
 import { Hoverable } from '../reusable/hoverable/hoverable.component';
 
@@ -37,7 +37,7 @@ export const InfoPanelComponent = (props: InfoPanelControlledProps) => {
 							{props.product.categoryTags.map(
 								tag => {
 									return (
-										<CategoryComponent
+										<CategoryBadgeComponent
 											key={tag}
 											tag={tag}
 										/>

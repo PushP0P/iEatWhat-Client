@@ -7,18 +7,17 @@ import { ReactElement } from 'react';
 import { Subscription } from '@reactivex/rxjs';
 import { LoadingComponent } from '../../reusable/loading/loading.component';
 import { VotingComponent } from '../../reusable/voting/voting.component';
-import { CategoryComponent } from '../../reusable/categories/category.controlled';
+import { CategoryBadgeComponent } from '../../reusable/categories/category.controlled';
 import { IngredientsComponent } from './igredients.controlled';
 import { DescriptionComponent } from './description.controlled';
 import { foodDetailsReducer } from './food-details.reducer';
 import { actionDataReady } from '../../main/main.actions';
-import { ReportFetchResponse } from '../../../models/usda/usda.model';
 import * as moment from 'moment';
-import { eventRequest } from '../../../services/rest-service';
 import { transmitEvent } from '../../../services/socket.service';
 import { EventResponse } from '../../../models/event-transport.model';
 import { actionReportReceived } from './food-details.actions';
 import { actionRetrievingReport } from './food-details.actions';
+import { CategoryProps } from '../../../models/components/category.model';
 
 export class FoodDetailsComponent extends React.Component<FoodDetailsComponentProps, FoodDetailsComponentState> {
 	public state = FOOD_DETAILS_STATE_INIT;
@@ -94,14 +93,14 @@ export class FoodDetailsComponent extends React.Component<FoodDetailsComponentPr
 						<div
 							className="categories_box"
 						>
-							{this.state.report.categories((tag: string) => {
-										return (
-											<CategoryComponent
-												key={tag}
-												tag={tag}
-											/>
-										);
-								})}
+							{this.state.report.categories.map((category: CategoryProps) => {
+
+								return (
+									<CategoryBadgeComponent
+										{...category}
+									/>
+								);
+							})}
 						</div>
 						<hr />
 						<DescriptionComponent

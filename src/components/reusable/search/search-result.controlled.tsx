@@ -2,7 +2,7 @@ import * as React from 'react';
 import { ReactElement } from 'react';
 import { SearchResultsProps } from '../../../models/components/search.model';
 import { SearchResultProps } from '../../../models/components/search.model';
-import { CategoryComponent } from '../categories/category.controlled';
+import { CategoryBadgeComponent } from '../categories/category.controlled';
 import { Link } from 'react-router-dom';
 import { USDAItem } from '../../../models/usda/usda-report.model';
 import * as moment from 'moment';
@@ -47,7 +47,7 @@ export const SearchResult = (props: SearchResultProps): ReactElement<HTMLElement
 				>
 					{['demo'].map((tag: string) => {
 						return (
-							<CategoryComponent
+							<CategoryBadgeComponent
 								key={tag}
 								tag={tag}
 							/>

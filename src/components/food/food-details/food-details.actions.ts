@@ -1,6 +1,6 @@
 import { Action } from '../../../models/store/action.model';
 import { FoodProduct } from '../../../models/food.model';
-import { ReviewProps } from '../../../models/components/reviews.model';
+import { ReviewProps } from '../../../models/components/review.model';
 
 export function actionRetrievingReport(): Action {
 	return {
