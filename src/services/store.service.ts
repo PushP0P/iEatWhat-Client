@@ -9,7 +9,7 @@ export interface MasterState {
 export class StoreService extends BehaviorSubject<MasterState> {
 	public reducers: Set<Reducer> = new Set<Reducer>();
 
-	constructor() {
+	constructor(){
 		super(<MasterState> {});
 	}
 

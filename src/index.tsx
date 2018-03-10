@@ -17,6 +17,7 @@ import { MainComponent } from './components/main/main.component';
 import { AuthServices } from './services/auth.service';
 import history from './router/router.history';
 import './main.style.css';
+import { LocationService } from './services/location.service';
 
 firebase.initializeApp(FIREBASE_CONFIG);
 
@@ -27,6 +28,7 @@ ReactDOM.render(
 	>
 		<MainComponent
 			// This should be the only time StoreServices is constructed.
+			location={new LocationService()}
 			store={new StoreService()}
 			auth={new AuthServices()}
 		/>

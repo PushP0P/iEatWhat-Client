@@ -5,7 +5,7 @@ import { Subscription } from '@reactivex/rxjs';
 import { Subject } from '@reactivex/rxjs';
 import { SearchComponentProps } from '../../../models/components/search.model';
 import { SearchComponentState } from '../../../models/components/search.model';
-import { SearchResultsComponent } from './search-result.controlled';
+import { SearchResultsComponent } from './search-result.component';
 import { SearchBarComponent } from './search-bar/search-bar.component';
 import { searchReducer } from './search.reducer';
 import { USDAItem } from '../../../models/usda/usda-food.model';
@@ -16,6 +16,7 @@ import { actionSearchDone } from './search.actions';
 import { transmitEvent } from '../../../services/socket.service';
 import { EventResponse } from '../../../models/event-transport.model';
 import { FoodProduct } from '../../../models/food.model';
+import { EventTransport } from '../../../models/event-transport.model';
 
 export class SearchComponent extends React.Component<SearchComponentProps, SearchComponentState> {
 	public state: SearchComponentState = SEARCH_STATE_INIT;
@@ -29,12 +30,11 @@ export class SearchComponent extends React.Component<SearchComponentProps, Searc
 	private subscriptions: Subscription;
 
 	get getResultPage(): USDAItem[] {
-		return this.results.length > 20 ?  this.results.slice(0, 19) : this.results;
+		return this.results.length > 20 ? this.results.slice(0, 19) : this.results;
 	}
 
 	constructor(public props: SearchComponentProps) {
 		super(props);
-
 		this.foodItemSelectHandler = this.foodItemSelectHandler.bind(this);
 	}
 
@@ -58,7 +58,8 @@ export class SearchComponent extends React.Component<SearchComponentProps, Searc
 							dispatch={this.props.store.dispatch}
 							selectHandler={this.foodItemSelectHandler}
 							visible={!this.state.nowSearching}
-							pageNumber={1}
+							pageNumber={0}
+							location={this.props.location.locationSource.value}
 						/>
 					)}
 			</div>
@@ -76,6 +77,7 @@ export class SearchComponent extends React.Component<SearchComponentProps, Searc
 				.subscribe((searchTerm: string) => {
 				this.makeQuery(searchTerm);
 			}));
+
 	}
 
 	public componentWillUnmount(): void {
@@ -84,18 +86,22 @@ export class SearchComponent extends React.Component<SearchComponentProps, Searc
 
 	private async makeQuery(searchTerm: string): Promise<void> {
 		this.props.store.dispatch(actionSearching());
-		const result: EventResponse | void = await transmitEvent({
+		const eventParcel: EventTransport = {
 			event: 'SEARCH',
 			payload: {
 				type: 'SEARCH_TERMS',
 				body: searchTerm
 			}
-		}).catch((err: PromiseRejectionEvent) => console.log(`Error with search: ${err}`));
+		};
+		const result: EventResponse | void = await transmitEvent(eventParcel)
+			.catch(
+				(err: PromiseRejectionEvent) => console.log(`Error with search: ${err}`));
 		if (!result) {
 			this.props.store.dispatch(actionSearchDone());
 			return ;
 		}
-		this.results = result.body;
+		console.log('in search result', JSON.parse(result.body));
+		this.results = JSON.parse(result.body).list.item;
 		this.props.store.dispatch(actionSearchDone());
 	}
 

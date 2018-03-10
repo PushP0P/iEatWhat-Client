@@ -1,10 +1,12 @@
 import { FoodProduct } from '../food.model';
 import { StoreService } from '../../services/store.service';
 import { AuthServices } from '../../services/auth.service';
+import { LocationService } from '../../services/location.service';
 
 export interface MainComponentProps {
 	store: StoreService;
 	auth: AuthServices;
+	location: LocationService;
 }
 
 export interface MainComponentState {

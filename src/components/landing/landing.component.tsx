@@ -32,6 +32,7 @@ export class LandingComponent extends React.Component<LandingComponentProps, Lan
 					<SearchComponent
 						store={this.props.store}
 						routes={this.props.routeProps}
+						location={this.props.location}
 					/>
 					<FooterComponent/>
 					<ReviewsComponent/>

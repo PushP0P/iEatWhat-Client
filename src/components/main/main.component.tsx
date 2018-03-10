@@ -60,7 +60,7 @@ export class MainComponent extends React.Component<MainComponentProps, MainCompo
 					isLoggedIn={this.state.isLoggedIn}
 
 				/>
-				{MAIN_ROUTES_SWITCH(this.props.store)}
+				{MAIN_ROUTES_SWITCH(this.props.store, this.props.location)}
 			</div>
 		);
 	}

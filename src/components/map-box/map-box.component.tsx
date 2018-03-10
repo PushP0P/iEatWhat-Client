@@ -13,7 +13,7 @@ import { SyntheticEvent } from 'react';
 import { MasterState } from '../../services/store.service';
 import { InfoPanelComponent } from './info-panel.controlled';
 import { MapComponent } from './map.component';
-import { getDeviceLocation } from '../../services/map.service';
+import { getDeviceLocation } from '../../services/location.service';
 import { getPlaceData } from '../../services/map-box.service';
 import { ModalComponent } from '../reusable/modal/modal.component';
 import { getStaticMap } from '../../services/map-box.service';

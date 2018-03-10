@@ -3,6 +3,8 @@ import { RouteComponentProps } from 'react-router';
 import { Action } from '../store/action.model';
 import { Subject } from '@reactivex/rxjs';
 import { FoodProduct } from '../food.model';
+import { LocationService } from '../../services/location.service';
+import { LocationInfo } from '../location.model';
 
 export type SearchBarProps = {
 	handleInputChange: Subject<string>;
@@ -14,10 +16,12 @@ export type SearchComponentState = {
 	nowSearching: boolean;
 	resultsPage: number;
 	resultsVisible: boolean;
+	currentLocation: LocationInfo;
 };
 
 export type SearchComponentProps = {
 	store: StoreService;
+	location: LocationService;
 	routes: RouteComponentProps<HTMLDivElement>;
 };
 
@@ -32,11 +36,13 @@ export type SearchResultsProps = {
 	selectHandler: (slug: string) => {};
 	visible: boolean;
 	pageNumber: number;
+	location: LocationInfo;
 };
 
 export const SEARCH_STATE_INIT: SearchComponentState = {
 	searchItemsPerPage: 0,
 	resultsPage: 20,
 	nowSearching: false,
-	resultsVisible: false
+	resultsVisible: false,
+	currentLocation: <LocationInfo> {},
 };

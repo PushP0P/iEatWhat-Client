@@ -13,7 +13,7 @@ export const SearchResult = (props: SearchResultProps): ReactElement<HTMLElement
 	return (
 		<Link
 			className="search-result row"
-			to={`/food-details/${props.foodProduct.ndbno}`}
+			to={`/food-details?ndbno=${props.foodProduct.ndbno}`}
 		>
 			<div
 				className="result_image-box col-sm-4"
@@ -71,6 +71,15 @@ export const SearchResultsComponent = (props: SearchResultsProps) => {
 			}}
 			className="search-results-component"
 		>
+			<div
+				className="search-list_title"
+			>
+				{
+					(!!props.location && !!props.location.current && !!props.location.current.city)
+					? 'Food found near' + props.location.current.city
+					:  'Food We Found'
+				}
+			</div>
 			{props.products.map((product: FoodProduct) => {
 				return (
 					<SearchResult

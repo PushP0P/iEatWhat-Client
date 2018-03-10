@@ -2,6 +2,7 @@ import { MAP_BOX_CONFIG } from '../configs/map-box.config';
 import { Observable } from '@reactivex/rxjs';
 import { MapProps } from '../models/components/map-box/map.model';
 // tslint:disable
+
 export async function getTileData(tileIds: string[]): Promise<{[prop: string]: any}> {
 	const base: string = 'https://api.mapbox.com/v4/mapbox.comic.json';
 	const params: Map<string, string> = new Map<string, string>();
@@ -11,10 +12,19 @@ export async function getTileData(tileIds: string[]): Promise<{[prop: string]: a
 }
 
 export async function getPlaceData(...placeNames: string[]): Promise<MapProps> {
-	const base: string = `https://api.mapbox.com/geocoding/v5/mapbox.places/`;
+	const mode = 'mapbox.places';
+	const base: string = `https://api.mapbox.com/geocoding/v5/${mode}/{query}.json/`;
 	const params: Map<string, string> = new Map<string, string>();
 	placeNames.forEach((place: string) => 'access_token', MAP_BOX_CONFIG.accessToken);
 	const response = await fetchMapRequest(base, params);
+	return response.json();
+}
+
+export async function getGeoData(lon: string, lat: string, ): Promise<MapProps> {
+	const mode = 'mapbox.places';
+	const query = `?longitude=${lon}&latitude=${lat}`;
+	const base: string = `https://api.mapbox.com/geocoding/v5/${mode}/${query}.json/`;
+	const response = await fetchMapRequest(base);
 	return response.json();
 }
 
