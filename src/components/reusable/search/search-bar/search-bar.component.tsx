@@ -33,7 +33,7 @@ export const SearchBarComponent = (props: SearchBarProps) => {
 						}
 						onKeyDown={(evt: SyntheticEvent<HTMLInputElement>) => {
 							if ((evt as any).keyCode === 13) {
-								props.handleEnterPress.next((evt.target as any).value);
+								props.handleEnterPress((evt.target as any).value);
 							}
 						}}
 					/>

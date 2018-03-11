@@ -8,13 +8,13 @@ import { SearchComponentState } from '../../../models/components/search.model';
 import { SearchResultsComponent } from './search-result.component';
 import { SearchBarComponent } from './search-bar/search-bar.component';
 import { searchReducer } from './search.reducer';
-import { USDAItem } from '../../../models/usda/usda-food.model';
-import { SEARCH_STATE_INIT } from '../../../models/components/search.model';
 import { LoadingComponent } from '../loading/loading.component';
 import { actionSearching } from './search.actions';
 import { actionSearchDone } from './search.actions';
 import { transmitEvent } from '../../../services/socket.service';
 import { EventResponse } from '../../../models/event-transport.model';
+import { USDAItem } from '../../../models/usda/usda-food.model';
+import { SEARCH_STATE_INIT } from '../../../models/components/search.model';
 import { FoodProduct } from '../../../models/food.model';
 import { EventTransport } from '../../../models/event-transport.model';
 
@@ -22,10 +22,7 @@ export class SearchComponent extends React.Component<SearchComponentProps, Searc
 	public state: SearchComponentState = SEARCH_STATE_INIT;
 	private searchInputSource: Subject<string> = new Subject<string>();
 	private enterInputSource: Subject<string> = new Subject<string>();
-	private inputChanged$: Observable<string> = this
-		.enterInputSource
-		.merge(this.searchInputSource.debounce(() => Observable.interval(3000)))
-		.distinctUntilChanged();
+	private inputChanged$: Observable<string>;
 	private results: FoodProduct[] = [];
 	private subscriptions: Subscription;
 
@@ -45,7 +42,7 @@ export class SearchComponent extends React.Component<SearchComponentProps, Searc
 			>
 				<SearchBarComponent
 					handleInputChange={this.searchInputSource}
-					handleEnterPress={this.enterInputSource}
+					handleEnterPress={this.onSearch}
 				/>
 				{this.state.nowSearching
 					? (
@@ -72,16 +69,28 @@ export class SearchComponent extends React.Component<SearchComponentProps, Searc
 			.subscribe((state: SearchComponentState) => {
 				this.setState(state);
 			});
-		this.subscriptions
-			.add(this.inputChanged$
-				.subscribe((searchTerm: string) => {
-				this.makeQuery(searchTerm);
-			}));
 
 	}
 
 	public componentWillUnmount(): void {
 		this.subscriptions.unsubscribe();
+	}
+
+	private async onSearch(evt: Event): Promise<void> {
+		// Receives an input and will emit on 1s for a query.
+		this.inputChanged$ = this.enterInputSource.merge(
+
+		this.searchInputSource.debounce(() => Observable.interval(1000))).distinctUntilChanged();
+		this.subscriptions
+			.add(this.inputChanged$
+				.subscribe(async (searchTerm: string) => {
+					this.makeQuery(searchTerm);
+				}
+			));
+	}
+
+	private foodItemSelectHandler(ndbno: string): any {
+		this.props.routes.history.push('food-details/' + ndbno);
 	}
 
 	private async makeQuery(searchTerm: string): Promise<void> {
@@ -103,9 +112,5 @@ export class SearchComponent extends React.Component<SearchComponentProps, Searc
 		console.log('in search result', JSON.parse(result.body));
 		this.results = JSON.parse(result.body).list.item;
 		this.props.store.dispatch(actionSearchDone());
-	}
-
-	private foodItemSelectHandler(ndbno: string): any {
-		this.props.routes.history.push('food-details/' + ndbno);
 	}
 }

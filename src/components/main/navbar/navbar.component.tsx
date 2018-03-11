@@ -11,7 +11,6 @@ export const NavbarComponent = (props: NavbarProps): ReactElement<HTMLDivElement
 			? 'extended'
 			: '';
 	}
-
 	return (
 		<div
 			className="navbar-component col-sm-12"
@@ -39,7 +38,7 @@ export const NavbarComponent = (props: NavbarProps): ReactElement<HTMLDivElement
 					className="right"
 				>
 					<span
-						className="nav_login h3"
+						className="nav_login h4"
 						onClick={() => props.onLogOut()}
 					>
 						{
