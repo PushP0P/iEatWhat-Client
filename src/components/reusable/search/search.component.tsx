@@ -9,30 +9,27 @@ import { SearchResultsComponent } from './search-result.component';
 import { SearchBarComponent } from './search-bar/search-bar.component';
 import { searchReducer } from './search.reducer';
 import { LoadingComponent } from '../loading/loading.component';
-import { actionSearching } from './search.actions';
-import { actionSearchDone } from './search.actions';
 import { transmitEvent } from '../../../services/socket.service';
-import { EventResponse } from '../../../models/event-transport.model';
 import { USDAItem } from '../../../models/usda/usda-food.model';
 import { SEARCH_STATE_INIT } from '../../../models/components/search.model';
 import { FoodProduct } from '../../../models/food.model';
-import { EventTransport } from '../../../models/event-transport.model';
 
 export class SearchComponent extends React.Component<SearchComponentProps, SearchComponentState> {
 	public state: SearchComponentState = SEARCH_STATE_INIT;
-	private searchInputSource: Subject<string> = new Subject<string>();
-	private enterInputSource: Subject<string> = new Subject<string>();
-	private inputChanged$: Observable<string>;
+	private searchInputSource: Subject<string> = new Subject<string> ();
+	private enterInputSource: Subject<string> = new Subject<string> ();
+	private inputChanged$: Observable<string> = this.searchInputSource.asObservable ();
+	private onPress$: Observable<string> = this.enterInputSource.asObservable ();
 	private results: FoodProduct[] = [];
 	private subscriptions: Subscription;
 
 	get getResultPage(): USDAItem[] {
-		return this.results.length > 20 ? this.results.slice(0, 19) : this.results;
+		return this.results.length > 20 ? this.results.slice (0, 19) : this.results;
 	}
 
 	constructor(public props: SearchComponentProps) {
-		super(props);
-		this.foodItemSelectHandler = this.foodItemSelectHandler.bind(this);
+		super (props);
+		this.foodItemSelectHandler = this.foodItemSelectHandler.bind (this);
 	}
 
 	public render(): ReactElement<HTMLDivElement> {
@@ -42,7 +39,7 @@ export class SearchComponent extends React.Component<SearchComponentProps, Searc
 			>
 				<SearchBarComponent
 					handleInputChange={this.searchInputSource}
-					handleEnterPress={this.onSearch}
+					handleEnterPress={this.enterInputSource}
 				/>
 				{this.state.nowSearching
 					? (
@@ -65,52 +62,36 @@ export class SearchComponent extends React.Component<SearchComponentProps, Searc
 
 	public componentDidMount(): void {
 		this.subscriptions = this.props.store
-			.registerStore$(searchReducer, SEARCH_STATE_INIT)
-			.subscribe((state: SearchComponentState) => {
-				this.setState(state);
+			.registerStore$ (searchReducer, SEARCH_STATE_INIT)
+			.subscribe ((state: SearchComponentState) => {
+				this.setState (state);
 			});
-
 	}
 
 	public componentWillUnmount(): void {
-		this.subscriptions.unsubscribe();
-	}
 
-	private async onSearch(evt: Event): Promise<void> {
+		this.subscriptions.unsubscribe ();
 		// Receives an input and will emit on 1s for a query.
-		this.inputChanged$ = this.enterInputSource.merge(
-
-		this.searchInputSource.debounce(() => Observable.interval(1000))).distinctUntilChanged();
-		this.subscriptions
-			.add(this.inputChanged$
-				.subscribe(async (searchTerm: string) => {
-					this.makeQuery(searchTerm);
-				}
-			));
+		const search$: Observable<string> = this.inputChanged$
+			.distinctUntilChanged ()
+			.debounce (
+				() => Observable.interval (1000)
+			).merge (
+				this.onPress$.distinctUntilChanged ()
+			);
+		this.subscriptions.add(search$.subscribe (
+			async (searchTerm: string) => {
+				transmitEvent ({
+					event: 'SEARCH',
+					payload: {
+						type: 'TERMS_SEARCH',
+						body: searchTerm,
+					}
+				});
+		}));
 	}
 
 	private foodItemSelectHandler(ndbno: string): any {
-		this.props.routes.history.push('food-details/' + ndbno);
-	}
-
-	private async makeQuery(searchTerm: string): Promise<void> {
-		this.props.store.dispatch(actionSearching());
-		const eventParcel: EventTransport = {
-			event: 'SEARCH',
-			payload: {
-				type: 'SEARCH_TERMS',
-				body: searchTerm
-			}
-		};
-		const result: EventResponse | void = await transmitEvent(eventParcel)
-			.catch(
-				(err: PromiseRejectionEvent) => console.log(`Error with search: ${err}`));
-		if (!result) {
-			this.props.store.dispatch(actionSearchDone());
-			return ;
-		}
-		console.log('in search result', JSON.parse(result.body));
-		this.results = JSON.parse(result.body).list.item;
-		this.props.store.dispatch(actionSearchDone());
+		this.props.routes.history.push ('food-details/' + ndbno);
 	}
 }

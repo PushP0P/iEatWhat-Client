@@ -12,15 +12,18 @@ const socketIO: Socket = IO(
 	{
 		transports: ['websocket'],
 		secure: true,
-	}
-);
+		port: '2820',
+		hostname: process.domain.toString()
+	});
 
 export async function transmitEvent(eventParcel: EventTransport): Promise<EventResponse> {
 	console.log('transmitting event', eventParcel);
 	return await Observable.create((observer: Observer<EventResponse>) => {
 		socketIO.emit(eventParcel.event, eventParcel, (response: EventResponse) => {
 			console.log('Event Response', response);
-			!response || !response.ok ? observer.error(response) : observer.next(response);
+			!response || !response.ok
+				? observer.error(response)
+				: observer.next(response);
 			observer.complete();
 		});
 	}).toPromise();

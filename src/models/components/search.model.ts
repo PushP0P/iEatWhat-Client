@@ -8,7 +8,7 @@ import { LocationInfo } from '../location.model';
 
 export type SearchBarProps = {
 	handleInputChange: Subject<string>;
-	handleEnterPress: (evt: Event) => any;
+	handleEnterPress: Subject<string>;
 };
 
 export type SearchComponentState = {

@@ -28,12 +28,15 @@ export const SearchBarComponent = (props: SearchBarProps) => {
 						className="search-input"
 						onChange={
 							(evt: ChangeEvent<HTMLInputElement>) => {
+								console.log('on search', evt);
 								props.handleInputChange.next(evt.target.value);
+
 							}
 						}
 						onKeyDown={(evt: SyntheticEvent<HTMLInputElement>) => {
 							if ((evt as any).keyCode === 13) {
-								props.handleEnterPress((evt.target as any).value);
+								console.log('key press', evt);
+								props.handleEnterPress.next((evt.target as any).value);
 							}
 						}}
 					/>
