@@ -3,23 +3,24 @@ import { ReactElement } from 'react';
 import { Observable } from '@reactivex/rxjs';
 import { Subscription } from '@reactivex/rxjs';
 import { Subject } from '@reactivex/rxjs';
-import { SearchComponentProps } from '../../../models/components/search.model';
-import { SearchComponentState } from '../../../models/components/search.model';
-import { SearchResultsComponent } from './search-result.component';
-import { SearchBarComponent } from './search-bar/search-bar.component';
+import { SearchComponentProps } from '../../models/components/search.model';
+import { SearchComponentState } from '../../models/components/search.model';
+import { LoadingComponent } from '../reusable/loading/loading.component';
+import { USDAItem } from '../../models/usda/usda-food.model';
+import { SEARCH_STATE_INIT } from '../../models/components/search.model';
+import { FoodProduct } from '../../models/food.model';
+import { SearchBarComponent } from '../reusable/search-bar/search-bar.component';
+import { SearchResultsComponent } from './search-results.list';
+import { transmitEvent } from '../../services/socket.service';
 import { searchReducer } from './search.reducer';
-import { LoadingComponent } from '../loading/loading.component';
-import { transmitEvent } from '../../../services/socket.service';
-import { USDAItem } from '../../../models/usda/usda-food.model';
-import { SEARCH_STATE_INIT } from '../../../models/components/search.model';
-import { FoodProduct } from '../../../models/food.model';
+import { SearchResult } from './search-result.component';
 
 export class SearchComponent extends React.Component<SearchComponentProps, SearchComponentState> {
 	public state: SearchComponentState = SEARCH_STATE_INIT;
 	private searchInputSource: Subject<string> = new Subject<string> ();
 	private enterInputSource: Subject<string> = new Subject<string> ();
-	private inputChanged$: Observable<string> = this.searchInputSource.asObservable ();
-	private onPress$: Observable<string> = this.enterInputSource.asObservable ();
+	private inputChanged$: Observable<string> = this.searchInputSource.asObservable();
+	private onPress$: Observable<string> = this.enterInputSource.asObservable();
 	private results: FoodProduct[] = [];
 	private subscriptions: Subscription;
 
@@ -41,6 +42,22 @@ export class SearchComponent extends React.Component<SearchComponentProps, Searc
 					handleInputChange={this.searchInputSource}
 					handleEnterPress={this.enterInputSource}
 				/>
+				<div
+					className="dropdown"
+				>
+					{this.results
+						.map(
+							(item: FoodProduct) => {
+							return (
+								<SearchResult
+									key={item.ndbno.toString()}
+									foodProduct={item}
+									clickHandler={this.foodItemSelectHandler}
+								/>
+							);
+						})
+					}
+				</div>
 				{this.state.nowSearching
 					? (
 						<LoadingComponent
@@ -64,32 +81,30 @@ export class SearchComponent extends React.Component<SearchComponentProps, Searc
 		this.subscriptions = this.props.store
 			.registerStore$ (searchReducer, SEARCH_STATE_INIT)
 			.subscribe ((state: SearchComponentState) => {
-				this.setState (state);
+				this.setState(state);
 			});
+		// Receives an input and will emit on 1s for a query.
+		const search$: Observable<string> = this.inputChanged$
+			.distinctUntilChanged()
+			.merge (this.onPress$)
+			.debounce (
+				() => Observable.interval(1000)
+			);
+		this.subscriptions.add(search$.subscribe(async (searchTerm: string) => {
+			await transmitEvent ({
+				event: 'SEARCH',
+				payload: {
+					type: 'INSTANT_SEARCH',
+					body: searchTerm,
+				}
+			});
+		}));
 	}
 
 	public componentWillUnmount(): void {
 
 		this.subscriptions.unsubscribe ();
-		// Receives an input and will emit on 1s for a query.
-		const search$: Observable<string> = this.inputChanged$
-			.distinctUntilChanged ()
-			.debounce (
-				() => Observable.interval (1000)
-			).merge (
-				this.onPress$.distinctUntilChanged ()
-			);
-		this.subscriptions.add(search$.subscribe (
-			async (searchTerm: string) => {
-				transmitEvent ({
-					event: 'SEARCH',
-					payload: {
-						type: 'TERMS_SEARCH',
-						body: searchTerm,
-					}
-				});
-		}));
-	}
+		}
 
 	private foodItemSelectHandler(ndbno: string): any {
 		this.props.routes.history.push ('food-details/' + ndbno);

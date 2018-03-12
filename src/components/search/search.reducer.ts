@@ -1,5 +1,5 @@
-import { Action } from '../../../models/store/action.model';
-import { SearchComponentState } from '../../../models/components/search.model';
+import { Action } from '../../models/store/action.model';
+import { SearchComponentState } from '../../models/components/search.model';
 
 export const searchReducer = function(action: Action, currentState: SearchComponentState): SearchComponentState {
 	const { type, payload} = action;

@@ -24,6 +24,7 @@ export interface FoodProduct {
 	ndbno: string;
 	name: string;
 	upc?: string;
+	shortDescription: string;
 	imageURL?: string;
 	categories?: CategoryProps[];
 	reviewed: boolean;

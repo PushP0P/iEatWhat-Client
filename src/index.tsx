@@ -11,15 +11,16 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import * as firebase from 'firebase/app';
 import { FIREBASE_CONFIG } from './configs/firebase.config';
+import history from './router/router.history';
 import { Router } from 'react-router';
 import { StoreService } from './services/store.service';
 import { MainComponent } from './components/main/main.component';
 import { AuthServices } from './services/auth.service';
-import history from './router/router.history';
-import './main.style.css';
 import { LocationService } from './services/location.service';
+import './main.style.css';
 
 firebase.initializeApp(FIREBASE_CONFIG);
+// tslint:disable
 
 // Launch ReactJS
 ReactDOM.render(

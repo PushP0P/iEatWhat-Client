@@ -17,6 +17,7 @@ export type SearchComponentState = {
 	resultsPage: number;
 	resultsVisible: boolean;
 	currentLocation: LocationInfo;
+	instantSearchResults: {id: string}[];
 };
 
 export type SearchComponentProps = {
@@ -27,7 +28,7 @@ export type SearchComponentProps = {
 
 export type SearchResultProps = {
 	foodProduct: FoodProduct;
-	clickHandler: (slug: string) => void;
+	clickHandler: (slug: string) => any;
 };
 
 export type SearchResultsProps = {
@@ -40,6 +41,7 @@ export type SearchResultsProps = {
 };
 
 export const SEARCH_STATE_INIT: SearchComponentState = {
+	instantSearchResults: [],
 	searchItemsPerPage: 0,
 	resultsPage: 20,
 	nowSearching: false,

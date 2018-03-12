@@ -1,6 +1,6 @@
 // tslint:disable
 
-import { Action } from '../../../models/store/action.model';
+import { Action } from '../../models/store/action.model';
 
 export function actionShowResults(): Action {
 	return {

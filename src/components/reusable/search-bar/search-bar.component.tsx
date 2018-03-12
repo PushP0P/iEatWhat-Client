@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { SVGS } from '../../../../assets/react-svgs.asset';
-import { SearchBarProps } from '../../../../models/components/search.model';
+import { SVGS } from '../../../assets/react-svgs.asset';
+import { SearchBarProps } from '../../../models/components/search.model';
 import { SyntheticEvent } from 'react';
 import { ChangeEvent } from 'react';
 

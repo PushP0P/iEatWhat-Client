@@ -4,7 +4,7 @@ import { ReactElement } from 'react';
 import { LandingComponentState } from '../../models/components/landing.model';
 import { Subscription } from '@reactivex/rxjs';
 import { LoadingComponent } from '../reusable/loading/loading.component';
-import { SearchComponent } from '../reusable/search/search.component';
+import { SearchComponent } from '../search/search.component';
 import { landingReducer } from './landing.reducer';
 import { actionDataReady } from '../main/main.actions';
 import { ReviewsComponent } from '../reviews/reviews.component';
