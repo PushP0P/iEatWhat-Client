@@ -52,7 +52,6 @@ export async function getStaticMap<T> (
 	scale: string = '@2x', overlay: string = 'comic'
 
 ): Promise<T> {
-	console.log('');
 	const base: string = `https://api.mapbox.com/styles/v1/mapbox/streets-v10/static/${overlay}/${lon},${lat},${zoom},${bearing},${pitch}/${mapSize[0]}x${mapSize[0]}${scale}?accessToke=${MAP_BOX_CONFIG.accessToken}`;
     const response: Response = await fetchMapRequest(base);
     return await response.json();

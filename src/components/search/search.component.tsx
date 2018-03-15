@@ -14,6 +14,8 @@ import { SearchResultsComponent } from './search-results.list';
 import { transmitEvent } from '../../services/socket.service';
 import { searchReducer } from './search.reducer';
 import { SearchResult } from './search-result.component';
+import { NutrientList } from '../../models/usda/usda-report.model';
+import { Observer } from '@reactivex/rxjs';
 
 export class SearchComponent extends React.Component<SearchComponentProps, SearchComponentState> {
 	public state: SearchComponentState = SEARCH_STATE_INIT;
@@ -29,7 +31,7 @@ export class SearchComponent extends React.Component<SearchComponentProps, Searc
 	}
 
 	constructor(public props: SearchComponentProps) {
-		super (props);
+		super(props);
 		this.foodItemSelectHandler = this.foodItemSelectHandler.bind (this);
 	}
 
@@ -57,7 +59,7 @@ export class SearchComponent extends React.Component<SearchComponentProps, Searc
 							);
 						})
 					}
-				</div>
+				</div>x
 				{this.state.nowSearching
 					? (
 						<LoadingComponent
@@ -79,26 +81,36 @@ export class SearchComponent extends React.Component<SearchComponentProps, Searc
 
 	public componentDidMount(): void {
 		this.subscriptions = this.props.store
-			.registerStore$ (searchReducer, SEARCH_STATE_INIT)
-			.subscribe ((state: SearchComponentState) => {
+			.registerStore$(searchReducer, SEARCH_STATE_INIT)
+			.subscribe(
+				(state: SearchComponentState) => {
 				this.setState(state);
 			});
-		// Receives an input and will emit on 1s for a query.
-		const search$: Observable<string> = this.inputChanged$
-			.distinctUntilChanged()
-			.merge (this.onPress$)
-			.debounce (
-				() => Observable.interval(1000)
-			);
-		this.subscriptions.add(search$.subscribe(async (searchTerm: string) => {
-			await transmitEvent ({
+
+		this.subscriptions.add(this.search$(((res: any) => res));
+
+		function search(searchTerm: string) => {
+			transmitEvent({
 				event: 'SEARCH',
 				payload: {
-					type: 'INSTANT_SEARCH',
+					type: 'PACKAGE_SEARCH',
 					body: searchTerm,
 				}
-			});
-		}));
+			})
+	}
+		// Receives an input and will emit on 1s for a query.
+	public search$(searchTerms: string) {
+		return Observable.create(
+			(observer: Observer<NutrientList>) => {
+
+				transmitEvent({
+					event: 'SEARCH',
+					payload: {
+						type:'PACKAGE_SEARCH',
+						body: searchTerms
+					}
+				})
+		});
 	}
 
 	public componentWillUnmount(): void {

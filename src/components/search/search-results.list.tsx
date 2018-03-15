@@ -4,7 +4,9 @@ import { SearchResultsProps } from '../../models/components/search.model';
 import { SearchResult } from './search-result.component';
 
 export const SearchResultsComponent = (props: SearchResultsProps) => {
+
 	const display = props.visible ? 'flex' : 'none';
+
 	return (
 		<div
 			style={{

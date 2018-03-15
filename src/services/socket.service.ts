@@ -8,11 +8,12 @@ import { EventTransport } from '../models/event-transport.model';
 // const socketIO: SocketIOClient.Socket = SocketIO('ec2-13-59-170-99.us-east-2.compute.amazonaws.com', {
 
 const socketIO: Socket = IO(
-	'127.0.0.1:2820',
+	'localhost:4123',
 	{
 		transports: ['websocket'],
 		secure: true,
-	});
+	}
+);
 
 export async function transmitEvent(eventParcel: EventTransport): Promise<EventResponse> {
 	console.log('transmitting event', eventParcel);

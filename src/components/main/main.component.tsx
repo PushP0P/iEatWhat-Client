@@ -58,7 +58,6 @@ export class MainComponent extends React.Component<MainComponentProps, MainCompo
 					isExtended={this.state.navbarIsExtended}
 					isExtendable={this.state.isWideScreen}
 					isLoggedIn={this.state.isLoggedIn}
-
 				/>
 				{MAIN_ROUTES_SWITCH(this.props.store, this.props.location)}
 			</div>

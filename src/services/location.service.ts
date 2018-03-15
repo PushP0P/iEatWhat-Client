@@ -12,6 +12,7 @@ export class LocationService {
 export async function getDeviceLocation(): Promise<MapBoxLocation | PositionError | {} | void> {
 	if (!('geolocation' in navigator)) {
 		alert('Location Service Unavailable');
+		prompt('Please provide zipcode for location services.', 'no zip');
 		return;
 	}
 
