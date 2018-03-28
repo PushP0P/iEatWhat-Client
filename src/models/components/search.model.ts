@@ -5,10 +5,14 @@ import { Subject } from '@reactivex/rxjs';
 import { FoodProduct } from '../food.model';
 import { LocationService } from '../../services/location.service';
 import { LocationInfo } from '../location.model';
+import { SelectedCategories } from './category-select.model';
 
 export type SearchBarProps = {
 	handleInputChange: Subject<string>;
-	handleEnterPress: Subject<string>;
+	handleEnterPress: () => void;
+	categories: string[];
+	selectedCategories: SelectedCategories;
+	categorySelectHandler: (category: string) => void;
 };
 
 export type SearchComponentState = {
@@ -18,6 +22,8 @@ export type SearchComponentState = {
 	resultsVisible: boolean;
 	currentLocation: LocationInfo;
 	instantSearchResults: {id: string}[];
+	categories: string[];
+	selectedCategories: SelectedCategories;
 };
 
 export type SearchComponentProps = {
@@ -47,4 +53,6 @@ export const SEARCH_STATE_INIT: SearchComponentState = {
 	nowSearching: false,
 	resultsVisible: false,
 	currentLocation: <LocationInfo> {},
+	categories: [],
+	selectedCategories: {}
 };

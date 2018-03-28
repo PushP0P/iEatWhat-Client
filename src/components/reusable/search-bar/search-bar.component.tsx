@@ -3,6 +3,7 @@ import { SVGS } from '../../../assets/react-svgs.asset';
 import { SearchBarProps } from '../../../models/components/search.model';
 import { SyntheticEvent } from 'react';
 import { ChangeEvent } from 'react';
+import { CategoriesSelect } from './categories-select.form';
 
 export const SearchBarComponent = (props: SearchBarProps) => {
 	return(
@@ -28,7 +29,6 @@ export const SearchBarComponent = (props: SearchBarProps) => {
 						className="search-input"
 						onChange={
 							(evt: ChangeEvent<HTMLInputElement>) => {
-								console.log('on search', evt);
 								props.handleInputChange.next(evt.target.value);
 
 							}
@@ -36,9 +36,14 @@ export const SearchBarComponent = (props: SearchBarProps) => {
 						onKeyDown={(evt: SyntheticEvent<HTMLInputElement>) => {
 							if ((evt as any).keyCode === 13) {
 								console.log('key press', evt);
-								props.handleEnterPress.next((evt.target as any).value);
+								props.handleEnterPress();
 							}
 						}}
+					/>
+					<CategoriesSelect
+						categories={props.categories}
+						selected={props.selectedCategories}
+						selectHandler={props.categorySelectHandler}
 					/>
 					<div
 						className="icon-box"

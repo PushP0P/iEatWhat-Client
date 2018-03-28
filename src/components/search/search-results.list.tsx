@@ -7,7 +7,7 @@ export const SearchResultsComponent = (props: SearchResultsProps) => {
 
 	const display = props.visible ? 'flex' : 'none';
 
-	return (
+	return(
 		<div
 			style={{
 				display: display

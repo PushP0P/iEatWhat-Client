@@ -6663,6 +6663,27 @@ input {
       transition: all 0.3s linear; }
       .search-bar-component .icon-box:hover svg {
         fill: #DA5015; }
+  .search-bar-component .categories-select {
+    color: #FEF8F6;
+    position: absolute;
+    top: 90px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center; }
+    .search-bar-component .categories-select .categories_wrapper {
+      display: flex;
+      flex-direction: row;
+      justify-content: center; }
+    .search-bar-component .categories-select .category {
+      cursor: pointer;
+      color: white;
+      margin: 0 2px 0 2px;
+      background: #0F1D25;
+      padding: 5px;
+      border: 1.7em; }
+      .search-bar-component .categories-select .category.selected {
+        color: #DA5015; }
 
 .sign-in-component {
   height: calc(100vh - 36px);
