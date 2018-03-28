@@ -10,6 +10,7 @@ import { RouteComponentProps } from 'react-router';
 import { LandingComponent } from '../components/landing/landing.component';
 import { BackendTests } from '../components/reusable/backend-tests/backend-tests';
 import { SignUpComponent } from '../components/sign-in/sign-up/sign-up.component';
+import { LocationService } from '../services/location.service';
 
 // TODO Refactor for packed Routes.
 
@@ -33,7 +34,7 @@ import { SignUpComponent } from '../components/sign-in/sign-up/sign-up.component
 // />
 // );
 
-export const MAIN_ROUTES_SWITCH = (store: StoreService) => {
+export const MAIN_ROUTES_SWITCH = (store: StoreService, location: LocationService) => {
 	return (
 		<Switch>
 			<Route
@@ -44,6 +45,7 @@ export const MAIN_ROUTES_SWITCH = (store: StoreService) => {
 						<LandingComponent
 							routeProps={routes}
 							store={store}
+							location={location}
 						/>
 					);
 				}}
@@ -80,7 +82,7 @@ export const MAIN_ROUTES_SWITCH = (store: StoreService) => {
 				}
 			/>
 			<Route
-				path="/food-details/:id"
+				path="/food-details"
 				render={
 					(routes) => {
 						return (
@@ -105,7 +107,7 @@ export const MAIN_ROUTES_SWITCH = (store: StoreService) => {
 				}
 			/>
 			<Route
-				path="/map-box/:mode"
+				path="/map-box"
 				exact={true}
 				render={(routes) => {
 					return (

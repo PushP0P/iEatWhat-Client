@@ -1,9 +1,11 @@
 import { StoreService } from '../../services/store.service';
 import { USDAItem } from '../usda/usda-food.model';
 import { RouteComponentProps } from 'react-router';
+import { LocationService } from '../../services/location.service';
 
 export interface LandingComponentProps {
 	store: StoreService;
+	location: LocationService;
 	routeProps: RouteComponentProps<HTMLDivElement>;
 }
 

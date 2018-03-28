@@ -32,6 +32,6 @@ export class StoreService extends BehaviorSubject<MasterState> {
 				reducer: Reducer) => {
 				const nextState = reducer(action, this.value);
 				this.next(nextState);
-			});
+		});
 	}
 }

@@ -1,8 +1,9 @@
 import * as React from 'react';
-import { SVGS } from '../../../../assets/react-svgs.asset';
-import { SearchBarProps } from '../../../../models/components/search.model';
+import { SVGS } from '../../../assets/react-svgs.asset';
+import { SearchBarProps } from '../../../models/components/search.model';
 import { SyntheticEvent } from 'react';
 import { ChangeEvent } from 'react';
+import { CategoriesSelect } from './categories-select.form';
 
 export const SearchBarComponent = (props: SearchBarProps) => {
 	return(
@@ -29,13 +30,20 @@ export const SearchBarComponent = (props: SearchBarProps) => {
 						onChange={
 							(evt: ChangeEvent<HTMLInputElement>) => {
 								props.handleInputChange.next(evt.target.value);
+
 							}
 						}
 						onKeyDown={(evt: SyntheticEvent<HTMLInputElement>) => {
 							if ((evt as any).keyCode === 13) {
-								props.handleEnterPress.next((evt.target as any).value);
+								console.log('key press', evt);
+								props.handleEnterPress();
 							}
 						}}
+					/>
+					<CategoriesSelect
+						categories={props.categories}
+						selected={props.selectedCategories}
+						selectHandler={props.categorySelectHandler}
 					/>
 					<div
 						className="icon-box"

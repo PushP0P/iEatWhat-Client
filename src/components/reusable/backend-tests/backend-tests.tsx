@@ -1,8 +1,10 @@
 import * as React from 'react';
-import { eventRequest } from '../../../services/rest-service';
+import { SyntheticEvent } from 'react';
+import { transmitEvent } from '../../../services/socket.service';
 
 export class BackendTests extends React.Component<any, {[prop: string]: any}> {
 	public type: string = '';
+	public event: string = '';
 	public payload: string = '';
 	public response: string = '';
 	public state = {response: 'No Response Yet...'};
@@ -15,17 +17,33 @@ export class BackendTests extends React.Component<any, {[prop: string]: any}> {
 				<input
 					id="Type"
 					type="text"
-					onChange={(evt) => {
-						this.type = evt.target.value;
+					onChange={(evt: SyntheticEvent<HTMLInputElement>) => {
+						this.type = (evt.target as any).value;
+					}}
+					onBlur={(evt: SyntheticEvent<HTMLInputElement>)  => {
+						this.type = (evt.target as any).value;
+					}}
+				/>
+				<input
+					id="Event"
+					type="text"
+					onChange={(evt: SyntheticEvent<HTMLInputElement>) => {
+						this.event = (evt.target as any).value;
+					}}
+					onBlur={(evt: SyntheticEvent<HTMLInputElement>)  => {
+						this.event = (evt.target as any).value;
 					}}
 				/>
 
-				<label>Payload:</label>
+				<label>Body:</label>
 				<input
-					id="Type"
+					id="Payload"
 					type="text"
 					onChange={(evt) => {
 						this.payload = evt.target.value;
+					}}
+					onBlur={(evt: SyntheticEvent<HTMLInputElement>)  => {
+						this.payload = (evt.target as any).value;
 					}}
 				/>
 				<div
@@ -45,26 +63,24 @@ export class BackendTests extends React.Component<any, {[prop: string]: any}> {
 	}
 
 	private async sendEvent(): Promise<any> {
-		const event = {type: this.type, payload: this.payload};
-		const response = await eventRequest(event);
+		const event = {
+			event: this.event,
+			payload: {
+				type: this.type,
+				body: this.payload
+			}
+		};
+		const response = await transmitEvent(event);
+		console.log('Test Back', response);
 
-		if (!response) {
+		if (!response.ok) {
 			this.setState({
-				response: 'No Response!'
+				response: 'Response not ok! ' + response.message
 			});
 			return;
 		}
-		const parsed = JSON.parse(response);
-
-		if (!(parsed.ok)) {
-			this.setState({
-				response: `Not OK! ${response}`
-			});
-			return;
-		}
-
 		this.setState({
-			response: response
+			response: response.body
 		});
 	}
 }

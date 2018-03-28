@@ -1,4 +1,6 @@
-import { StoreService } from '../../services/store.service';
+import { StoreService } from '../../../services/store.service';
+import { MapProps } from './map.model';
+import { GeoJsonModel } from './geo-json.model';
 
 export interface MapBoxComponentProps {
 	locations: Map<string, MapBoxLocation>;
@@ -17,6 +19,11 @@ export interface MapBoxComponentState {
 	zoom: number;
 	navigationOn: boolean;
 	navigationType: 'walking' | 'driving' | 'public';
+	mapData: MapProps;
+	geoData: GeoJsonModel;
+	deviceLocation: MapBoxLocation;
+	showModal: boolean;
+	wheelValue: number;
 }
 
 export interface MapBoxLocation {
@@ -37,6 +44,9 @@ export interface DestinationDetails {
 }
 
 export const MAP_BOX_STATE_INIT: MapBoxComponentState = {
+	deviceLocation: <MapBoxLocation> {},
+	mapData: <MapProps> {},
+	geoData: <GeoJsonModel> {},
 	dataReady: false,
 	id: '',
 	targetLocation: <MapBoxLocation> {},
@@ -47,4 +57,6 @@ export const MAP_BOX_STATE_INIT: MapBoxComponentState = {
 	zoom: 9,
 	navigationOn: false,
 	navigationType: 'walking',
+	showModal: false,
+	wheelValue: 0
 };

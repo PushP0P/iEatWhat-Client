@@ -6663,6 +6663,27 @@ input {
       transition: all 0.3s linear; }
       .search-bar-component .icon-box:hover svg {
         fill: #DA5015; }
+  .search-bar-component .categories-select {
+    color: #FEF8F6;
+    position: absolute;
+    top: 90px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center; }
+    .search-bar-component .categories-select .categories_wrapper {
+      display: flex;
+      flex-direction: row;
+      justify-content: center; }
+    .search-bar-component .categories-select .category {
+      cursor: pointer;
+      color: white;
+      margin: 0 2px 0 2px;
+      background: #0F1D25;
+      padding: 5px;
+      border: 1.7em; }
+      .search-bar-component .categories-select .category.selected {
+        color: #DA5015; }
 
 .sign-in-component {
   height: calc(100vh - 36px);
@@ -6941,17 +6962,21 @@ input {
         color: #FEF8F6; }
   .navbar-component .navbar_drop-down {
     z-index: 2;
+    background: #fef8f6;
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
     align-items: left;
-    background: #0F1D25;
     height: 100%;
     overflow: hidden;
     max-height: 0;
     opacity: 0;
     transform: translateY(-150%);
+    transition: all 0.6s linear;
+    font-size: 1.3em;
     transition: all 0.6s linear; }
+    .navbar-component .navbar_drop-down a:link, .navbar-component .navbar_drop-down a:visited {
+      font-size: 1.3em;
+      color: #DA5015; }
     .navbar-component .navbar_drop-down.extended {
       max-height: 500px;
       opacity: 1;
