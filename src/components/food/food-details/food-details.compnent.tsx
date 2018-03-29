@@ -17,7 +17,6 @@ import { transmitEvent } from '../../../services/socket.service';
 import { EventResponse } from '../../../models/event-transport.model';
 import { actionReportReceived } from './food-details.actions';
 import { actionRetrievingReport } from './food-details.actions';
-import { CategoryProps } from '../../../models/components/category.model';
 
 export class FoodDetailsComponent extends React.Component<FoodDetailsComponentProps, FoodDetailsComponentState> {
 	public state = FOOD_DETAILS_STATE_INIT;
@@ -54,32 +53,31 @@ export class FoodDetailsComponent extends React.Component<FoodDetailsComponentPr
 							>
 								<img
 									src={'#'}
-									alt={`${this.state.report.name} picture`}
+									alt={`${this.state.report.foodName} picture`}
 								/>
 
 							</div>
-							<h1>{this.state.report.name}</h1>
+							<h1>{this.state.report.foodName}</h1>
 							<div
 								className="header--updated-last"
 							>
 								{moment(Date.now()).format('LL')}
 							</div>
-							<div
-								className="header--reviewed"
-							>
-								{this.state.report.reviews || 'No Reviews'}
-							</div>
+							{/*<div*/}
+								{/*className="header--reviewed"*/}
+							{/*>*/}
+								{/*{this.state.report.review || 'No Reviews'}*/}
+							{/*</div>*/}
 						</div>
 
 						<div
 							className="categories_box"
 						>
-							{this.state.report.categories.map((category: CategoryProps) => {
-
+							{this.state.report.categories.map((category: string) => {
 								return (
 									<CategoryBadgeComponent
-										key={category.id.toString()}
-										{...category}
+										key={category}
+										category={category}
 									/>
 								);
 							})}
@@ -87,9 +85,7 @@ export class FoodDetailsComponent extends React.Component<FoodDetailsComponentPr
 						<hr />
 						<DescriptionComponent
 							name={this.state.report.ndbno}
-							upc={this.state.report.upc}
-							type={this.state.report.foodGroup}
-							updatedOn={this.state.report.updatedOn}
+							ndbno={this.state.report.ndbno}
 						/>
 						<hr />
 						<IngredientsComponent

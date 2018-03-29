@@ -3,9 +3,7 @@ import { ReactElement } from 'react';
 
 interface DescriptionComponentProps {
 	name: string;
-	upc: string;
-	type: string;
-	updatedOn: number;
+	ndbno: string;
 	blurb?: string;
 }
 
@@ -24,14 +22,8 @@ export const DescriptionComponent = (props: DescriptionComponentProps): ReactEle
 				</li>
 				<li>
 					<span>
-						<b>UPC: </b>
-						{props.upc}
-					</span>
-				</li>
-				<li>
-					<span>
-						<b>Type: </b>
-						{props.type}
+						<b>NDBNO: </b>
+						{props.ndbno}
 					</span>
 				</li>
 			</ul>

@@ -1,7 +1,5 @@
 import { StoreService } from '../services/store.service';
 import { RouteComponentProps } from 'react-router';
-import { ReviewProps } from './components/review.model';
-import { CategoryProps } from './components/category.model';
 
 export interface FoodDetailsComponentProps {
 	store: StoreService;
@@ -21,16 +19,14 @@ export const FOOD_DETAILS_STATE_INIT: FoodDetailsComponentState = {
 };
 
 export interface FoodProduct {
+	foodName: string;
+	brandName: string;
+	groupName: string;
+	metadata: string;
+	source: string;
 	ndbno: string;
-	name: string;
-	upc?: string;
-	shortDescription: string;
-	imageURL?: string;
-	categories?: CategoryProps[];
-	reviewed: boolean;
-	reviews: ReviewProps[];
-	foodGroup: string;
-	updatedOn: number;
-	foundOutlets?: Set<string>;
-	stars?: number;
+	tags: string;
+	photo: string;
+	updatedAt: string;
+	categories: string[];
 }

@@ -11,7 +11,6 @@ import { FoodProduct } from '../../models/food.model';
 import { SearchBarComponent } from '../reusable/search-bar/search-bar.component';
 import { SearchResultsComponent } from './search-results.list';
 import { searchReducer } from './search.reducer';
-import { SearchResult } from './search-result.component';
 import { transmitEvent } from '../../services/socket.service';
 import { actionHideResults } from './search.actions';
 import { actionShowResults } from './search.actions';
@@ -49,22 +48,6 @@ export class SearchComponent extends React.Component<SearchComponentProps, Searc
 					selectedCategories={this.state.selectedCategories}
 					categorySelectHandler={this.categorySelectHandler}
 				/>
-				<div
-					className="dropdown"
-				>
-					{this.getResultPage
-						.map(
-							(item: FoodProduct) => {
-							return (
-								<SearchResult
-									key={item.ndbno.toString()}
-									foodProduct={item}
-									clickHandler={this.foodItemSelectHandler}
-								/>
-							);
-						})
-					}
-				</div>
 				{this.state.nowSearching
 					? (
 						<LoadingComponent
@@ -107,15 +90,15 @@ export class SearchComponent extends React.Component<SearchComponentProps, Searc
 		this.searchByTerm(this.searchTermSource.value);
 	}
 
-	private async searchByTerm(term: string): Promise<void> {
-		console.log('term search', term);
+	private async searchByTerm(terms: string): Promise<void> {
+		console.log('term search', terms);
 		await this.props.store.dispatch(actionHideResults());
 		const result = await transmitEvent({
 			event: 'SEARCH',
 			payload: {
-				type: 'PACKAGE_SEARCH',
+				type: 'FAST_FOOD_FILTER_CATEGORY',
 				body: {
-					term: term,
+					terms: terms,
 					categories: this.state.selectedCategories
 				},
 			}

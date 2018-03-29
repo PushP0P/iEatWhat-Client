@@ -1,10 +1,9 @@
 import * as React from 'react';
 import * as moment from 'moment';
-import { CategoryProps } from '../../models/components/category.model';
-import { CategoryBadgeComponent } from '../reusable/categories/category.controlled';
 import { Link } from 'react-router-dom';
 import { SearchResultProps } from '../../models/components/search.model';
 import { ReactElement } from 'react';
+import { CategoryBadgeComponent } from '../reusable/categories/category.controlled';
 
 export const SearchResult = (props: SearchResultProps): ReactElement<HTMLElement> => {
 
@@ -20,7 +19,7 @@ export const SearchResult = (props: SearchResultProps): ReactElement<HTMLElement
 				<div
 					className="result_image"
 				>
-					<img src={props.foodProduct.imageURL || FIXTURE_IMG} alt={`A picture of ${props.foodProduct.name}`}/>
+					<img src={props.foodProduct.photo || FIXTURE_IMG} alt={`A picture of ${props.foodProduct.foodName}`}/>
 				</div>
 			</div>
 			<div
@@ -32,12 +31,12 @@ export const SearchResult = (props: SearchResultProps): ReactElement<HTMLElement
 					{/*// prod name*/}
 					<div>
 						{
-							props.foodProduct.name
+							props.foodProduct.foodName
 						|| 'No Name Found'}
 					</div>
 					{/*updated last*/}
 					<div>
-						{moment(props.foodProduct.updatedOn).format('ll')}
+						{moment(props.foodProduct.updatedAt).format('ll')}
 					</div>
 					{/*reviewed*/}
 				</div>
@@ -47,7 +46,7 @@ export const SearchResult = (props: SearchResultProps): ReactElement<HTMLElement
 					<div
 						className="body_text"
 					>
-						{props.foodProduct.shortDescription
+						{props.foodProduct.brandName
 						|| `No Description`}
 					</div>
 				</div>
@@ -55,11 +54,11 @@ export const SearchResult = (props: SearchResultProps): ReactElement<HTMLElement
 					className="result_categories"
 				>
 					{props.foodProduct.categories.map(
-						(category: CategoryProps) => {
+						(category: string) => {
 							return (
 								<CategoryBadgeComponent
-									key={category.id.toString()}
-									{...category}
+									key={category}
+									category={category}
 								/>
 							);
 						})

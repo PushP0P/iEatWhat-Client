@@ -1,9 +1,7 @@
 import * as React from 'react';
 import { ReactElement } from 'react';
-import { SVGS } from '../../../assets/react-svgs.asset';
-import { CategoryProps } from '../../../models/components/category.model';
 
-export const CategoryBadgeComponent = (props: CategoryProps): ReactElement<HTMLDivElement> => {
+export const CategoryBadgeComponent = (props: {category: string}): ReactElement<HTMLDivElement> => {
 	return(
 		<div
 			className="category-component"
@@ -15,13 +13,25 @@ export const CategoryBadgeComponent = (props: CategoryProps): ReactElement<HTMLD
 				<div
 					className="icon_wrapper"
 				>
-					{SVGS[props.icon] || SVGS.iEatFork}
+					{props.category
+						.split(' ')
+						.reduce(
+							(acc, val) => {
+								console.log(acc, val);
+								if (val) {
+									return acc += val[0].toUpperCase();
+								}
+								return acc;
+							},
+							''
+						)
+					}
 				</div>
 			</div>
 			<label
 				className="sr-only"
 			>
-				{props.description}
+				{props.category}
 			</label>
 		</div>
 	);
