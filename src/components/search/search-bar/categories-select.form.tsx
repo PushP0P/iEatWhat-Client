@@ -14,12 +14,12 @@ export const CategoriesSelect = (props: CategoriesSelectProps) => {
 				className="categories_wrapper"
 			>
 				{props.categories.map((category: string) => {
-					let label = '';
+					// let label = '';
 					const selectedClass: string = props.selected[category] ? 'selected' : '';
-					const words = category.split(' ');
-					for (let word of words) {
-						label += word[0].toUpperCase();
-					}
+					// const words = category.split(' ');
+					// for (let word of words) {
+					// 	label += word[0].toUpperCase();
+					// }
 					return (
 						<div
 							key={category}
@@ -28,7 +28,7 @@ export const CategoriesSelect = (props: CategoriesSelectProps) => {
 								props.selectHandler(category);
 							}}
 						>
-							{label}
+							{category}
 						</div>
 					);
 				})}

@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { ReactElement } from 'react';
+import { Hoverable } from '../hoverable/hoverable.component';
 
 export const CategoryBadgeComponent = (props: {category: string}): ReactElement<HTMLDivElement> => {
 	return(
@@ -7,27 +8,31 @@ export const CategoryBadgeComponent = (props: {category: string}): ReactElement<
 			className="category-component"
 
 		>
-			<div
-				className="category_icon"
+			<Hoverable
+				label={props.category}
 			>
 				<div
-					className="icon_wrapper"
+					className="category_icon"
 				>
-					{props.category
-						.split(' ')
-						.reduce(
-							(acc, val) => {
-								console.log(acc, val);
-								if (val) {
-									return acc += val[0].toUpperCase();
-								}
-								return acc;
-							},
-							''
-						)
-					}
+					<div
+						className="icon_wrapper"
+					>
+						{props.category
+							.split(' ')
+							.reduce(
+								(acc, val) => {
+									console.log(acc, val);
+									if (val) {
+										return acc += val[0].toUpperCase();
+									}
+									return acc;
+								},
+								''
+							)
+						}
+					</div>
 				</div>
-			</div>
+			</Hoverable>
 			<label
 				className="sr-only"
 			>

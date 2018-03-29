@@ -15,7 +15,18 @@
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	justify-content: space-around;
+	justify-content: space-between;
+
+	.result_categories {
+	  display: flex;
+	  flex-direction: row;
+	}
+
+	.result_header {
+	  display: flex;
+	  flex-direction: row;
+	  justify-content: space-between;
+	}
 
 	.result_image {
 
@@ -30,6 +41,7 @@
 		width: 100%;
 	  }
 	}
+
 
 	.result_highlights {
 	  display: flex;

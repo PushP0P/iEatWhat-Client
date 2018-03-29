@@ -3,17 +3,21 @@ import { ReactElement } from 'react';
 
 interface HoverableProps {
 	label: string;
-	icon: string;
-	children?: ReactElement<HTMLDivElement> | HTMLDivElement;
+	children?: ReactElement<HTMLDivElement> | HTMLDivElement | string;
 }
 
 export const Hoverable = (props: HoverableProps) => {
 	return(
 		<div
 			className="hoverable hover-trigger"
+			onMouseEnter={() => {
+				console.log('enter');
+			}}
+			onMouseLeave={() => {
+				console.log('leave');
+			}}
 		>
 			<label>
-				{props.icon}
 				{props.label}
 			</label>
 			<div

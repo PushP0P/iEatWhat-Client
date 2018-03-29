@@ -6611,7 +6611,7 @@ input {
     left: 0;
     width: 100%;
     height: 100%;
-    background: #DA5015;
+    background: #272a2d;
     opacity: 0.6; }
   .search-bar-component .search_content {
     z-index: 2;
@@ -6899,7 +6899,14 @@ input {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-around; }
+  justify-content: space-between; }
+  .search-component .search-results-component .result_categories {
+    display: flex;
+    flex-direction: row; }
+  .search-component .search-results-component .result_header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between; }
   .search-component .search-results-component .result_image .result_image-box {
     display: flex;
     flex-direction: column;

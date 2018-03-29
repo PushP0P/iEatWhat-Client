@@ -24,7 +24,6 @@ export const InfoPanelComponent = (props: InfoPanelControlledProps) => {
 				className="info_header"
 			>
 				<Hoverable
-					icon="food"
 					label="Food Item"
 				>
 					<ul>
@@ -56,7 +55,6 @@ export const InfoPanelComponent = (props: InfoPanelControlledProps) => {
 				<div>
 					<Hoverable
 						label={props.targetDetails.businessName}
-						icon={'building'}
 					>
 						<ul>
 							<li>
@@ -78,8 +76,9 @@ export const InfoPanelComponent = (props: InfoPanelControlledProps) => {
 				<div>
 					<Hoverable
 						label={`Arive in: ${moment(props.eta).format('LT')}`}
-						icon="map-marker"
-					/>
+					>
+						Map Marker
+					</Hoverable>
 				</div>
 			</div>
 		</div>

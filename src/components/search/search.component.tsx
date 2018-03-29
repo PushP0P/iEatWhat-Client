@@ -8,7 +8,7 @@ import { LoadingComponent } from '../reusable/loading/loading.component';
 import { USDAItem } from '../../models/usda/usda-food.model';
 import { SEARCH_STATE_INIT } from '../../models/components/search.model';
 import { FoodProduct } from '../../models/food.model';
-import { SearchBarComponent } from '../reusable/search-bar/search-bar.component';
+import { SearchBarComponent } from './search-bar/search-bar.component';
 import { SearchResultsComponent } from './search-results.list';
 import { searchReducer } from './search.reducer';
 import { transmitEvent } from '../../services/socket.service';

@@ -16,6 +16,7 @@ $color-background-secondary: #ffd7bb;
 $color-text: #280E04;
 $color-input-border: #A1CFFF;
 $color-dark-background: #0F1D25;
+$color-dark-background-seocondary: #272a2d;
 $Success: #7B9F43;
 $Warning: #F88F0B;
 $Danger: #F44F36;
@@ -146,7 +147,7 @@ input {
  * Modular/Component Styles
  */
 
-@import 'components/reusable/search-bar/search-bar.style';
+@import 'components/search/search-bar/search-bar.style';
 @import './components/landing/landing.style';
 @import './components/sign-in/sign-in.style';
 @import './components/food/food-details/food-details.style';

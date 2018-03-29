@@ -19,50 +19,58 @@ export const SearchResult = (props: SearchResultProps): ReactElement<HTMLElement
 				<div
 					className="result_image"
 				>
-					<img src={props.foodProduct.photo || FIXTURE_IMG} alt={`A picture of ${props.foodProduct.foodName}`}/>
+					<img
+						src={props.foodProduct.photo || FIXTURE_IMG}
+						alt={`A picture of ${props.foodProduct.foodName}`}
+					/>
 				</div>
 			</div>
 			<div
 				className="result_info col-sm-8"
 			>
 				<div
-					className="result_header"
-				>
-					{/*// prod name*/}
-					<div>
-						{
-							props.foodProduct.foodName
-						|| 'No Name Found'}
-					</div>
-					{/*updated last*/}
-					<div>
-						{moment(props.foodProduct.updatedAt).format('ll')}
-					</div>
-					{/*reviewed*/}
-				</div>
-				<div
-					className="result_body"
+					className="row"
 				>
 					<div
-						className="body_text"
+						className="result_header col-sm-12"
 					>
-						{props.foodProduct.brandName
-						|| `No Description`}
+						{/*// prod name*/}
+						<div>
+							{
+								props.foodProduct.foodName
+									|| 'No Name Found'
+							}
+						</div>
+						{/*updated last*/}
+						<div>
+							{moment(props.foodProduct.updatedAt).format('ll')}
+						</div>
+						{/*reviewed*/}
 					</div>
-				</div>
-				<div
-					className="result_categories"
-				>
-					{props.foodProduct.categories.map(
-						(category: string) => {
-							return (
-								<CategoryBadgeComponent
-									key={category}
-									category={category}
-								/>
-							);
-						})
-					})}
+					<div
+						className="result_body col-sm-12"
+					>
+						<div
+							className="body_text"
+						>
+							{props.foodProduct.brandName
+								|| `No Description`}
+						</div>
+					</div>
+					<div
+						className="result_categories col-sm-12"
+					>
+						{props.foodProduct.categories.map(
+							(category: string) => {
+								return (
+									<CategoryBadgeComponent
+										key={category}
+										category={category}
+									/>
+								);
+							})
+						}
+					</div>
 				</div>
 			</div>
 		</Link>

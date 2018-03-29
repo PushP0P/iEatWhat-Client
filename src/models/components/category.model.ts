@@ -6,13 +6,14 @@ export interface CategoryProps {
 }
 
 export const CATEGORIES = [
-	'Wheat Gluten',
+	'Gluten',
 	'Milk',
 	'Eggs',
 	'Meat',
 	'Soy',
 	'Nuts',
-	'MSG ShellFish',
+	'MSG',
+	'ShellFish',
 	'Fish',
 	'Peanuts'
 ];
