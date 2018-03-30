@@ -30,7 +30,6 @@ export const SearchBarComponent = (props: SearchBarProps) => {
 						onChange={
 							(evt: ChangeEvent<HTMLInputElement>) => {
 								props.handleInputChange.next(evt.target.value);
-
 							}
 						}
 						onKeyDown={(evt: SyntheticEvent<HTMLInputElement>) => {
@@ -39,11 +38,6 @@ export const SearchBarComponent = (props: SearchBarProps) => {
 								props.handleEnterPress();
 							}
 						}}
-					/>
-					<CategoriesSelect
-						categories={props.categories}
-						selected={props.selectedCategories}
-						selectHandler={props.categorySelectHandler}
 					/>
 					<div
 						className="icon-box"
@@ -55,6 +49,11 @@ export const SearchBarComponent = (props: SearchBarProps) => {
 						</div>
 					</div>
 				</div>
+				<CategoriesSelect
+					categories={props.categories}
+					selected={props.selectedCategories}
+					selectHandler={props.categorySelectHandler}
+				/>
 			</div>
 		</div>
 	);

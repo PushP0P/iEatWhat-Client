@@ -191,7 +191,7 @@ export interface USDAReport {
 export const USDA_REPORT_KEYS: USDAReport = {
 	request_params: {
 		api_key: 'api_key',
-		n_db: 'ndbno',
+		n_db: 'id',
 		report_type: 'type',
 		response_format: 'format',
 	},
@@ -205,7 +205,7 @@ export const USDA_REPORT_KEYS: USDAReport = {
 		api_version: 'api'
 	},
 	desc: {
-		ndb_food_number: 'ndbno',
+		ndb_food_number: 'id',
 		food_name: 'name',
 		short_description: 'sd',
 		food_group: 'group',

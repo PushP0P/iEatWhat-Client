@@ -58,7 +58,7 @@ export const USDA_SEARCH_KEYS = {
 	beginningRow : 'offset',
 	resultsFormat: 'format',
 	reportType: 'type',
-	ndbno: 'ndbno'
+	ndbno: 'id'
 };
 
 export declare type USDAFetchResponse = SearchFetchResponse & ReportFetchResponse;

@@ -64,6 +64,12 @@ $navbar-height: 36px;
   align-items: center;
 }
 
+@include media-breakpoint-down(xs) {
+  .small--hide {
+	  display: none;
+	}
+}
+
 body {
   background: $color-dark-background;
 }

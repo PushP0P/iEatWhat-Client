@@ -24,7 +24,7 @@ export interface FoodProduct {
 	groupName: string;
 	metadata: string;
 	source: string;
-	ndbno: string;
+	id: string;
 	tags: string;
 	photo: string;
 	updatedAt: string;

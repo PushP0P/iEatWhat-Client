@@ -3,7 +3,7 @@ import * as moment from 'moment';
 import { Link } from 'react-router-dom';
 import { SearchResultProps } from '../../models/components/search.model';
 import { ReactElement } from 'react';
-import { CategoryBadgeComponent } from '../reusable/categories/category.controlled';
+import { CategoryBadgeComponent } from '../reusable/categories/category-badge.component';
 
 export const SearchResult = (props: SearchResultProps): ReactElement<HTMLElement> => {
 
@@ -11,7 +11,7 @@ export const SearchResult = (props: SearchResultProps): ReactElement<HTMLElement
 	return (
 		<Link
 			className="search-result row"
-			to={`/food-details?ndbno=${props.foodProduct.ndbno}`}
+			to={`/food-details?ndbno=${props.foodProduct.id}`}
 		>
 			<div
 				className="result_image-box col-sm-4"

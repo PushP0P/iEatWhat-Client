@@ -26,7 +26,7 @@ export const SearchResultsComponent = (props: SearchResultsProps) => {
 			{props.products.map((product: FoodProduct) => {
 				return (
 					<SearchResult
-						key={product.ndbno.toString()}
+						key={product.id.toString()}
 						foodProduct={product}
 						clickHandler={props.selectHandler}
 					/>

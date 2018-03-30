@@ -5,7 +5,6 @@ import { BehaviorSubject } from '@reactivex/rxjs';
 import { SearchComponentProps } from '../../models/components/search.model';
 import { SearchComponentState } from '../../models/components/search.model';
 import { LoadingComponent } from '../reusable/loading/loading.component';
-import { USDAItem } from '../../models/usda/usda-food.model';
 import { SEARCH_STATE_INIT } from '../../models/components/search.model';
 import { FoodProduct } from '../../models/food.model';
 import { SearchBarComponent } from './search-bar/search-bar.component';
@@ -24,7 +23,7 @@ export class SearchComponent extends React.Component<SearchComponentProps, Searc
 	private results: FoodProduct[] = [];
 	private subscriptions: Subscription;
 
-	get getResultPage(): USDAItem[] {
+	get getResultPage(): FoodProduct[] {
 		return this.results.length > 20 ? this.results.slice (0, 19) : this.results;
 	}
 

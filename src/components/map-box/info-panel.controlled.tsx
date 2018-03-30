@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { DestinationDetails } from '../../models/components/map-box/map-box.model';
 import { FoodProduct } from '../../models/food.model';
-import { CategoryBadgeComponent } from '../reusable/categories/category.controlled';
+import { CategoryBadgeComponent } from '../reusable/categories/category-badge.component';
 import * as moment from 'moment';
 import { Hoverable } from '../reusable/hoverable/hoverable.component';
 

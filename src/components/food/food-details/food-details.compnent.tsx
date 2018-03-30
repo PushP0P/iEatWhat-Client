@@ -7,7 +7,7 @@ import { ReactElement } from 'react';
 import { Subscription } from '@reactivex/rxjs';
 import { LoadingComponent } from '../../reusable/loading/loading.component';
 import { VotingComponent } from '../../reusable/voting/voting.component';
-import { CategoryBadgeComponent } from '../../reusable/categories/category.controlled';
+import { CategoryBadgeComponent } from '../../reusable/categories/category-badge.component';
 import { IngredientsComponent } from './igredients.controlled';
 import { DescriptionComponent } from './description.controlled';
 import { foodDetailsReducer } from './food-details.reducer';
@@ -84,8 +84,8 @@ export class FoodDetailsComponent extends React.Component<FoodDetailsComponentPr
 						</div>
 						<hr />
 						<DescriptionComponent
-							name={this.state.report.ndbno}
-							ndbno={this.state.report.ndbno}
+							name={this.state.report.id}
+							ndbno={this.state.report.id}
 						/>
 						<hr />
 						<IngredientsComponent

@@ -7,7 +7,9 @@ export const CategoriesSelect = (props: CategoriesSelectProps) => {
 		<div
 			className="categories-select"
 		>
-			<h2>
+			<h2
+				className="small--hide"
+			>
 				Choose what to filter out
 			</h2>
 			<div

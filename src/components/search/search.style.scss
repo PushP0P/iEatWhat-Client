@@ -20,16 +20,17 @@
 	.result_categories {
 	  display: flex;
 	  flex-direction: row;
+	  justify-content: flex-start;
+	  flex-wrap: wrap;
+
 	}
 
 	.result_header {
 	  display: flex;
 	  flex-direction: row;
-	  justify-content: space-between;
 	}
 
 	.result_image {
-
 	  .result_image-box {
 		display: flex;
 		flex-direction: column;
@@ -37,11 +38,11 @@
 		justify-content: center;
 		width: auto;
 	  }
+
 	  img {
 		width: 100%;
 	  }
 	}
-
 
 	.result_highlights {
 	  display: flex;
